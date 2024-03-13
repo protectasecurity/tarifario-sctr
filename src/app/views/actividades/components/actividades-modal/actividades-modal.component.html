@@ -1,0 +1,42 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100">
+		<span mat-dialog-title class="modal-title">DEFINIR ACTIVIDADES</span>
+	</div>
+</div>
+<mat-dialog-content>
+	<form [formGroup]="actividadesOptions" fxLayout="column">
+		<div fxLayout="column" fxLayoutAlign="" class="main_viewport">
+			<div>
+				<mat-form-field class="full-width pr-1">
+					<mat-select placeholder="Seleccione Actividad" name="actividadFilter" formControlName="actividadFilter">
+						<mat-option *ngFor="let operator of DATA_PROVIDER" [value]="operator"> {{ operator.name }} </mat-option>
+					</mat-select>
+					<mat-error *ngIf="actividadesOptions.get('actividadFilter').hasError('required')">Debe seleccionar una actividad </mat-error>
+				</mat-form-field>
+			</div>
+			<!--<div fxLayout="row" class="">
+				<div fxFlex="100" fxFlex.gt-xs="100">
+					<div fxLayout="row wrap">
+						<div fxFlex="100" class="menu-pt">
+							<div fxFlex="50"><span class="font-bold color-base">Auto Gestionable</span></div>
+							<div fxFlex="50">
+								<mat-slide-toggle class="example-margin" formControlName="gestionable" checked=false> </mat-slide-toggle>
+							</div>
+						</div>
+						<div fxFlex="100" class="menu-pt">
+							<div fxFlex="50"><span class="font-bold color-base">Delimitación</span></div>
+							<div fxFlex="50">
+								<mat-slide-toggle class="example-margin" formControlName="delimitacion" checked=false> </mat-slide-toggle>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>-->
+		</div>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+	<!-- {{ descriptGrupalModified }} -->
+	<button mat-raised-button color="primary" mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="primary" (click)="save()" cdkFocusInitial>Aplicar</button>
+</mat-dialog-actions>

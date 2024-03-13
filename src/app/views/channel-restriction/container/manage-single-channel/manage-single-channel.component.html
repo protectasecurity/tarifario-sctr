@@ -1,0 +1,41 @@
+<mat-card class="p-0">
+	<mat-card-title>		
+		<div class="card-title-text">
+			<div fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="30" fxLayoutAlign="start center">
+					CANALES CON RESTRICCIONES					
+				</div>
+			</div>
+		</div>
+		<mat-divider></mat-divider>
+	</mat-card-title>
+
+	<mat-card-content>	
+		<div fxLayout="row wrap">
+			<div fxFlex="100" fxLayout="row">
+				<div fxFlex="100" fxFlex.gt-xs="70" class="pr-1">
+					<mat-form-field style="width: 100%">
+						<input matInput placeholder="Filtro" [formControl]="descriptionFilter" value="" />
+					</mat-form-field>
+				</div>
+
+				<div fxFlex="100" fxFlex.gt-xs="30" class="pr-1" fxLayoutAlign="end center">
+					<button class="btnexportar" mat-raised-button color="primary" (click)="excelExport($event)">
+						<mat-icon class="exporticon">cloud_download</mat-icon>
+						<span> Exportar</span>
+					</button>
+					<button mat-raised-button color="primary" *ngIf="shCreate" class="btnnuevo" (click)="openCreateDialog($event)">
+						<mat-icon class="exporticon">add</mat-icon>
+						<span> Nuevo</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	
+		<div class="div-component-table">
+			<channel-restriction-list-channel>
+			</channel-restriction-list-channel>
+		</div>
+		<mat-divider class="dividir-dialog"></mat-divider>	
+	</mat-card-content>
+</mat-card>

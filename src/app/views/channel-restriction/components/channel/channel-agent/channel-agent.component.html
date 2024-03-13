@@ -1,0 +1,32 @@
+<div class="agent-container">
+	<div class="agent-header">
+		<mat-form-field>
+			<mat-select [(ngModel)]="agent"
+									(selectionChange)="selectAgentType($event)">
+				<mat-option>Seleccione tipo de canal</mat-option>
+				<mat-option *ngFor="let agentType of agentTypes"
+										[value]="agentType.id">{{ agentType.description }}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<div>
+		<mat-form-field>
+			<input matInput
+						 placeholder="Filtrar"
+						 type="text"
+						 [formControl]="searchControl" />
+		</mat-form-field>
+	</div>
+
+	<div class="agent-list">
+		<mat-selection-list #agentList
+												(selectionChange)="selectAgent(agentList.selectedOptions.selected)">
+			<mat-list-option *ngFor="let agent of items"
+											 [value]="agent">
+				<span [title]="agent.description"
+							class="agent-description">{{ agent.description }}</span>
+			</mat-list-option>
+		</mat-selection-list>
+	</div>
+</div>

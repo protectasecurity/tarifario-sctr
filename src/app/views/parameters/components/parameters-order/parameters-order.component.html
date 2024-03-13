@@ -1,0 +1,31 @@
+<!--
+<div fxLayout="row wrap">
+	<div fxFlex="100"><span mat-dialog-title class="modal-title">Ordenar grupos de riesgo</span></div>
+</div>
+<div mat-dialog-content>
+	<div fxFlex="100" fxLayout="row">
+		<div fxLayout="row wrap">
+			<div fxFlex="100">
+				<mat-form-field class="full-width">
+					<mat-select name="use" placeholder="Seleccione uso" (selectionChange)="filterGroupRiskByUse($event)" [value]="useSelected" required>
+						&lt;!&ndash;<mat-option *ngFor="let use of (uses$ | async)" [value]="use.id"> {{ use.description }} </mat-option>&ndash;&gt;
+						<mat-option *ngFor="let operator of operatorType" [value]="operator.key"> {{ operator.value }} </mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div fxFlex="100" fxLayoutAlign="center center">
+				<div class="risk-list" cdkDropList [cdkDropListData]="riskGroupsUse" (cdkDropListDropped)="drop($event)">
+					<div class="risk-item" *ngFor="let rgu of riskGroupsUse; let i = index" cdkDrag [cdkDragData]="rgu">
+						<div class="container-placeholder" cdkDragHandle *cdkDragPlaceholder></div>
+						{{ i + 1 }} - {{ rgu.description }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div mat-dialog-actions fxLayoutAlign="center center">
+	&lt;!&ndash; 	<button mat-raised-button color="primary" (click)="close()">Cancelar</button> &ndash;&gt;
+	<button mat-raised-button color="primary" cdkFocusInitial (click)="save()">Cerrar</button>
+</div>
+-->

@@ -1,0 +1,16 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100"><span mat-dialog-title
+													class="modal-title">Agregar Canal</span></div>
+</div>
+<mat-divider></mat-divider>
+<manage-channel-create-popup-detail-tk [brokers]="brokers$ | async"
+																			 [middlemen]="middlemen$ | async"
+																			 [customers]="customers$ | async"
+																			 [pointOfSales]="salesPoint$ | async"
+																			 (onGetBrokers)="getBrokers($event)"
+																			 (onGetMiddlemen)="getMiddlemen($event)"
+																			 (onSearchBrokers)="searchBrokers($event)"
+																			 (onSearchMiddlemen)="searchMiddlemen($event)"
+																			 (onSearchCustomers)="searchCustomers($event)"
+																			 (onGetPointOfSales)="onGetPointOfSales($event)"
+																			 (onAddAgents)="addAgents($event)"></manage-channel-create-popup-detail-tk>

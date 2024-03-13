@@ -1,0 +1,134 @@
+<mat-dialog-content fxLayout="column">
+	<form [formGroup]="riskGroupOptions" fxLayout="column">
+		<div fxFlex="100" fxLayout="row wrap">
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+				<mat-form-field floatLabel="never">
+					<mat-select name="actualClassGroup-class" placeholder="Seleccione clase" formControlName="vehicleClass" (selectionChange)="changeClass()">
+						<mat-option *ngFor="let clazz of classes" [value]="clazz"> {{ clazz.description }} </mat-option>
+					</mat-select>
+					<mat-error *ngIf="riskGroupOptions.get('vehicleClass').hasError('required')">Debe seleccionar una clase</mat-error>
+				</mat-form-field>
+			</div>
+
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+					<mat-checkbox class="chkAsientos" formControlName="chkAsientos" (change)="toggleasientos($event)">Aplica asientos ?</mat-checkbox>
+				</div>
+
+				<div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+					<mat-form-field class="full-width" floatLabel="never">
+						<mat-select name="actualClassGroup-sc-operator" placeholder="Operador" (selectionChange)="changeOperator()" formControlName="operador">
+							<mat-option *ngFor="let operator of operatorList" [value]="operator"> {{ operator }} </mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+				<div fxFlex="100" formGroupName="rangeOperator" fxFlex.gt-xs="50">
+					<div fxFlex="100" fxFlex.gt-xs="45" class="pr-1">
+						<mat-form-field class="full-width" floatLabel="never">
+							<input
+								matInput
+								type="number"
+								OnlyNumber
+								name="actualClassGroup-sc-operator"
+								min="1"
+								formControlName="minLimit"
+								placeholder="Ingrese número"
+							/>
+						</mat-form-field>
+					</div>
+					<div fxFlex="100" fxFlex.gt-xs="55" class="pr-1">
+						<div fxFlex="100" fxFlex.gt-xs="20" class="pr-1 pt-1">
+							<mat-label *ngIf="showBetween">y</mat-label>
+						</div>
+						<div fxFlex="100" fxFlex.gt-xs="80">
+							<mat-form-field *ngIf="showBetween" class="full-width" floatLabel="never">
+								<input
+									matInput
+									type="number"
+									OnlyNumber
+									name="actualClassGroup-sc-operator"
+									min="1"
+									formControlName="maxLimit"
+									placeholder="Ingrese número"
+								/>
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+					<mat-checkbox class="chkAsientos" formControlName="chkMarcasModelos" (change)="togglemarcas($event)"
+						>Aplica marcas y modelos ?</mat-checkbox
+					>
+				</div>
+			</div>
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="100" fxFlex.gt-xs="50">
+					<mat-form-field class="mat-table-left-filter" class="pr-1">
+						<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar marcas/modelos" formControlName="filtroModelos" />
+						<button
+							mat-button
+							matSuffix
+							mat-icon-button
+							aria-label="Clear"
+							*ngIf="filteredValues.modelos !== ''"
+							(click)="resetfiltro(); filteredValues.modelos = ''"
+						>
+							<mat-icon>close</mat-icon>
+						</button>
+					</mat-form-field>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="50" fxLayoutAlign="end center">
+					<button mat-raised-button class="btnmarcas" color="primary" (click)="openBrandModelPicker()" [disabled]="!showBrandButton">
+						Agregar marcas y modelos
+					</button>
+					<button mat-raised-button class=" btnmarcas btneliminar" color="primary" (click)="delete()" [disabled]="!showBrandButton">
+						Eliminar
+					</button>
+				</div>
+			</div>
+		</div>
+		<div fxFlex="100" fxLayout="row wrap">
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+				<div fxFlex="100">
+					<div class="table-container-models">
+						<table mat-table class="table-models" [dataSource]="dataSource">
+							<ng-container matColumnDef="description">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-mmm">Marcas y Modelos</th>
+								<td mat-cell *matCellDef="let row">{{ row.brand.description }}-{{ row.description }}</td>
+							</ng-container>
+							<ng-container matColumnDef="acciones">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-acc">
+									<mat-checkbox
+										[disabled]="models.length == 0"
+										class="chk-gr-white"
+										(change)="masterToggleGlobal($event)"
+										[checked]="masterModelChecked()"
+									>
+									</mat-checkbox>
+								</th>
+								<td mat-cell *matCellDef="let row" class="ta-c">
+									<mat-checkbox (change)="selectItem($event, row.id)" [checked]="modelChecked(row.id)"></mat-checkbox>
+									<button mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn" (click)="deleteSingleItem(row.id)">
+										<mat-icon>delete</mat-icon>
+									</button>
+								</td>
+							</ng-container>
+							<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st"></tr>
+							<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-row"></tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div fxFlex="100" class="excluded" fxLayout="row" fxLayoutAlign="start center">
+			<mat-checkbox [disabled]="models.length == 0" formControlName="isExclusionVehicleGroup">Excluido</mat-checkbox>
+		</div>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+	<button mat-raised-button color="primary" mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="primary" [disabled]="riskGroupOptions.invalid" (click)="addClassGroup()">Aplicar</button>
+</mat-dialog-actions>

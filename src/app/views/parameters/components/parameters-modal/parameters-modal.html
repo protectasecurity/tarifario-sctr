@@ -1,0 +1,90 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100">
+		<span mat-dialog-title class="modal-title">DEFINIR PARAMETROS DE CONFIGURACIÓN</span>
+	</div>
+</div>
+
+<mat-dialog-content>
+	<form [formGroup]="parametersOptions" fxLayout="column">
+		<div fxLayout="row wrap" class="main_viewport">
+			<div fxLayout="row wrap" class="full-width">
+				<div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+					<div class="pb-1">
+						<mat-form-field class="full-width">
+							<mat-select placeholder="Tipo Parámetro" (selectionChange)="changeType()" name="typeFilter" formControlName="typeFilter">
+								<mat-option *ngFor="let operator of operatorType" [value]="operator.key"> {{ operator.value }} </mat-option>
+							</mat-select>
+							<mat-error *ngIf="parametersOptions.get('typeFilter').hasError('required')">Debe seleccionar un parametro </mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="20">
+					<div class="pb-1">
+						<mat-form-field class="full-width">
+							<input matInput placeholder="Equivalencia Core" name="equivalenciaFilter" formControlName="equivalenciaFilter" />
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+
+			<div class="full-width" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+				<div fxFlex="50" fxFlex.gt-xs="100" class="pr-1">
+					<div>
+						<mat-form-field class="full-width">
+							<input matInput placeholder="Descripcion" name="descriptionFilter" formControlName="descriptionFilter" />
+							<mat-error *ngIf="parametersOptions.get('descriptionFilter').hasError('required')">Debe escribir una descripción</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="30" *ngIf="showRange">
+					<div>
+						<mat-form-field class="pr-1" class="">
+							<mat-select placeholder="Operador" (selectionChange)="changeOperator()" formControlName="operador">
+								<mat-option *ngFor="let operator of operatorList" [value]="operator.key"> {{ operator.value }} </mat-option>
+							</mat-select>
+							<mat-error *ngIf="parametersOptions.get('operador').hasError('required')">Debe seleccionar un operador</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" *ngIf="showRange" formGroupName="rangeOperator" fxFlex.gt-xs="35">
+					<div fxFlex="100" fxFlex.gt-xs="47" class="pr-1">
+						<mat-form-field class="full-width" floatLabel="never">
+							<input
+								matInput
+								type="number"
+								OnlyNumber
+								name="actualClassGroup-sc-operator"
+								min="1"
+								formControlName="minLimit"
+								placeholder="Ingrese número"
+							/>
+						</mat-form-field>
+					</div>
+					<div fxFlex="100" fxFlex.gt-xs="45" class="pr-1">
+						<div fxFlex="100" fxFlex.gt-xs="20" class="pr-1 pt-1">
+							<mat-label *ngIf="showBetween">y</mat-label>
+						</div>
+						<div fxFlex="100" fxFlex.gt-xs="100">
+							<mat-form-field *ngIf="showBetween" class="full-width" floatLabel="never">
+								<input
+									matInput
+									type="number"
+									OnlyNumber
+									name="actualClassGroup-sc-operator"
+									min="1"
+									formControlName="maxLimit"
+									placeholder="Ingrese número"
+								/>
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+	<!-- {{ descriptGrupalModified }} -->
+	<button mat-raised-button color="primary" mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="primary" (click)="save()" cdkFocusInitial>Aplicar</button>
+</mat-dialog-actions>

@@ -1,0 +1,260 @@
+.tab-icon {
+	margin-right: 8px;
+}
+
+.main-tab1 {
+	width: 1100px;
+	height: 373px;
+}
+
+.table-container {
+	height: 300px;
+	overflow: auto;
+	width: 100%;
+	border: 1px solid #ccc;
+}
+
+.mat-tab-label {
+	font-family: "Titillium Web", sans-serif !important;
+}
+.mat-tab-label-active {
+	background-color: #fdeee0 !important;
+	font-family: "Titillium Web", sans-serif !important;
+	opacity: 1 !important;
+	font-weight: bold;
+}
+
+.mat-header-colums {
+	color: white !important;
+	font-size: 12px !important;
+	text-align: center !important;
+}
+
+.mat-header-acc {
+	width: 100px;
+}
+
+tr.hover-element-row:hover {
+	background: #e2e2e2;
+}
+
+tr.mat-table-row-st {
+	height: 25px !important;
+}
+
+tr.mat-header-row-st {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+.placeholder {
+	font-size: 14px;
+}
+
+.main-tab2 {
+	width: 1100px;
+	height: 373px;
+}
+
+.modal-title,
+.course-modal-dialog,
+.mat-list-option {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+mat-list-option.mat-list-item.mat-list-option.ng-star-inserted {
+	height: 17px;
+	font-size: 14px;
+}
+
+.modal-title {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #2b0d61;
+	font-weight: bold;
+}
+
+.modal-title {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #2b0d61;
+	font-weight: bold;
+}
+
+.mat-dialog-title {
+	margin: 0 0 0px !important;
+}
+
+.mat-dialog-sub-title {
+	font-size: 15px;
+	color: rgba(0, 0, 0, 0.54);
+	font-weight: bold;
+}
+
+.div-header-table {
+	height: 20px;
+}
+
+////////////////////////////////////////////////////////////////////
+.mat-table-left {
+	font-family: "Titillium Web", sans-serif !important;
+	width: 455px;
+}
+
+tr.mat-header-row-left {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+.mat-header-sele-left,
+.mat-header-desc-left {
+	color: white !important;
+	font-size: 12px !important;
+}
+
+.chk-white {
+	background-color: white !important;
+}
+
+.mat-header-sele-left {
+	width: 16px !important;
+}
+.mat-header-desc-left {
+	width: 150px !important;
+	text-align: center;
+}
+
+tr.mat-row-left {
+	height: 24px !important;
+}
+
+.mat-cell-left {
+	font-size: 12px !important;
+}
+
+.mat-cell-add-left {
+	font-size: 12px !important;
+	text-align: center !important;
+}
+
+////////////////////////////////////////////////////////////////////
+.mat-table-right {
+	font-family: "Titillium Web", sans-serif !important;
+	width: 455px !important;
+}
+
+tr.mat-header-row-right {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+.mat-header-id-right,
+.mat-header-desc-right {
+	color: white !important;
+	font-size: 12px !important;
+}
+
+.mat-header-sele-right {
+	width: 35px !important;
+}
+
+.mat-header-id-right {
+	width: 54px !important;
+}
+.mat-header-desc-right {
+	width: 220px !important;
+	text-align: center;
+}
+
+tr.mat-row-right {
+	height: 24px !important;
+}
+
+.mat-cell-right {
+	font-size: 12px !important;
+}
+///////////////////////////////////////////////////////////////////
+
+/* .mat-column-id-left {
+  width: 54px;
+} */
+
+.example-container {
+	/* width: 550px; */
+	height: 400px !important;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+	display: flex;
+	height: 100% !important;
+	align-items: center;
+	justify-content: center;
+}
+
+.example-sidenav {
+	padding: 20px;
+	width: 267px;
+}
+
+.btnagregar {
+	height: 18px;
+	line-height: 13px !important;
+	font-size: 12px;
+}
+
+.btnincluir {
+	height: 23px;
+	line-height: 13px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	width: 101px !important;
+}
+
+////////////////////////
+
+.ddl_uso {
+	height: 20px;
+}
+
+.example-viewport {
+	height: 285px;
+	width: 350px;
+	border: 1px solid black;
+	overflow-x: hidden !important;
+}
+
+.example-viewportright {
+	height: 375px;
+	width: 100%;
+}
+
+.removeActual {
+	text-decoration: line-through;
+}
+
+.div_button {
+	margin-bottom: 4px;
+}
+
+.btnrestore {
+	margin-left: -3px;
+	line-height: 22px !important;
+	height: 22px !important;
+	width: 22px !important;
+}
+
+.mat-table-right-filter {
+	width: 295px;
+}
+
+.mat-table-left-filter {
+	width: 295px;
+}
+.mat-ddl-brand {
+	padding-bottom: 10px;
+}
+mat-option {
+	height: 23px !important;
+	font-size: 13px !important;
+}

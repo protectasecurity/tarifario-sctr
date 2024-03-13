@@ -1,0 +1,80 @@
+<form name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
+	<div fxLayout="row wrap">
+		<div fxFlex="100"><span mat-dialog-title class="modal-title">LISTA DE CANALES</span></div>
+	</div>
+	<mat-dialog-content #cardcontent>
+		<div fxLayout="row wrap" fxLayoutAlign="center center">
+			<div fxFlex="100" fxFlex.gt-xs="80" class="pr-1">
+				<div>
+					<mat-form-field class="full-width">
+						<input matInput name="filter" placeholder="Filtrar canales" value="" (keyup)="applyFilter($event.target.value)" />
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+			<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting">
+				<!-- Checkbox Column -->
+				<ng-container matColumnDef="select">
+					<th mat-header-cell *matHeaderCellDef>
+						<mat-checkbox
+							class="chk-white"
+							(change)="$event ? masterToggle() : null"
+							[checked]="selection.hasValue() && isAllSelected()"
+							[indeterminate]="selection.hasValue() && !isAllSelected()"
+							[aria-label]="checkboxLabel()"
+						>
+						</mat-checkbox>
+					</th>
+					<td mat-cell *matCellDef="let row">
+						<mat-checkbox
+							(click)="$event.stopPropagation()"
+							(change)="$event ? selection.toggle(row) : null"
+							[checked]="selection.isSelected(row)"
+							[aria-label]="checkboxLabel(row)"
+						>
+						</mat-checkbox>
+					</td>
+				</ng-container>
+
+				<!-- Name Column -->
+				<ng-container matColumnDef="description">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-desc">Descripción de canal</th>
+					<td mat-cell *matCellDef="let element">{{ element.description }}</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st zone-item text-left" (click)="selection.toggle(row)"></tr>
+			</table>
+		</cdk-virtual-scroll-viewport>
+
+		<div fxLayout="row wrap" fxLayoutAlign="center center">
+			<div fxFlex="34" class="mgr">
+				<mat-form-field floatLabel="never" class="full-width">
+					<input
+						matInput
+						id="iniVig"
+						name="iniVig"
+						[min]="minDate"
+						[max]="maxDate"
+						#iniVig="ngModel"
+						[(ngModel)]="effectDate"
+						placeholder="Fecha de inicio"
+						[matDatepicker]="appDatepickerIni"
+						(click)="appDatepickerIni.open()"
+						required
+					/>
+					<!-- <mat-hint class="schangedate" align="start"><strong>Fecha de cambio</strong> </mat-hint> -->
+					<mat-datepicker-toggle matSuffix [for]="appDatepickerIni" locale="es"></mat-datepicker-toggle>
+				</mat-form-field>
+				<mat-datepicker #appDatepickerIni></mat-datepicker>
+			</div>
+		</div>
+	</mat-dialog-content>
+	<mat-dialog-actions align="center">
+		<button mat-raised-button color="primary" mat-dialog-close>Cancelar</button>
+		<button type="submit" mat-raised-button [disabled]="!f.form.valid || this.selection.selected.length === 0" color="primary">
+			Agregar
+		</button>
+	</mat-dialog-actions>
+</form>

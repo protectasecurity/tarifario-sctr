@@ -1,0 +1,22 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">
+			<div fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="100" fxLayoutAlign="start center">
+					<mat-icon title="Listado de canales" class="list-title" [routerLink]="['/manage-channels']">arrow_back</mat-icon> DEFINIR CANAL
+				</div>
+			</div>
+		</div>
+
+		<mat-divider></mat-divider>
+	</mat-card-title>
+
+	<mat-card-content>
+		<manage-channel-create-detail
+			[channelGroup]="channelGroup$ | async"
+			(onAddGroupChannel)="addGroupChannel($event)"
+			(onUpdateGroupChannel)="updateGroupChannel($event)"
+		>
+		</manage-channel-create-detail>
+	</mat-card-content>
+</mat-card>

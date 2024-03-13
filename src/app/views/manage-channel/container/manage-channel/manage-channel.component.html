@@ -1,0 +1,17 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">
+			CANALES
+		</div>
+		<mat-divider></mat-divider>
+	</mat-card-title>
+	<mat-card-content>
+		<manage-channel-list
+			[items]="channels$ | async"
+			(onDelete)="delete($event)"
+			(onEdit)="edit($event)"
+			(onConstraint)="constraints($event)"
+			(onUpdateStatus)="updateStatus($event)"
+		></manage-channel-list>
+	</mat-card-content>
+</mat-card>

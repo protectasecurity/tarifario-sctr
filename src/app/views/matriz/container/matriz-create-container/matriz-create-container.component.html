@@ -1,0 +1,230 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">
+			<div fxLayout="row" fxLayoutAlign="start center" class="main-title-header">
+				<div fxFlex="25" fxLayoutAlign="start center">
+					<mat-icon title="Listado de tarifarios" class="list-title" (click)="handleBack()">arrow_back</mat-icon> TARIFARIO - SCTR
+				</div>
+				<div fxFlex="50"></div>
+				<div class="mat-card-title-aditional fee-fields" fxFlex="25" *ngIf="showStateEffect" fxLayoutAlign="end center">
+					Estado: {{ estado }} - Fecha de Efecto: {{ lastEffectDate | date: "dd/MM/yy" }}
+				</div>
+			</div>
+		</div>
+	</mat-card-title>
+	<mat-card-content #cardcontent>
+		<form name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
+			<div fxLayout="row wrap">
+				<div fxFlex="100" fxFlex.gt-xs="36" class="pr-1">
+					<div class="pb-1">
+						<mat-form-field class="full-width">
+							<input
+								matInput
+								id="description"
+								name="description"
+								minlength="6"
+								#description="ngModel"
+								[(ngModel)]="frmValues.description"
+								placeholder="Descripción de tarifa"
+								[disabled]="disableDescription"
+							/>
+							<mat-hint>Ingrese al menos 6 caracteres</mat-hint>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+					<div class="pb-1">
+						<mat-form-field class="full-width">
+							<input
+								matInput
+								id="iniVig"
+								name="iniVig"
+								[min]="iniMin"
+								#iniVig="ngModel"
+								[(ngModel)]="frmValues.iniVig"
+								placeholder="Inicio de Vigencia"
+								[matDatepicker]="appDatepickerIni"
+								(click)="appDatepickerIni.open()"
+								(dateChange)="inivigchange()"
+								[disabled]="disableIniVig"
+							/>
+							<mat-datepicker-toggle matSuffix [for]="appDatepickerIni" locale="es"></mat-datepicker-toggle>
+						</mat-form-field>
+						<mat-datepicker #appDatepickerIni></mat-datepicker>
+					</div>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+					<div class="pb-1">
+						<mat-form-field class="full-width">
+							<!--todo ver el pq cuando comparo la fecha se jode el date-->
+							<input
+								matInput
+								id="finVig"
+								name="finVig"
+								[min]="frmValues.iniVig"
+								#finVig="ngModel"
+								[(ngModel)]="frmValues.finVig"
+								placeholder="Fin de Vigencia"
+								[matDatepicker]="appDatepickerFin"
+								(click)="appDatepickerFin.open()"
+								[disabled]="disableFinVig"
+							/>
+
+							<mat-datepicker-toggle matSuffix [for]="appDatepickerFin" locale="es"></mat-datepicker-toggle>
+						</mat-form-field>
+						<mat-datepicker #appDatepickerFin></mat-datepicker>
+					</div>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+					<div class="pb-1">
+						<mat-form-field class="full-width">
+							<mat-select id="moneda" name="moneda" #moneda="ngModel" placeholder="Moneda" [(ngModel)]="frmValues.moneda" [disabled]="disableMoneda">
+								<mat-option value="PEN">Soles</mat-option>
+								<mat-option value="USD">Dólares</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+					<div class="pb-1">
+						<mat-form-field class="full-width">
+							<mat-select id="tipo" name="tipo" #tipo="ngModel" placeholder="Tipo de Tarifa" [(ngModel)]="frmValues.tipo" [disabled]="true">
+								<mat-option *ngFor="let feetype of feetypes" value="{{ feetype.key }}">{{ feetype.value }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="19" class="pr-1">
+					<div class="pb-1">
+						<mat-form-field class="full-width">
+							<mat-select
+								id="version"
+								name="version"
+								#version="ngModel"
+								placeholder="Versiones"
+								title="{{ frmValues.version | date: 'MMM dd, y hh:mm:ss a' }}"
+								[(ngModel)]="frmValues.version"
+								(selectionChange)="changeVersion()"
+								[disabled]="disableVersion"
+							>
+								<mat-option *ngFor="let vers of itemUpdates$ | async; let i = index" [value]="vers" title="{{ vers | date: 'MMM dd, y hh:mm:ss a' }}">
+									Version {{ i + 1 }} - {{ vers | date: "MMM dd, y hh:mm:ss a" }}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			<div fxLayout="row wrap" *ngIf="parent">
+				<div class="mat-card-title-aditional fee-fields" fxFlex="50" fxLayoutAlign="start center">Tarifario padre: {{ parentDescription }}</div>
+			</div>
+			<div fxLayout="row" fxLayoutAlign="center none" *ngIf="showComponent">
+				<div fxFlex="20">
+					<mat-card class="simple">
+						<mat-card-header class="title_card text-center">
+							<mat-card-title class="text-white pp mtitle">Tamaño</mat-card-title>
+						</mat-card-header>
+						<mat-card-content class="chkselector">
+							<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+								<mat-selection-list #tamano>
+									<mat-list-option *ngFor="let operator of actualFieldCompany; let i = index" [value]="operator.id" [selected]="i === 0">
+										{{ getFieldsSize(operator) }}
+									</mat-list-option>
+								</mat-selection-list>
+							</cdk-virtual-scroll-viewport>
+						</mat-card-content>
+					</mat-card>
+				</div>
+				<div fxFlex="13">
+					<mat-card class="simple">
+						<mat-card-header class="title_card w-100 text-center">
+							<mat-card-title class="text-white mtitle">Ramos</mat-card-title>
+						</mat-card-header>
+						<mat-card-content class="chkselector">
+							<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+								<mat-selection-list #type>
+									<mat-list-option *ngFor="let operator of actualFieldCovarage; let i = index" [value]="operator.id" [selected]="i === 0">
+										{{ getFieldsSizeCovarage(operator) }}
+									</mat-list-option>
+								</mat-selection-list>
+							</cdk-virtual-scroll-viewport>
+						</mat-card-content>
+					</mat-card>
+				</div>
+				<div fxFlex="15">
+					<mat-card class="simple">
+						<mat-card-header class="title_card w-100 text-center">
+							<mat-card-title class="text-white mtitle">Zonas</mat-card-title>
+						</mat-card-header>
+						<mat-card-content class="chkselector">
+							<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+								<mat-selection-list #zones>
+									<mat-list-option *ngFor="let zt of actualZone; let i = index" [id]="zt.id" [value]="zt.id" [selected]="i === 0">
+										{{ zt.description }}
+									</mat-list-option>
+								</mat-selection-list>
+							</cdk-virtual-scroll-viewport>
+						</mat-card-content>
+					</mat-card>
+				</div>
+			</div>
+
+			<div fxLayout="row" fxLayoutAlign="center center">
+				<div fxFlex="30" fxLayoutAlign="start center">
+					<button type="button" class="card-control" title="Configuración de estructura" mat-icon-button (click)="openPicker()">
+						<mat-icon>settings</mat-icon> Estructura
+					</button>
+				</div>
+				<style>
+					.mat-button-toggle-label-content {
+						line-height: 23px !important;
+					}
+				</style>
+				<div fxFlex="40" fxLayoutAlign="center center">
+					<mat-button-toggle-group name="mbt-filtro" [(ngModel)]="filterSelected">
+						<mat-button-toggle
+							*ngFor="let filt of filterSelectedColl"
+							[id]="filt.id"
+							[value]="filt.value"
+							[class]="filt.class"
+							[disabled]="!filt.enabled"
+							(change)="onFilterChange($event.value)"
+						>
+							{{ filt.label }}
+						</mat-button-toggle>
+					</mat-button-toggle-group>
+				</div>
+				<div fxFlex="30" fxLayoutAlign="end center" *ngIf="showComponent">
+					<button mat-raised-button type="button" class="btnexportar" (click)="fileInput.click()">
+						<mat-icon class="exporticon">cloud_upload</mat-icon>
+						<span>Importar</span>
+					</button>
+					<input hidden #fileInput accept=".xlsx" (change)="onFileSelected()" type="file" id="fileInput" />
+					<button mat-raised-button type="button" class="btnexportar" (click)="exportar($event)">
+						<mat-icon class="exporticon">cloud_download</mat-icon>
+						<span>Exportar</span>
+					</button>
+					<button type="button" *ngIf="showTableData && (isspecial || iscampaign)" mat-raised-button class="btnagregarcanal" (click)="openChannels()">
+						<mat-icon class="exporticon">add</mat-icon>
+						<span>Canales Asociados</span>
+					</button>
+				</div>
+			</div>
+			<div class="tarifa-container">
+				<div *ngIf="showTableData">
+					<hot-table #hot [hotId]="instance2" [settings]="settings2"> </hot-table>
+				</div>
+			</div>
+			<div fxLayout="row">
+				<div fxFlex="35" fxLayoutAlign="start center">
+					<span class="resume" *ngIf="canCell != '0'">Suma: {{ sumCell }} - Min: {{ minCell }} - Max: {{ maxCell }} - Prom: {{ avgCell }} </span>
+				</div>
+				<div fxFlex="100" fxLayoutAlign="center center">
+					<button mat-raised-button type="button" color="primary" (click)="handleBack()" class="exporticon">Cancelar</button>
+					<button type="submit" mat-raised-button color="primary" *ngIf="showTableData">Guardar</button>
+				</div>
+				<div fxFlex="35" fxLayoutAlign="end center"></div>
+			</div>
+		</form>
+	</mat-card-content>
+</mat-card>

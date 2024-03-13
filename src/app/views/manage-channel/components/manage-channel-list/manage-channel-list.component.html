@@ -1,0 +1,71 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100" fxLayout="row">
+		<div fxFlex="100" fxFlex.gt-xs="45" class="pr-1">
+			<mat-form-field style="width: 100%">
+				<input matInput placeholder="Filtro" [formControl]="descriptionFilter" value="" />
+			</mat-form-field>
+		</div>
+
+		<div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+			<mat-form-field style="width: 100%">
+				<mat-select placeholder="Estado" name="estado" [formControl]="stateFilter">
+					<mat-option value="">Todos</mat-option>
+					<mat-option value="true">Activo</mat-option>
+					<mat-option value="false">Inactivo</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div fxFlex="100" fxFlex.gt-xs="30" class="pr-1" fxLayoutAlign="end center">
+			<button class="btnexportar" mat-raised-button color="primary" (click)="excelExport($event)">
+				<mat-icon class="exporticon">cloud_download</mat-icon>
+				<span> Exportar</span>
+			</button>
+			<button [routerLink]="'/manage-channels/create'" mat-raised-button color="primary" *ngIf="shCreate" class="btnnuevo">
+				<mat-icon class="exporticon">add</mat-icon>
+				<span> Nuevo</span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<div fxLayout="row wrap">
+	<div fxFlex="100">
+		<div class="table-lgr-container">
+			<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-lgr-setting">
+				<ng-container matColumnDef="description">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-desc">Canales</th>
+					<td mat-cell *matCellDef="let row">{{ row.description }}</td>
+				</ng-container>
+				<ng-container matColumnDef="isActive">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-state">Estado</th>
+					<td mat-cell *matCellDef="let row" class="ta-c">
+						<mat-slide-toggle class="example-margin" [disabled]="canChange" [checked]="row.isActive" (change)="changeStatus(row)"> </mat-slide-toggle>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-acc">Acciones</th>
+					<td mat-cell *matCellDef="let row" class="ta-c">
+						<button mat-button [matMenuTriggerFor]="menuChannelOptions" [matMenuTriggerData]="{ item: row }">
+							<mat-icon>more_vert</mat-icon>
+						</button>
+                    </td>
+                </ng-container>
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-lgr-row-st"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-lgr-row"></tr>
+			</table>
+			<mat-menu #menuChannelOptions="matMenu" class="mat-menu-integration" [xPosition]="'before'" [yPosition]="'above'" [overlapTrigger]="true">
+				<ng-template matMenuContent let-item="item">
+					<button mat-menu-item (click)="delete(item)" [disabled]="canDelete">
+						<mat-icon color="warn">delete</mat-icon>
+						<span>Eliminar canal</span>
+					</button>
+					<button mat-menu-item (click)="edit(item)">
+						<mat-icon color="primary">edit</mat-icon>
+						<span>Modificar</span>
+					</button>
+				</ng-template>
+			</mat-menu>
+		</div>
+	</div>
+</div>

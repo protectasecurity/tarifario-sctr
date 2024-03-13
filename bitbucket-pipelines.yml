@@ -1,0 +1,71 @@
+image: atlassian/default-image:2
+
+options:
+  size: 2x
+
+pipelines:
+  default:
+    - step:
+        name: Build docker image
+        services:
+          - docker
+        caches:
+          - docker
+        script:
+          - export IMAGE_NAME="devmente/soat-frontend:$BITBUCKET_COMMIT"
+          - docker build -t $IMAGE_NAME .
+  branches:
+    master:
+        - step:
+            name: Build docker image
+            services:
+              - docker
+            script:
+              - export IMAGE_NAME="devmente/soat-frontend"
+              - docker build -t $IMAGE_NAME .
+              - docker save --output tmp-image.docker $IMAGE_NAME
+            artifacts:
+              - tmp-image.docker
+        - step:
+            name: Deploy to production
+            deployment: production
+            trigger: manual
+            script:
+              - scp -P$PORT tmp-image.docker $USER@$HOST:/tmp/ 
+              - ssh -tt $USER@$HOST -p$PORT "docker load --input /tmp/tmp-image.docker" 
+              - ssh -tt $USER@$HOST -p$PORT "docker stop soat-frontend || true"
+              - ssh -tt $USER@$HOST -p$PORT "docker rm soat-frontend || true"
+              - ssh -tt $USER@$HOST -p$PORT "docker run --name=soat-frontend --restart=always --net protecta-security -p 400:80 -d devmente/soat-frontend"
+    develop:
+      - step:
+          name: Build docker image
+          services:
+            - docker
+          caches:
+            - docker
+          script:
+            - export IMAGE_NAME="devmente/soat-frontend:unstable"
+            - docker build -t $IMAGE_NAME .
+            - docker save --output tmp-image.docker $IMAGE_NAME
+          artifacts:
+            - tmp-image.docker
+      - step:
+          name: Publish docker image
+          services:
+            - docker
+          script: 
+            - docker load --input tmp-image.docker
+            - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            - docker push devmente/soat-frontend
+      - step:
+          name: Deploy to test
+          deployment: test
+          script:
+            - ssh -tt $USER@$HOST -p$PORT "docker pull devmente/soat-frontend:unstable"
+            - ssh -tt $USER@$HOST -p$PORT "docker stop soat-frontend || true"
+            - ssh -tt $USER@$HOST -p$PORT "docker rm soat-frontend || true"
+            - ssh -tt $USER@$HOST -p$PORT "docker run --name=soat-frontend --restart=always -p 80:80 -d devmente/soat-frontend:unstable"
+definitions:
+  services:
+    docker:
+      memory: 4096

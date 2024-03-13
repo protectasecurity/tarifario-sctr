@@ -1,0 +1,16 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">Lista de Actividades</div>
+		<mat-divider></mat-divider>
+	</mat-card-title>
+	<mat-card-content>
+		<app-actividades-list
+			[items]="listActividades$ | async"
+			[parameters]="parameter$ | async"
+			(onDelete)="delete($event)"
+			(onUpdateStatus)="updateStatus($event)"
+			(onAddActividades)="create($event)"
+		>
+		</app-actividades-list>
+	</mat-card-content>
+</mat-card>

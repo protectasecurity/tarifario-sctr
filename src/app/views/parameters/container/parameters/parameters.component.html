@@ -1,0 +1,16 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">LISTA DE PARAMETROS</div>
+		<mat-divider></mat-divider>
+	</mat-card-title>
+	<mat-card-content>
+		<parameters-list
+			[items]="listParamas$ | async"
+			(onDelete)="delete($event)"
+			(onUpdateStatus)="updateStatus($event)"
+			(onAddParameter)="create($event)"
+			(onEditParameter)="edit($event)"
+		>
+		</parameters-list>
+	</mat-card-content>
+</mat-card>

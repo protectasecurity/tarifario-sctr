@@ -1,0 +1,111 @@
+<div class="risk-group-list-container">
+	<mat-card class="p-0">
+		<mat-card-title class="">
+			<div class="card-title-text">
+				<div fxLayout="row" fxLayoutAlign="start center">
+					<div fxFlex="100" fxLayoutAlign="start center">
+						GRUPOS DE RIESGO
+					</div>
+				</div>
+			</div>
+
+			<mat-divider></mat-divider>
+		</mat-card-title>
+
+		<mat-card-content #cardcontent>
+			<div fxLayout="row wrap" fxLayoutAlign="">
+				<div fxFlex="100" fxFlex.gt-xs="34" class="pr-1">
+					<div>
+						<mat-form-field class="full-width">
+							<input matInput placeholder="Filtro" value="" [formControl]="descriptionFilter" />
+							<button
+								mat-button
+								matSuffix
+								mat-icon-button
+								aria-label="Clear"
+								*ngIf="filteredValues.uso !== ''"
+								(click)="descriptionFilter.reset(); filteredValues.uso = ''"
+							>
+								<mat-icon>close</mat-icon>
+							</button>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+					<div>
+						<mat-form-field class="full-width">
+							<mat-select placeholder="Estado" name="estado" [formControl]="stateFilter">
+								<mat-option value="">Todos</mat-option>
+								<mat-option value="true">Activo</mat-option>
+								<mat-option value="false">Inactivo</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" fxLayoutAlign="end center" fxFlex.gt-xs="55">
+					<div>
+						<button mat-raised-button color="primary" class="btnexportar" (click)="excelExport($event)">
+							<mat-icon class="exporticon">cloud_download</mat-icon>
+							<span> Exportar</span>
+						</button>
+						<!-- 	<button [disabled]="dataSource.data.length < 2" mat-raised-button color="primary" class="btnsort" (click)="openDialog()" *ngIf="canSort">
+							<mat-icon class="exporticon">sort</mat-icon>
+							<span> Ordenar</span>
+						</button> -->
+						<button [routerLink]="'/risk-group/create'" mat-raised-button color="primary" *ngIf="shCreate" class="btnnuevo">
+							<mat-icon class="exporticon">add</mat-icon>
+							<span> Nuevo Grupo de Riesgo</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div fxLayout="row wrap">
+				<div fxFlex="100">
+					<div class="table-lgr-container">
+						<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-lgr-setting">
+							<ng-container matColumnDef="use.description">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-uso">Uso</th>
+								<td mat-cell *matCellDef="let row">{{ row.vehicleUse.description }}</td>
+							</ng-container>
+							<ng-container matColumnDef="description">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-desc">Descripci&oacute;n</th>
+								<td mat-cell *matCellDef="let row">{{ row.description }}</td>
+							</ng-container>
+							<ng-container matColumnDef="isActive">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-state">Estado</th>
+								<td mat-cell *matCellDef="let row" class="ta-c">
+									<mat-slide-toggle class="example-margin" [disabled]="canChange" [checked]="row.isActive" (change)="changeStatus(row)">
+									</mat-slide-toggle>
+								</td>
+							</ng-container>
+							<ng-container matColumnDef="isBase">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-state">Base</th>
+								<td mat-cell *matCellDef="let row" class="ta-c">
+									<mat-slide-toggle class="example-margin" [disabled]="canChange" [checked]="row.isBase" (change)="changeBase(row)">
+									</mat-slide-toggle>
+								</td>
+							</ng-container>
+							<ng-container matColumnDef="actions">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-acc">Clonar/Editar/Eliminar</th>
+								<td mat-cell *matCellDef="let row" class="ta-c">
+									<button mat-icon-button matTooltip="Clonar" [disabled]="canClone" mat-sm-button (click)="clone(row.id)">
+										<mat-icon>file_copy</mat-icon>
+									</button>
+									<button mat-icon-button matTooltip="Editar" mat-sm-button (click)="edit(row.id)">
+										<mat-icon>edit</mat-icon>
+									</button>
+									<button mat-icon-button matTooltip="Eliminar" [disabled]="canDelete" mat-sm-button color="warn" (click)="delete(row)">
+										<mat-icon>delete</mat-icon>
+									</button>
+								</td>
+							</ng-container>
+							<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-lgr-row-st"></tr>
+							<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-lgr-row"></tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+</div>

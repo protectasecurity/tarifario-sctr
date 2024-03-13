@@ -1,0 +1,97 @@
+<div class="use-class-list-container">
+	<mat-card class="p-0">
+		<mat-card-title class="">
+			<div class="card-title-text">
+				<div fxLayout="row" fxLayoutAlign="start center">
+					<div fxFlex="100" fxLayoutAlign="start center">
+						LISTADO DE USOS Y CLASES
+					</div>
+				</div>
+			</div>
+
+			<mat-divider></mat-divider>
+		</mat-card-title>
+
+		<mat-card-content #cardcontent>
+			<div fxLayout="row wrap" fxLayoutAlign="">
+				<div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+					<div>
+						<mat-form-field class="full-width">
+							<mat-select placeholder="Filtrar Usos" [formControl]="useFilter">
+								<mat-option *ngFor="let use of uses$ | async" [value]="use.description"> {{ use.description }} </mat-option>
+								<mat-option value="">TODOS</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+							<div>
+								<mat-form-field class="full-width">
+									<mat-select placeholder="Filtrar Clases" name="ddlClass"  [formControl]="classFilter">
+										<mat-option *ngFor="let use of class$ | async" [value]="use.description"> {{ use.description }} </mat-option>
+										<mat-option value="">TODOS</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+				<div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+					<div>
+						<mat-form-field class="full-width">
+							<mat-select placeholder="Filtrar Estados" name="estado" [formControl]="stateFilter">
+								<mat-option value="">TODOS</mat-option>
+								<mat-option value="ACTIVE">ACTIVO</mat-option>
+								<mat-option value="INACTIVE">INACTIVO</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				<div fxFlex="100" fxLayoutAlign="end center" fxFlex.gt-xs="25">
+					<div>
+						<button mat-raised-button color="primary" class="btnexportar" (click)="excelExport($event)">
+							<mat-icon class="exporticon">cloud_download</mat-icon>
+							<span> Exportar</span>
+						</button>
+						<button  mat-raised-button color="primary" class="btnnuevo" (click)="add()">
+							<mat-icon class="exporticon">add</mat-icon>
+							<span>Nuevo</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div fxLayout="row wrap">
+				<div fxFlex="100">
+					<div class="table-lgr-container">
+						<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-lgr-setting">
+							<ng-container matColumnDef="use.description">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-uso">Usos</th>
+								<td mat-cell *matCellDef="let row" class="ta-c">{{ row.use?.description }}</td>
+							</ng-container>
+							<ng-container matColumnDef="description">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-desc">Clases</th>
+								<td mat-cell *matCellDef="let row" class="ta-c">{{ row.clazz?.description }}</td>
+							</ng-container>
+							<ng-container matColumnDef="isActive">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-state">Estado</th>
+								<td mat-cell *matCellDef="let row" class="ta-c">
+									<mat-slide-toggle class="example-margin"  [checked]='row.status === "ACTIVE"' (change)="changeStatus(row)">
+									</mat-slide-toggle>
+								</td>
+							</ng-container>
+							<ng-container matColumnDef="actions">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-lgr-acc">Acciones</th>
+								<td mat-cell *matCellDef="let row" class="ta-c">
+									<button mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn" [disabled]='row.status === "ACTIVE"' (click)="delete(row.id)">
+										<mat-icon>delete</mat-icon>
+									</button>
+								</td>
+							</ng-container>
+							<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-lgr-row-st"></tr>
+							<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-lgr-row"></tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+</div>

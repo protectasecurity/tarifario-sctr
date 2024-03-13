@@ -1,0 +1,88 @@
+.modal-title,
+.course-modal-dialog,
+.mat-list-option {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+mat-list-option.mat-list-item.mat-list-option.ng-star-inserted {
+	height: 17px;
+	font-size: 14px;
+}
+
+.modal-title {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #2b0d61;
+	font-weight: bold;
+}
+
+.modal-title {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #2b0d61;
+	font-weight: bold;
+}
+
+.mat-dialog-title {
+	margin: 0 0 0px !important;
+}
+
+.mat-dialog-sub-title {
+	font-size: 15px;
+	color: rgba(0, 0, 0, 0.54);
+	font-weight: bold;
+}
+
+.mat-table-setting {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.ta-center {
+	text-align: center !important;
+}
+
+.example-viewport {
+	height: 325px;
+	width: 100%;
+	border: 1px solid black;
+	overflow-x: hidden !important;
+}
+
+.mat-header-colums {
+	color: white !important;
+	font-size: 12px;
+	text-align: center !important;
+}
+
+.mat-header-id {
+	width: 10px !important;
+}
+
+.mat-header-broker {
+	width: 330px !important;
+}
+
+.mat-header-interm {
+	width: 330px !important;
+}
+
+.mat-header-client {
+	width: 330px !important;
+}
+
+.mat-header-group {
+	width: 330px !important;
+}
+
+tr.mat-header-row-st {
+	height: 30px;
+	background-color: #2b0d61 !important;
+}
+
+tr.mat-table-row-st {
+	height: 25px;
+}
+
+tr.hover-element-row:hover {
+	background: #e2e2e2;
+}

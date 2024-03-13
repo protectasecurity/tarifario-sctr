@@ -1,0 +1,58 @@
+.card-border {
+	border-width: 0.5px;
+	border-style: solid;
+	border-color: #2b0d61;
+}
+
+.mat-card-actions,
+.mat-card-content,
+.mat-card-subtitle {
+	margin-bottom: 2px;
+}
+
+.mat-card-content,
+.mat-card-actions {
+	height: 50px;
+}
+
+.mat-card-content-tar {
+	height: 65px !important;
+}
+
+.mat-card-content-can {
+	height: 65px !important;
+}
+
+.mat-card-content-def {
+	height: 115px !important;
+}
+
+.mat-card-content-def-sctr {
+	height: 102px !important;
+}
+
+.mat-menu-item {
+	line-height: 31px !important;
+	height: 31px !important;
+}
+
+.action-div {
+	padding-top: 8px;
+}
+
+.menu-pt {
+	padding-top: 8px;
+	cursor: pointer;
+}
+
+.action-button {
+	margin-right: 4px;
+}
+
+.color-base {
+	color: #2b0d61 !important;
+}
+
+.mat-mini-fab .mat-button-wrapper {
+	line-height: 22px;
+}

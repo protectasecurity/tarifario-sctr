@@ -1,0 +1,27 @@
+trigger:
+- develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: DockerInstaller@0
+  inputs:
+    dockerVersion: '17.09.0-ce'
+- task: InstallSSHKey@0
+  inputs:
+    knownHostsEntry: $(HOST_ENTRY)
+    sshPublicKey: $(SSH_PUBLIC_KEY)
+    sshPassphrase: $(SSH_PASSPHRASE)
+    sshKeySecureFile: 'cert.tarifario.protectasecurity.pe.key'
+- script: |
+    docker build -t $IMAGE_NAME .
+    docker save --output tmp-image.docker $IMAGE_NAME
+  displayName: 'Build Docker Image'
+- script: |
+    scp -P$PORT tmp-image.docker $USER@$HOST:/tmp/ 
+    ssh -tt $USER@$HOST -p$PORT "docker load --input /tmp/tmp-image.docker" 
+    ssh -tt $USER@$HOST -p$PORT "docker stop soat-frontend || true"
+    ssh -tt $USER@$HOST -p$PORT "docker rm soat-frontend || true"
+    ssh -tt $USER@$HOST -p$PORT "docker run --name=soat-frontend --restart=always --net protecta -p 80:80 -d $IMAGE_NAME"
+  displayName: 'Deploy to Certification'

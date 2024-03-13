@@ -1,0 +1,22 @@
+<div fxLayout="row wrap">
+    <div fxFlex="100"><span mat-dialog-title
+              class="modal-title">Agregar Canal con Restricción</span></div>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content fxLayout="column">
+	
+    <div class="agents-container">
+        <channel-restriction-agent
+		(onSelectedAgent)='getSelectedAgent($event)' >
+        </channel-restriction-agent>        
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-raised-button
+            color="primary"
+            mat-dialog-close>Cancelar</button>
+    <button mat-raised-button
+            color="primary"
+            (click)="addChannel()">Agregar</button>
+</mat-dialog-actions>

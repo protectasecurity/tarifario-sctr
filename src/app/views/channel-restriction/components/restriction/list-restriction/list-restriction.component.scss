@@ -1,0 +1,79 @@
+.button-container {
+	display: flex;
+	justify-content: flex-end;
+}
+.buttons-footer-container {
+	flex-direction: row;
+	box-sizing: border-box;
+	display: flex;
+	place-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+.btn-cancel {
+	margin-right: 5px;
+}
+.no-record-found {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	justify-content: center;
+}
+.channel-description {
+	margin-top: 20px;
+}
+
+.mat-chkregenerar {
+	font-family: "Titillium Web", sans-serif !important;
+	color: #2b0d61 !important;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.table-container {
+	height: 240px !important;
+	overflow: auto;
+	background-color: aliceblue;
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+}
+
+.mat-table-setting {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+tr.mat-header-row-st {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+tr.mat-table-row-st {
+	height: 25px !important;
+}
+
+.mat-header-colums {
+	color: white !important;
+	font-size: 12px;
+	text-align: center !important;
+}
+
+.mat-header-class {
+	width: 16% !important;
+	align-items: flex-start;
+}
+
+.mat-header-acciones {
+	width: 16%  !important;
+}
+
+tr.hover-element-row:hover {
+	background: #e2e2e2;
+}

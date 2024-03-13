@@ -1,0 +1,32 @@
+<mat-dialog-content fxLayout="column">
+	<div  fxLayout="row" >
+		<div fxFlex="30" class="title-dialog">MODIFICAR RESTRICCIÓN</div>
+		<div fxFlex="70" fxLayoutAlign="start center" class="subtitle-dialog">{{ title | uppercase}}</div>
+	</div>	
+	<mat-divider class="dividir-dialog"></mat-divider>
+	<div  fxLayout="row" fxLayoutAlign="space-around center" >
+		<mat-form-field color="primary">
+			<mat-label>Fecha Inicial</mat-label>
+			<input matInput [min]="minDate" [matDatepicker]="picker1" (dateChange)="editInitialDate( $event)" [value]="initialDate" [disabled]="disableInitialDate">
+			<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+			<mat-datepicker #picker1></mat-datepicker>
+		</mat-form-field>
+		<mat-form-field color="primary">
+			<mat-label>Fecha Final</mat-label>
+			<input matInput [min]="minDate" [matDatepicker]="picker2" (dateChange)="editFinalDate( $event)" [value]="endDate" >
+			<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+		  <mat-datepicker #picker2 color="primary"></mat-datepicker>
+		</mat-form-field>
+	</div>	
+</mat-dialog-content>
+
+<mat-divider class="dividir-dialog"></mat-divider>
+
+<mat-dialog-actions align="center">
+	<button mat-raised-button
+		color="primary"
+		mat-dialog-close>Cancelar</button>
+	<button mat-raised-button
+		color="primary"
+		(click)="editConstraint()" [disabled]="!validForm">Modificar</button>
+</mat-dialog-actions>

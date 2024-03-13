@@ -1,0 +1,32 @@
+<mat-card class="p-0">
+	<mat-card-title>
+		<div class="card-title-text">
+			<div fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="15" fxLayoutAlign="start center">
+					<mat-icon title="Listado de canales" class="list-title" [routerLink]="['/channel-restriction']">arrow_back</mat-icon> RESTRICCIONES
+				</div>
+				<div fxFlex="50" fxLayoutAlign="start center" class="name-channel">
+					{{selectedChannel?.description}}
+				</div>
+			</div>
+		</div>
+		<mat-divider></mat-divider>
+	</mat-card-title>
+
+	<mat-card-content>
+		<div fxLayout="row wrap">
+			<div fxFlex="78">
+				<div fxLayoutAlign="end center" >
+					<button mat-mini-fab matTooltip="Nueva restricción" (click)="openDialog()">
+						<mat-icon>add</mat-icon>
+					</button>
+				</div>
+				<br/>
+			</div>
+		</div>
+		<div class="div-component-table">
+			<channel-restriction-list-restriction >
+			</channel-restriction-list-restriction>
+		</div>
+	</mat-card-content>
+</mat-card>

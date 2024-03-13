@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Google Tag Manager -->
+		<!-- 	<script>
+			(function(w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "GTM-MB572CC");
+		</script> -->
+		<!-- End Google Tag Manager -->
+
+		<meta charset="utf-8" />
+		<title>Protecta Security | Tarifario</title>
+		<base href="/" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Material+Icons" rel="stylesheet"> -->
+		<link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,500,700,900|Material+Icons" rel="stylesheet" />
+	</head>
+	<style>
+		app-root > .app-background {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: #fff;
+		}
+
+		app-root > .app-background > .app-wrapper {
+			position: fixed;
+			top: calc(50% - 30px);
+			left: 50%;
+		}
+
+		app-root > .app-background > .app-wrapper > .app-loading {
+			margin-left: -56px;
+			margin-top: 40px;
+			font-family: "Titillium Web", sans-serif;
+			font-size: 16px;
+			font-weight: bold;
+			color: #2b0d61; /*#2b0d61;*/
+		}
+
+		@-webkit-keyframes ball-scale-multiple {
+			0% {
+				-webkit-transform: scale(0);
+				transform: scale(0);
+				opacity: 0;
+			}
+			5% {
+				opacity: 1;
+			}
+			100% {
+				-webkit-transform: scale(1);
+				transform: scale(1);
+				opacity: 0;
+			}
+		}
+
+		@keyframes ball-scale-multiple {
+			0% {
+				-webkit-transform: scale(0);
+				transform: scale(0);
+				opacity: 0;
+			}
+			5% {
+				opacity: 1;
+			}
+			100% {
+				-webkit-transform: scale(1);
+				transform: scale(1);
+				opacity: 0;
+			}
+		}
+
+		.ball-scale-multiple {
+			position: relative;
+			-webkit-transform: translateY(-30px);
+			transform: translateY(-30px);
+		}
+		.ball-scale-multiple > div:nth-child(2) {
+			-webkit-animation-delay: -0.3s;
+			animation-delay: -0.3s;
+		}
+		.ball-scale-multiple > div:nth-child(3) {
+			-webkit-animation-delay: -0.1s;
+			animation-delay: -0.1s;
+		}
+		.ball-scale-multiple > div {
+			background-color: #2b0d61;
+			border-radius: 100%;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+			position: absolute;
+			left: -30px;
+			top: 0;
+			opacity: 0;
+			margin: 0;
+			width: 60px;
+			height: 60px;
+			-webkit-animation: ball-scale-multiple 1s 0s linear infinite;
+			animation: ball-scale-multiple 1s 0s linear infinite;
+		}
+	</style>
+	<body class="">
+		<app-root>
+			<div class="app-background">
+				<div class="app-wrapper">
+					<div class="ball-scale-multiple">
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+					<div class="app-loading">... CARGANDO</div>
+				</div>
+			</div>
+			<!--     <div class="app-loader">
+      <div class="spinner">
+        <div class="double-bounce1 mat-bg-primary"></div>
+        <div class="double-bounce2 mat-bg-accent"></div>
+      </div>
+    </div> -->
+		</app-root>
+
+		<!-- <script>
+    __Zone_enable_cross_context_check = true;
+  </script> -->
+	</body>
+</html>

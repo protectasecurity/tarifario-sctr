@@ -1,0 +1,13 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100"><span mat-dialog-title class="modal-title">Definir clase</span></div>
+</div>
+<mat-divider></mat-divider>
+
+<app-risk-group-options-header *ngIf="classes.length > 0"
+	#optionsHeader
+	[data]="editionSubGroup"
+	[classes]="classes"
+	[brands]="brands$ | async"
+	(loadBrandsByClass)="loadBrandsByClass($event)"
+>
+</app-risk-group-options-header>

@@ -1,0 +1,291 @@
+.handsontable {
+	font-family: monospace;
+	font-size: 10px;
+}
+.egret-blue .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+	color: white !important;
+}
+.mat-card-title-aditional {
+	color: #2b0d61;
+	font-weight: 400;
+}
+.searchchannel {
+	font-size: 12px !important;
+}
+.main-title-header {
+	height: 28px !important;
+}
+.main-menu {
+	height: 25px;
+	margin-bottom: 5px;
+}
+.mainchannel {
+	font-size: 11px;
+}
+.divgroup {
+	height: 25px;
+}
+
+.tarifa-container {
+	padding: 1px;
+	background-color: #f0f8ff;
+	height: 353px;
+}
+
+.mat-radio-container {
+	height: 12px !important;
+	width: 12px !important;
+}
+.mat-radio-outer-circle {
+	height: 12px !important;
+	width: 12px !important;
+}
+.mat-radio-inner-circle {
+	height: 12px !important;
+	width: 12px !important;
+}
+.mat-radio-button .mat-radio-ripple {
+	height: 20px !important;
+	width: 20px !important;
+	left: calc(50% - 12px) !important;
+	top: calc(50% - 12px) !important;
+}
+
+.list-title {
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.fee-fields {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.exporticon {
+	margin-right: 5px !important;
+}
+
+.resume {
+	font-size: 12px;
+	font-weight: bold;
+	color: #2b0d61;
+}
+
+.card-control {
+	font-family: "Titillium Web", sans-serif;
+	font-weight: bold;
+}
+
+.btnexportar {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	background-color: green !important;
+	color: white !important;
+}
+
+.btnagregarcanal {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	background-color: #2b0d61 !important;
+	color: white !important;
+}
+
+.mat-button-toggle-label-content {
+	line-height: 23px !important;
+}
+
+.mat-button-toggle-label-content#mat-button-fis {
+	color: #2b0d61 !important;
+}
+
+.mat-button-toggle-checked#mat-button-fis {
+	font-weight: bold;
+}
+.mat-button-toggle-checked#mat-button-fisr {
+	font-weight: bold;
+}
+.mat-button-toggle-checked#mat-button-dig {
+	font-weight: bold;
+}
+.mat-button-toggle-checked#mat-button-digr {
+	font-weight: bold;
+}
+
+.commissionspanel {
+	width: 30%;
+}
+
+.chgroup-radio-group {
+	display: flex;
+	flex-direction: row;
+}
+
+.chgroup-radio-button {
+	margin: 5px;
+}
+.simple {
+	padding: 0 !important;
+}
+.text-white {
+	color: white !important;
+}
+.title_card {
+	background-color: #2b0d61 !important;
+}
+.mat-button-toggle-label-content {
+	line-height: unset !important;
+}
+.chkselector {
+	padding: 0px 0px 0px !important;
+}
+
+.example-viewport {
+	height: 100px;
+	overflow-x: hidden !important;
+}
+
+.simple .mat-list-base .mat-list-item,
+.simple .mat-list-base .mat-list-option {
+	height: unset !important;
+}
+.mat-card-header .mat-card-title {
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+
+.mat-card-header-text {
+	width: 100% !important;
+}
+
+.mat-button-toggle-label-content {
+	line-height: 30px !important;
+}
+.mat-checkbox-layout {
+	//width: 100% !important;
+}
+
+.handsontable span.colHeader {
+	color: white !important;
+}
+
+.bt-toogle {
+	line-height: 23px !important;
+}
+
+.egret-blue .mat-button-toggle-checked {
+	background-color: #2b0d61 !important;
+}
+
+.mat-button-toggle-checked#mat-button-fis:not([disabled]),
+.ht-digr thead th.ht__highlight:not([disabled]),
+.ht-fis thead th {
+	background-color: #2b0d61 !important;
+	color: white !important;
+}
+.mat-button-toggle-checked#mat-button-fisr:not([disabled]),
+.ht-digr thead th.ht__highlight:not([disabled]),
+.ht-fisr thead th {
+	background-color: #608c38 !important;
+	color: white !important;
+}
+.mat-button-toggle-checked#mat-button-dig:not([disabled]),
+.ht-digr thead th.ht__highlight:not([disabled]),
+.ht-dig thead th {
+	background-color: #ed6e00 !important;
+	color: white !important;
+}
+
+.mat-button-toggle-checked#mat-button-digr:not([disabled]),
+.ht-digr thead th.ht__highlight:not([disabled]),
+.ht-digr thead th {
+	background-color: #068ccc !important;
+	color: white !important;
+}
+
+.spanleft {
+	font-size: 12px;
+	color: #ed6e00;
+	padding-right: 4px;
+}
+
+.spanright {
+	font-size: 12px;
+	color: #608c38;
+	padding-left: 4px;
+	padding-right: 5px;
+}
+
+.mat-card.p-0 .mat-card-content {
+	padding: 0px 1.5rem 0.5rem;
+}
+
+/* .ht-matrix-fill {
+  height: calc(100% - 70px);
+  background-color: aquamarine;
+} */
+
+.example-container {
+}
+
+.example-sidenav-content {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+.example-sidenav {
+	padding: 20px;
+}
+
+.demo-panel {
+	margin: 10px 0px;
+}
+
+.mat-menu-item {
+	line-height: 31px !important;
+	height: 31px !important;
+}
+
+.landing-title {
+	font-size: 2em;
+	margin: 1em 20%;
+	text-align: center;
+}
+
+button.btnexportar.mat-raised-button {
+	margin-right: 15px;
+}
+
+.start {
+	margin: 10px;
+	display: flex;
+	.activities {
+		display: flex;
+
+		.item {
+			padding: 1em;
+			flex: 1;
+			text-align: center;
+
+			.label {
+				font-size: 1.6em;
+				color: #2b0d61;
+				font-weight: bold;
+			}
+			.info {
+				font-size: 17px;
+			}
+		}
+	}
+}
+
+.mtitle,
+.mat-list-base .mat-list-option {
+	font-family: "Titillium Web", sans-serif;
+	font-size: 12px !important;
+}

@@ -1,0 +1,99 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100" fxLayout="row">
+		<div fxFlex="100" fxFlex.gt-xs="40" class="pr-1">
+			<mat-form-field style="width: 100%">
+				<input matInput placeholder="Filtrar parametros" [formControl]="descriptionFilter" value="" />
+				<button
+					mat-button
+					matSuffix
+					mat-icon-button
+					aria-label="Clear"
+					*ngIf="filteredValues.descripcion !== ''"
+					(click)="descriptionFilter.reset(); filteredValues.descripcion = ''"
+				>
+					<mat-icon>close</mat-icon>
+				</button>
+			</mat-form-field>
+		</div>
+		<div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+			<mat-form-field style="width: 100%">
+				<mat-select placeholder="Estado" name="estado" [formControl]="stateFilter">
+					<mat-option value="">Todos</mat-option>
+					<mat-option value="true">Activo</mat-option>
+					<mat-option value="false">Inactivo</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+			<mat-form-field style="width: 100%">
+				<mat-select placeholder="En uso" name="enuso" [formControl]="enusoFilter">
+					<mat-option value="">Todos</mat-option>
+					<mat-option value="true">SI</mat-option>
+					<mat-option value="false">NO</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div fxFlex="100" fxFlex.gt-xs="20" fxLayoutAlign="end center" class="pr-1">
+			<!--<button [disabled]="dataSource.data.length < 2" mat-raised-button color="primary" class="btnprimary" (click)="openDialog()" *ngIf="canSort">-->
+			<!--<mat-icon class="exporticon">sort</mat-icon>-->
+			<!--<span> Ordenar</span>-->
+			<!--</button>-->
+			<button (click)="openParametersPicker(true)" mat-raised-button color="primary" class="btnnuevo btnprimary">
+				<mat-icon class="exporticon">add</mat-icon>
+				<span>Nuevo Parametro</span>
+			</button>
+		</div>
+	</div>
+</div>
+<div fxLayout="row wrap" class="pb-1"></div>
+<div fxLayout="row wrap">
+	<div fxFlex="100">
+		<div class="table-container">
+			<table style="text-align: center;" mat-table #table class="mat-elevation-z8 full-width mat-table-lgr-setting" [dataSource]="dataSource">
+				<ng-container matColumnDef="type">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-desc">Tipo</th>
+					<td mat-cell *matCellDef="let element">{{ getType(element.type) }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="description">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-group">Descripci&oacute;n</th>
+					<td mat-cell *matCellDef="let element">{{ getDescrip(element) }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="equivalence">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-equiv">Equivalencia</th>
+					<td mat-cell *matCellDef="let element">{{ element.equivalenceCode }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="used">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-uso">En uso</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">{{ element.isUsed ? "SI" : "No" }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="active">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-state">Estado</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<mat-slide-toggle class="example-margin" [checked]="element.isActive" (change)="changeStatus(element)"> </mat-slide-toggle>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-acc">Acciones</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<button *ngIf="!element.used" mat-icon-button matTooltip="Editar" mat-sm-button color="primary" class="mr-1" (click)="edit(element)">
+							<mat-icon>edit</mat-icon>
+						</button>
+						<button mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn" (click)="delete(element.id)">
+							<mat-icon>delete</mat-icon>
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st zone-item">
+					<!-- 	<div class="container-placeholder" *cdkDragPlaceholder></div> -->
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

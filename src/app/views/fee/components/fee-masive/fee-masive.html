@@ -1,0 +1,34 @@
+<span mat-dialog-title class="dialog-modal-title">{{ data.title }}</span>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+	<form name="form" (ngSubmit)="(f.form.valid)" #f="ngForm" novalidate>
+		<div fxFlex="100" fxLayout="row wrap">
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+				<div fxFlex="32" fxLayoutAlign="end center" class="schangedate">
+					Ingresar valor: &nbsp;&nbsp;
+				</div>
+				<div fxFlex="34" class="mgr">
+					<mat-form-field floatLabel="never" class="full-width">
+						<input type="number" appDecimalNumber step ="0.01" matInput id="feevalue" name="feevalue" ng-pa [(ngModel)]="feeValue" placeholder="" required />
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxFlex="100" class="dialog-mssg" fxLayout="row" fxLayoutAlign="center center">{{ data.message }}</div>
+		</div>
+	</form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+	<div fxFlex="100" fxLayout="row wrap">
+		<div fxFlex="100" class="dialog-content" fxLayout="row" fxLayoutAlign="center center">
+			<button type="button" mat-raised-button color="primary" (click)="dialogRef.close({ res: false, val: null })" *ngIf="data.showcancel">
+				Cancelar
+			</button>
+			<button type="button" [disabled]="!f.form.valid" mat-raised-button color="primary" (click)="dialogRef.close({ res: true, val: feeValue })">
+				Aceptar
+			</button>
+		</div>
+	</div>
+</mat-dialog-actions>

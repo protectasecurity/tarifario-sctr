@@ -1,0 +1,91 @@
+.mat-chkregenerar,
+.mat-table-setting {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.mat-chkregenerar {
+	color: #2b0d61 !important;
+	font-size: 12px;
+	font-weight: bold;
+}
+.mat-header-colums {
+	color: white !important;
+	font-size: 12px;
+	text-align: center !important;
+}
+
+tr.mat-header-row-st {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+.mat-header-desc {
+	width: auto;
+}
+
+.mat-header-inivig {
+	width: 150px;
+}
+
+.btn-margin {
+	margin-right: 5px !important;
+}
+
+.mat-header-finvig {
+	width: 150px;
+}
+
+.mat-header-currency {
+	width: 100px;
+}
+
+.mat-header-type {
+	width: 100px;
+}
+
+.mat-header-cambio {
+	width: 150px;
+}
+
+.mat-header-state {
+	width: 100px;
+}
+
+.mat-header-asoc {
+	width: 100px;
+}
+
+.mat-header-acc {
+	width: 100px !important;
+}
+
+tr.mat-table-row-st {
+	height: 25px !important;
+}
+
+.ta-c {
+	text-align: center;
+}
+
+.mat-menu-item {
+	line-height: 31px !important;
+	height: 31px !important;
+}
+
+.mat-menu-item:hover:not([disabled]) {
+	background: #e2e2f0 !important;
+	text-decoration: underline;
+}
+
+.table-container {
+	height: 400px;
+	overflow: auto;
+}
+
+tr.hover-element-row:hover {
+	background: #e2e2e2;
+}
+
+.btnagregarclase:not([disabled]) {
+	background-color: #ed6e00 !important;
+}

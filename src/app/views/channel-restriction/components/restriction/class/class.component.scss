@@ -1,0 +1,40 @@
+mat-selection-list {
+	max-height: 250px;
+	overflow-y: auto;
+	outline: none;
+}
+
+.card-class {
+	background-color: #2b0d61;
+	box-shadow: 2px 3px 10px #666;
+}
+
+.list-class {
+	background-color: white;
+	margin: auto;
+	margin-bottom: 2em;
+	min-height: 248px !important;
+	min-width: 240px !important;
+}
+
+.header-class {
+	margin-left: 1em;
+	font-size: 24px;
+	color: white;
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.header-check-class {
+	padding-left: 8px;
+	padding-top: 10px;
+	height: 24px;
+}
+
+/deep/.mat-checkbox-inner-container-no-side-margin .mat-checkbox-background {
+    background-color: white;
+}
+
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+	font-size: 14px !important;
+}
+

@@ -1,0 +1,292 @@
+<!-- <mat-sidenav-container> -->
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">
+            <div fxLayout="row" fxLayoutAlign="start center" class="main-title-header">
+                <div fxFlex="25" fxLayoutAlign="start center">
+                    <mat-icon title="Listado de tarifarios" class="list-title" (click)="handleBack()">arrow_back</mat-icon> TARIFARIO - SOAT
+                </div>
+                <div fxFlex="50">
+                    <div *ngIf="showTableData && (this.isspecial || this.iscampaign) && mainFee.linkedchannels.length > 0" fxFlex="25" fxLayoutAlign="start center">
+                        <span class="spanleft"> PRIMAS</span>
+                        <mat-slide-toggle [disabled]="mainFee.linkedchannels.length == 0" [checked]="!premiumlayout" (change)="changeMode($event)" color="accent">
+                        </mat-slide-toggle>
+                        <span class="spanright">COMISIONES</span>
+                    </div>
+                    <div *ngIf="showTableData && (this.isspecial || this.iscampaign) && mainFee.linkedchannels.length > 0" class="mainchannel" fxFlex="75">
+                        <mat-form-field floatLabel="never" class="full-width">
+                            <mat-select [disableControl]="premiumlayout" (selectionChange)="changeChannel($event)" [formControl]="lnkChannelCtrl" placeholder="Seleccione grupo de canal" #singleSelect>
+                                <mat-dropdown-search [formControl]="lnkChannelFilterCtrl"></mat-dropdown-search>
+                                <mat-option *ngFor="let group of filteredlnkChannel | async" [value]="group"> {{ group.description }} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="mat-card-title-aditional fee-fields" fxFlex="25" *ngIf="showStateEffect" fxLayoutAlign="end center">
+                    Estado: {{ estado }} - Fecha de Efecto: {{ lastEffectDate | date: "dd/MM/yy" }}
+                </div>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content #cardcontent>
+        <form name="form" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="29" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput id="description" name="description" minlength="6" #description="ngModel" [(ngModel)]="frmValues.description" placeholder="Descripción de tarifa" [disabled]="disableDescription" />
+                            <mat-hint>Ingrese al menos 6 caracteres</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput id="iniVig" name="iniVig" [min]="iniMin" #iniVig="ngModel" [(ngModel)]="frmValues.iniVig" placeholder="Inicio de Vigencia" [matDatepicker]="appDatepickerIni" (click)="appDatepickerIni.open()" (dateChange)="inivigchange()" [disabled]="disableIniVig"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="appDatepickerIni" locale="es"></mat-datepicker-toggle>
+                        </mat-form-field>
+                        <mat-datepicker #appDatepickerIni></mat-datepicker>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput id="finVig" name="finVig" [min]="maxDate === undefined ? frmValues.iniVig : maxDate.format('YYYY-MM-DD')" [max]="derivedChildMin" #finVig="ngModel" [(ngModel)]="frmValues.finVig" placeholder="Fin de Vigencia" [matDatepicker]="appDatepickerFin"
+                                (click)="appDatepickerFin.open()" [disabled]="disableFinVig" />
+
+                            <mat-datepicker-toggle matSuffix [for]="appDatepickerFin" locale="es"></mat-datepicker-toggle>
+                        </mat-form-field>
+                        <mat-datepicker #appDatepickerFin></mat-datepicker>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-select id="moneda" name="moneda" #moneda="ngModel" placeholder="Moneda" [(ngModel)]="frmValues.moneda" [disabled]="disableMoneda">
+                                <mat-option value="PEN">Soles</mat-option>
+                                <mat-option value="USD">Dólares</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-select id="sector" name="sector" #sector="ngModel" placeholder="Sector" [(ngModel)]="frmValues.sector" [disabled]="disableSector">
+                                <mat-option value="PRIVATE">Privado</mat-option>
+                                <mat-option value="PUBLIC">Público</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="11" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-select id="tipo" name="tipo" #tipo="ngModel" placeholder="Tipo de Tarifa" [(ngModel)]="frmValues.tipo" [disabled]="true">
+                                <mat-option *ngFor="let feetype of feetypes" value="{{ feetype.key }}">{{ feetype.value }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="15" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-select id="version" name="version" #version="ngModel" placeholder="Versiones" title="{{ frmValues.version | date: 'MMM dd, y hh:mm:ss a' }}" [(ngModel)]="frmValues.version" (selectionChange)="changeVersion()" [disabled]="disableVersion">
+                                <mat-option *ngFor="let vers of itemUpdates$ | async; let i = index" [value]="vers" title="{{ vers | date: 'MMM dd, y hh:mm:ss a' }}">
+                                    Version {{ i + 1 }} - {{ vers | date: "MMM dd, y hh:mm:ss a" }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+
+
+			<div fxLayout="row" class="divgroup" fxLayoutAlign="center center">
+				<div fxFlex="30" fxLayoutAlign="start end" class="parent-label">
+					{{ parentFeeDescription }}
+				</div>
+
+				<div fxFlex="40" fxLayoutAlign="center center">
+					<!-- 			<mat-radio-group
+						name="chgroup"
+						aria-labelledby="example-radio-group-label"
+						(change)="onComissionTypeChange()"
+						class="chgroup-radio-group"
+						[(ngModel)]="chgroupSelected"
+					>
+						<mat-radio-button id="rdn_{{i}}"  [disabled]="premiumlayout" class="chgroup-radio-button" *ngFor="let chg of filterChannelColl; let i = index" [value]="chg.value">
+							{{ chg.label }}
+						</mat-radio-button>
+					</mat-radio-group> -->
+                    <!-- 	[ngClass]="{ 'ht-combro': i === 0, 'ht-comint': i === 1 }" -->
+					<div fxLayout="column">
+						<div fxLayout="row" class="divgroupbtncomision" fxLayoutAlign="center center" *ngIf="!premiumlayout">
+							<div fxFlex="50" fxLayoutAlign="start center">
+								<button type="button" mat-raised-button name="variableBtn" class="btncomisiones" (click)="filterGrossUP()"
+												style="background-color: white" [class.myColor]="!this.isComisionGrossUp" [class.myOtherColor]="this.isComisionGrossUp">
+									<span>Variable</span>
+								</button>
+							</div>
+							<div fxFlex="50" fxLayoutAlign="end center">
+								<button type="button" mat-raised-button name="grossUpBtn" class="btncomisiones" (click)="filterGrossUP()"
+												style="background-color: white" [class.myColor]="this.isComisionGrossUp" [class.myOtherColor]="!this.isComisionGrossUp">
+									<span>Gross UP</span>
+								</button>
+							</div>
+						</div>
+						<mat-button-toggle-group name="chgroup" [(ngModel)]="chgroupSelected">
+						<mat-button-toggle *ngFor="let chg of filterChannelColl; let i = index" id="rdn_{{ i }}" [value]="chg.value" [disabled]="premiumlayout" (change)="onComissionTypeChange()" title="{{ directChannel == true && chg.value === 'BROKER' ? 'Para directos no aplica comisión' : '' }}">
+							{{ chg.label }}
+						</mat-button-toggle>
+					</mat-button-toggle-group>
+					</div>
+
+
+                </div>
+                <div fxFlex="30" fxLayoutAlign="end center"></div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div fxFlex="30" fxLayoutAlign="start center">
+                    <button type="button" [disabled]="!showTableData || !this.canEdit" class="card-control" title="Configuración de estructura" mat-icon-button [matMenuTriggerFor]="menu1">
+						<mat-icon>settings</mat-icon> Estructura
+					</button>
+                    <mat-menu #menu1="matMenu">
+                        <button type="button" mat-menu-item (click)="openZonePicker()">
+							<mat-icon color="primary">gps_fixed</mat-icon>
+							<span>Zonas</span>
+						</button>
+                        <button type="button" mat-menu-item (click)="openRiskGroupPicker()">
+							<mat-icon color="primary">storage</mat-icon>
+							<span>Grupos de riesgo</span>
+						</button>
+                        <button [disabled]="!canEdit || premiumbase || directChannel" type="button" mat-menu-item (click)="openFeeMasive()">
+							<mat-icon color="primary">open_with</mat-icon>
+							<span>Ingreso masivo</span>
+						</button>
+                    </mat-menu>
+                </div>
+                <div fxFlex="40" fxLayoutAlign="center center">
+                    <mat-button-toggle-group *ngIf="showTableData" name="mbt-filtro" [(ngModel)]="filterSelected">
+                        <mat-button-toggle *ngFor="let filt of filterSelectedColl" [id]="filt.id" [value]="filt.value" [class]="filt.class" [disabled]="!filt.enabled" (change)="onFilterChange($event.value)">
+                            {{ filt.label }}
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <!-- 	<mat-button-toggle-group *ngIf="!premiumlayout && showTableData" name="mbtc-filtro" [(ngModel)]="filterSelectedCom">
+						<mat-button-toggle
+							*ngFor="let filt of filterSelectedComm"
+							[id]="filt.id"
+							[value]="filt.value"
+							[class]="filt.class"
+							(change)="onFilterChange($event.value)"
+						>
+							{{ filt.label }}
+						</mat-button-toggle>
+					</mat-button-toggle-group> -->
+                </div>
+                <div fxFlex="30" fxLayoutAlign="end center">
+                    <button type="button" *ngIf="showTableData" mat-raised-button class="btnexportar" (click)="exportar($event)">
+						<mat-icon class="exporticon">cloud_download</mat-icon>
+						<span>Exportar</span>
+					</button>
+
+                    <button type="button" *ngIf="showTableData && (this.isspecial || this.iscampaign)" mat-raised-button class="btnagregarcanal" (click)="openChannels()">
+						<mat-icon class="exporticon">add</mat-icon>
+						<span>Canales Asociados</span>
+					</button>
+
+                    <!-- 	<div>
+							<button type="button" mat-raised-button (click)="notificationPanel.toggle()">Toggle drawer</button>
+						</div> -->
+                </div>
+            </div>
+            <!-- 				<div fxLayout="row" class="main-menu">
+					<div fxFlex="50" fxLayoutAlign="start center"></div>
+					<div fxFlex="50" fxLayoutAlign="end center">
+						<div fxFlex="70" fxLayoutAlign="end center"></div>
+						<div fxFlex="15" fxLayoutAlign="end center">
+							<button *ngIf="showTableData" mat-raised-button class="btnexportar">
+								<mat-icon class="exporticon">cloud_download</mat-icon>
+								<span>Exportar</span>
+							</button>
+						</div>
+						<div *ngIf="showTableData && (this.isspecial || this.iscampaign)" fxFlex="15" fxLayoutAlign="end center">
+							<button type="button" [disabled]="!showTableData" mat-raised-button class="btnagregarcanal" (click)="openChannels()">
+								<mat-icon class="exporticon">add</mat-icon>
+								<span>Canales</span>
+							</button>
+						</div>
+						<div fxFlex="15" fxLayoutAlign="end center">
+							<button type="button" mat-raised-button (click)="notificationPanel.toggle()">Toggle drawer</button>
+						</div>
+					</div>
+				</div> -->
+            <div class="tarifa-container">
+                <div *ngIf="!showTableData" fxLayout="row wrap">
+                    <div fxFlex="100" class="landing-title">Seleccione una opción para la estructura inicial</div>
+                    <div fxFlex fxLayoutAlign="center center" class="start">
+                        <div class="activities">
+                            <div class="item">
+                                <button type="button" class="card-control" mat-fab color="primary" (click)="option(1)">
+									<mat-icon>view_comfy</mat-icon>
+								</button>
+                                <div class="label">Opción 1</div>
+                                <div class="info">Incluir todos los grupos de riesgo y zonas</div>
+                            </div>
+                            <div class="item">
+                                <button type="button" class="card-control" mat-fab color="primary" (click)="option(2)">
+									<mat-icon>view_week</mat-icon>
+								</button>
+                                <div class="label">Opción 2</div>
+                                <div class="info">Incluir todas las zonas y seleccionar grupos de riesgo</div>
+                            </div>
+                            <div class="item">
+                                <button type="button" class="card-control" mat-fab color="primary" (click)="option(3)">
+									<mat-icon>view_headline</mat-icon>
+								</button>
+                                <div class="label">Opción 3</div>
+                                <div class="info">Incluir todos los grupos de riesgo y seleccionar zonas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div [hidden]="!showTableData">
+                    <hot-table #hot [hotId]="instance2" [settings]="settings2"> </hot-table>
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <!-- fxLayoutAlign="center center" -->
+                <div fxFlex="35" fxLayoutAlign="start center">
+                    <span class="resume" *ngIf="canCell != '0'">Suma: {{ sumCell }} - Min: {{ minCell }} - Max: {{ maxCell }} - Prom: {{ avgCell }} </span>
+                </div>
+                <div fxFlex="30" fxLayoutAlign="center center">
+                    <button mat-raised-button type="button" color="primary" (click)="cancel()" class="exporticon">Cancelar</button>
+                    <button type="submit" [disabled]="!this.canEdit" *ngIf="showTableData" mat-raised-button color="primary">Guardar</button>
+                </div>
+                <div fxFlex="35" fxLayoutAlign="end center"></div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+<!-- 	<mat-sidenav #notificationPanel mode="over" class="" position="start">
+		<div class="commissionspanel">
+			<div fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="40" fxLayoutAlign="start center">
+					TARIFARIO - SOAT
+				</div>
+
+				<div class="mat-card-title-aditional fee-fields" fxFlex="40" *ngIf="showStateEffect" fxLayoutAlign="end center">
+					Estado: {{ estado }} - Fecha de Efecto: {{ lastEffectDate | date: "dd/MM/yy" }}
+				</div>
+			</div>
+		</div>
+	</mat-sidenav>
+</mat-sidenav-container> -->

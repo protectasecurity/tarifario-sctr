@@ -1,0 +1,107 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100"><span mat-dialog-title class="modal-title">CANALES ASOCIADOS</span></div>
+</div>
+<mat-dialog-content #cardcontent>
+	<form #frmTarifario="ngForm">
+		<div fxLayout="row wrap" fxLayoutAlign="center center">
+			<div fxFlex="100" fxFlex.gt-xs="60" class="pr-1">
+				<div>
+					<mat-form-field class="full-width">
+						<input matInput name="description" placeholder="Descripción de canal" value=""
+									 [formControl]="descriptionFilter"/>
+						<button
+							mat-button
+							matSuffix
+							mat-icon-button
+							aria-label="Clear"
+							*ngIf="filteredValues.description !== ''"
+							(click)="descriptionFilter.reset(); filteredValues.description = ''"
+						>
+							<mat-icon>close</mat-icon>
+						</button>
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxFlex="100" fxFlex.gt-xs="40" class="pr-1" fxLayoutAlign="end center">
+				<button mat-raised-button class="btnagregarcanal channel-right" (click)="openChannelList()" color="primary">
+					<mat-icon color="white">list_alt</mat-icon>
+					<span color="white">Lista de Canales</span>
+				</button>
+				<button mat-raised-button class="btnagregarcanal" (click)="addNewChannelToFee()" color="primary">
+					<mat-icon color="white">add</mat-icon>
+					<span color="white">Agregar Canal</span>
+				</button>
+			</div>
+			<mat-button-toggle-group #group="matButtonToggleGroup" (change)="toggleChange($event)" name="checkedRamos" class="checkedRamos" [(ngModel)]="filteredValues.toogleSelected">
+				<mat-button-toggle [id]="chk.id" [value]="chk.id" *ngFor="let chk of current_ramos">
+					{{chk.description}}
+				</mat-button-toggle>
+			</mat-button-toggle-group>
+		</div>
+		<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+			<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting">
+				<ng-container matColumnDef="description">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-desc">Descripción de canal</th>
+					<td mat-cell *matCellDef="let element">{{ element.channelGroup.description }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="startDate">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-inivig">Fecha Inicio</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">{{ element.startDate | date: "dd/MM/yy" }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="endDate">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-finvig">Fecha Fin</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">{{ element.endDate | date: "dd/MM/yy" }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="commission">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-finvig">%Comision</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">{{ element.commission }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="discount">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-finvig">%Descuento</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">{{ element.discount }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="distribution">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-finvig">%Distribucion</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">{{ element.distribution }}</td>
+				</ng-container>
+
+				<ng-container [matColumnDef]="column.description" *ngFor="let column of paramStatus;index as i">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-finvig"> {{column.description}} </th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<mat-checkbox
+							class="example-margin"
+							[checked]="element.parameters[i].isActive"
+							(change)="element.parameters[i].isActive = !element.parameters[i].isActive"
+						></mat-checkbox>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-del">Acciones</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<button mat-icon-button matTooltip="Editar" mat-sm-button (click)="edit(element)">
+							<mat-icon>edit</mat-icon>
+						</button>
+						<button mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn" (click)="delete(element)">
+							<mat-icon>delete</mat-icon>
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st zone-item text-left">
+					<div class="container-placeholder"></div>
+				</tr>
+			</table>
+		</cdk-virtual-scroll-viewport>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+	<button mat-raised-button color="primary" mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="primary" [disabled]="!this.disabled" (click)="save()">Aplicar</button>
+</mat-dialog-actions>

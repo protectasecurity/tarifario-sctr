@@ -1,0 +1,49 @@
+<span mat-dialog-title class="dialog-modal-title">{{ data.title }}</span>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+	<form name="form" (ngSubmit)="(f.form.valid)" #f="ngForm" novalidate>
+		<div fxFlex="100" fxLayout="row wrap">
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+				<div fxFlex="32" fxLayoutAlign="end center" class="schangedate">
+					Fecha de efecto:
+				</div>
+				<div fxFlex="34" class="mgr">
+					<mat-form-field floatLabel="never" class="full-width">
+						<input
+							matInput
+							id="iniVig"
+							name="iniVig"
+							[min]="minDate"
+							[max]="maxDate"
+							#iniVig="ngModel"
+							[(ngModel)]="effectDate"
+							placeholder="Fecha de efecto"
+							[matDatepicker]="appDatepickerIni"
+							(click)="appDatepickerIni.open()"
+							required
+						/>
+						<!-- <mat-hint class="schangedate" align="start"><strong>Fecha de cambio</strong> </mat-hint> -->
+						<mat-datepicker-toggle matSuffix [for]="appDatepickerIni" locale="es"></mat-datepicker-toggle>
+					</mat-form-field>
+					<mat-datepicker #appDatepickerIni></mat-datepicker>
+				</div>
+			</div>
+			<div fxFlex="100" class="dialog-mssg" fxLayout="row" fxLayoutAlign="center center">{{ data.message }}</div>
+		</div>
+	</form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+	<div fxFlex="100" fxLayout="row wrap">
+		<div fxFlex="100" class="dialog-content" fxLayout="row" fxLayoutAlign="center center">
+			<button type="button" mat-raised-button color="primary" (click)="dialogRef.close({ res: false, val: null })" *ngIf="data.showcancel">
+				Cancelar
+			</button>
+			<button type="button" [disabled]="!f.form.valid" mat-raised-button color="primary" (click)="dialogRef.close({ res: true, val: effectDate })">
+				Aceptar
+			</button>
+		</div>
+	</div>
+</mat-dialog-actions>

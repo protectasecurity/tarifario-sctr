@@ -1,0 +1,75 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100">
+		<div class="button-container">
+			<button color="primary" class="" matTooltip="Agregar" [disabled]="!modificationAllowed" (click)="openPopup()" mat-mini-fab>
+				<mat-icon>add</mat-icon>
+			</button>
+		</div>
+		<br />
+	</div>
+</div>
+<div>
+	<!-- <div *ngIf="dataSource.data.length > 0"> -->
+	<div fxLayout="row wrap">
+		<div fxFlex="100">
+			<div class="table-container">
+				<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting">
+					<ng-container matColumnDef="description">
+						<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-class">Descripción</th>
+						<td mat-cell *matCellDef="let row" class="ta-f">{{ row.descriptions }}</td>
+					</ng-container>
+					<ng-container matColumnDef="acciones">
+						<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-acciones ">Acciones</th>
+						<td mat-cell *matCellDef="let row; let i = index" class="ta-f">
+							<button mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn" [disabled]="!modificationAllowed" (click)="delete(row)">
+								<mat-icon>delete</mat-icon>
+							</button>
+						</td>
+					</ng-container>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-row"></tr>
+				</table>
+
+				<div *ngIf="dataSource.data.length === 0" class="no-record-found">
+					Para crear un canal o un grupo de canales, primero haga click en (+) para agregar uno o más roles.
+				</div>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="dataSource.data.length > 1" fxLayout="row wrap" class="channel-description">
+		<div fxFlex="100">
+			<mat-form-field class="full-width">
+				<textarea
+					matInput
+					rows="5"
+					name="description"
+					placeholder="Descripción del grupo de canales"
+					[(ngModel)]="grupoDescripcion"
+					required
+				></textarea>
+			</mat-form-field>
+		</div>
+	</div>
+</div>
+
+<div class="buttons-footer-container">
+	<div fxFlex="1" fxLayoutAlign="start center">
+		<mat-checkbox
+			[(ngModel)]="checked"
+			class="mat-chkregenerar"
+			[disabled]="!modificationAllowed"
+			*ngIf="this.isEditing && dataSource.data.length > 1"
+			(change)="selectItem($event)"
+			>¿Regenerar descripción?</mat-checkbox
+		>
+	</div>
+	<div fxFlex="99" fxLayoutAlign="center center">
+		<button mat-raised-button color="primary" [routerLink]="'/manage-channels/'" class="btn-cancel" [disabled]="!modificationAllowed">
+			Cancelar
+		</button>
+
+		<button mat-raised-button color="primary" (click)="manageGroupChannel()" [disabled]="!modificationAllowed">
+			Aceptar
+		</button>
+	</div>
+</div>

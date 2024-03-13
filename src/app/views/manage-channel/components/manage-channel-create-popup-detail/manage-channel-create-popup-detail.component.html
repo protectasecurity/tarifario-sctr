@@ -1,0 +1,44 @@
+<mat-dialog-content fxLayout="column">
+
+	<div  fxLayout="row" class="visibility-filter" >
+		<mat-checkbox fxFlex="100" fxFlexAlign="center"
+									*ngFor="let item of visibilityFilter$|async" [(ngModel)]="item.isChecked" [(disabled)]="item.isDisabled"
+									(change)="Click($event,item.name)" >
+			{{item.name}}
+		</mat-checkbox>
+	</div>
+    <div class="agents-container">
+        <manage-channel-agent [agents]="brokers" *ngIf="showBrokersCheck"
+                              [agentTypes]="brokerTypes"
+                              (onGetAgents)="getBrokers($event)"
+                              (onSearchAgents)="searchBrokers($event)"
+                              (onSelectAgent)="selectBrokerAgent($event)">
+        </manage-channel-agent>
+        <manage-channel-agent [agents]="middlemen" *ngIf="showMiddlemenCheck"
+                              [agentTypes]="middlemenTypes"
+                              (onGetAgents)="getMiddlemen($event)"
+                              (onSearchAgents)="searchMiddlemen($event)"
+                              (onSelectAgent)="selectMiddlemanAgent($event)">
+        </manage-channel-agent>
+
+        <manage-channel-agent disabled="true" *ngIf="showPointOfSalesCheck"
+                              [agents]="pointOfSales"
+                              [agentTypes]="PointOfSalesTypes"> </manage-channel-agent>
+
+        <manage-channel-agent disabled="true"
+															*ngIf="showClientsCheck"
+                              [showFiltrar]="showFiltrarInCustomers"
+                              [agents]="customers"
+                              [agentTypes]="CustomerTypes"
+                              (onSearchAgents)="searchCustomers($event)"
+                              (onSelectAgent)="selectcustomerAgent($event)"> </manage-channel-agent>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-raised-button
+            color="primary"
+            mat-dialog-close>Cancelar</button>
+    <button mat-raised-button
+            color="primary"
+            (click)="addAgents()">Agregar</button>
+</mat-dialog-actions>

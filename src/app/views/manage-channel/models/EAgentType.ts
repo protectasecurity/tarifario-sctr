@@ -1,0 +1,6 @@
+export enum EAgentType {
+	BROKER = 'BROKER',
+	MIDDLEMAN = 'MIDDLEMAN',
+	CUSTOMER = 'CUSTOMER',
+	POINT_OF_SALE = 'POINT_OF_SALE'
+}

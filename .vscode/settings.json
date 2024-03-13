@@ -1,0 +1,24 @@
+// Place your settings in this file to overwrite the default settings
+{
+	"workbench.sideBar.location": "left",
+	"workbench.statusBar.visible": true,
+	"editor.detectIndentation": false,
+	"editor.tabSize": 4,
+	"gitlens.keymap": "alternate",
+	"editor.formatOnSave": true,
+	"tslint.autoFixOnSave": true,
+	"codemetrics.basics.ComplexityLevelExtremeDescription": "👿 Bloody hell... split this up! 😱",
+	"codemetrics.basics.ComplexityLevelExtreme": 25,
+	"codemetrics.basics.ComplexityLevelHighDescription": "🔥 It's time to refactor this 🔥",
+	"codemetrics.basics.ComplexityLevelHigh": 7,
+	"codemetrics.basics.ComplexityLevelNormalDescription": "good job 👍",
+	"codemetrics.basics.ComplexityLevelNormal": 5,
+	"codemetrics.basics.ComplexityColorNormal": "#a8ff16",
+	"codemetrics.basics.ComplexityLevelLowDescription": "looks awesome 🏆",
+	"codemetrics.basics.ComplexityLevelLow": 0,
+	"codemetrics.basics.ComplexityTemplate": "Complexity is {0} - {1}",
+	"codemetrics.nodeconfiguration.ReturnStatement": 0,
+	"codemetrics.nodeconfiguration.CaseClause": 0,
+	"codemetrics.nodeconfiguration.DefaultClause": 0,
+	"html.format.wrapAttributes": "force-aligned"
+}

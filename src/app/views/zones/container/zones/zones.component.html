@@ -1,0 +1,15 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">ZONAS</div>
+		<mat-divider></mat-divider>
+	</mat-card-title>
+	<mat-card-content>
+		<app-zones-list
+			[items]="zones$ | async"
+			(onDelete)="delete($event)"
+			(onEdit)="edit($event)"
+			(onDrop)="drop($event)"
+			(onUpdateStatus)="updateStatus($event)"
+		></app-zones-list>
+	</mat-card-content>
+</mat-card>

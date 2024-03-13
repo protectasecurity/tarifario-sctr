@@ -1,0 +1,69 @@
+.button-container {
+	display: flex;
+	justify-content: flex-end;
+}
+.buttons-footer-container {
+	flex-direction: row;
+	box-sizing: border-box;
+	display: flex;
+	place-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+.footer-right{
+	padding-right: 10px;
+}
+.left,
+.right {
+	flex: 1;
+}
+.btn-cancel {
+	margin-right: 5px;
+}
+.no-record-found {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	justify-content: center;
+}
+.channel-description {
+	margin-top: 20px;
+}
+
+.table-container {
+	height: 240px !important;
+	overflow: auto;
+	background-color: aliceblue;
+}
+
+.mat-table-setting {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+tr.mat-header-row-st {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+tr.mat-table-row-st {
+	height: 25px !important;
+}
+
+.mat-header-colums {
+	color: white !important;
+	font-size: 12px;
+	text-align: left !important;
+}
+
+.mat-header-class {
+	width: auto !important;
+}
+
+.mat-header-acciones {
+	width: 100px !important;
+}
+
+tr.hover-element-row:hover {
+	background: #e2e2e2;
+}
+

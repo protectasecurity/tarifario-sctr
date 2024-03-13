@@ -1,0 +1,116 @@
+.mat-table-setting-fee-list {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.mat-header-colums-fee-list {
+	color: white !important;
+	font-size: 12px;
+	text-align: center;
+}
+
+tr.mat-header-row-st-fee-list {
+	height: 30px;
+	background-color: #2b0d61 !important;
+}
+
+.mat-header-desc-fee-list {
+	width: auto;
+}
+
+.mat-header-inivig-fee-list {
+	width: 150px;
+}
+
+.mat-header-finvig-fee-list {
+	width: 150px;
+}
+
+.mat-header-currency-fee-list {
+	width: 100px;
+}
+
+.mat-header-type-fee-list {
+	width: 100px;
+}
+
+.mat-header-cambio-fee-list {
+	width: 150px;
+}
+
+.mat-header-effect-date-list {
+	width: 150px;
+}
+
+.mat-header-state-fee-list {
+	width: 100px;
+}
+
+.mat-header-acc-fee-list {
+	width: 100px;
+}
+
+tr.mat-table-row-st-fee-list {
+	height: 25px;
+}
+
+.ta-c {
+	text-align: center;
+}
+
+.mat-menu-item {
+	line-height: 31px !important;
+	height: 31px !important;
+}
+
+.tariff-hijo {
+	color: green !important;
+}
+
+.tariff-clone {
+	color: rgb(62, 63, 3) !important;
+}
+
+.mat-menu-item:hover:not([disabled]) {
+	background: #e2e2f0 !important;
+	text-decoration: underline;
+}
+
+.table-container-fee-list {
+	height: 450px;
+	overflow: auto;
+}
+
+tr.hover-element-row-fee-list:hover {
+	background: #e2e2e2;
+}
+
+.exporticon {
+	margin-right: 5px;
+}
+
+.btnexportar {
+	height: 27px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	background-color: green !important;
+	color: white !important;
+	margin-right: 2px;
+}
+
+.btncanales {
+	height: 27px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	background-color: #2b0d61 !important;
+	color: white !important;
+	margin-right: 2px;
+}
+
+.btnnuevo {
+	height: 27px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+}

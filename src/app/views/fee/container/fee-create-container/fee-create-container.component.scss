@@ -1,0 +1,256 @@
+.handsontable {
+	font-family: monospace;
+	font-size: 10px;
+}
+
+.mat-card-title-aditional {
+	color: #2b0d61;
+	font-weight: 400;
+}
+.searchchannel {
+	font-size: 12px !important;
+}
+.main-title-header {
+	height: 28px !important;
+}
+.main-menu {
+	height: 25px;
+	margin-bottom: 5px;
+}
+.mainchannel {
+	font-size: 11px;
+}
+.divgroup {
+	//height: 25px;
+}
+
+.divgroupbtncomision {
+	height: 25px;
+	margin: 15px 0px;
+}
+
+.tarifa-container {
+	padding: 1px;
+	background-color: #f0f8ff;
+	height: 353px;
+}
+
+/* .mat-radio-container {
+	height: 15px !important;
+	width: 15px !important;
+}
+.mat-radio-outer-circle {
+	height: 15px !important;
+	width: 15px !important;
+}
+.mat-radio-inner-circle {
+	height: 15px !important;
+	width: 15px !important;
+}
+.mat-radio-button .mat-radio-ripple {
+	height: 20px !important;
+	width: 20px !important;
+	left: calc(50% - 15px) !important;
+	top: calc(50% - 15px) !important;
+} */
+
+.list-title {
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.fee-fields {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.exporticon {
+	margin-right: 5px !important;
+}
+
+.resume {
+	font-size: 12px;
+	font-weight: bold;
+	color: #2b0d61;
+}
+
+.card-control {
+	font-family: "Titillium Web", sans-serif;
+	font-weight: bold;
+}
+
+.parent-label {
+	font-family: "Titillium Web", sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	color: #2b0d61;
+	align-self: flex-end !important;
+}
+
+.btnexportar {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	background-color: green !important;
+	color: white !important;
+	margin-right: 5px !important;
+}
+
+.btnagregarcanal {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	background-color: #2b0d61 !important;
+	color: white !important;
+}
+
+.btncomisiones {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	color: white !important;
+}
+
+.myColor {
+	background-color: #2b0d61 !important;
+}
+.myOtherColor{
+	color: black !important;
+}
+
+.mat-button-toggle-label-content {
+	line-height: 23px !important;
+}
+
+.mat-button-toggle-label-content#mat-button-fis {
+	color: #2b0d61 !important;
+}
+
+.mat-button-toggle-checked#mat-button-fis {
+	font-weight: bold;
+}
+.mat-button-toggle-checked#mat-button-fisr {
+	font-weight: bold;
+}
+.mat-button-toggle-checked#mat-button-dig {
+	font-weight: bold;
+}
+.mat-button-toggle-checked#mat-button-digr {
+	font-weight: bold;
+}
+
+.commissionspanel {
+	width: 30%;
+}
+
+.chgroup-radio-group {
+	display: flex;
+	flex-direction: row;
+}
+
+.chgroup-radio-button {
+	margin: 5px;
+	font-size: 13px !important;
+	color: #2b0d61 !important;
+	font-weight: bold;
+}
+
+.ht-combro {
+	background-color: #ed6e00 !important;
+	color: white !important;
+}
+
+.mat-button-toggle-checked#mat-button-fis:not([disabled]),
+.ht-digr thead th.ht__highlight:not([disabled]),
+.ht-fis thead th {
+	background-color: #2b0d61 !important;
+	color: white !important;
+}
+.mat-button-toggle-checked#mat-button-fisr:not([disabled]),
+.ht-digr thead th.ht__highlight:not([disabled]),
+.ht-fisr thead th {
+	background-color: #608c38 !important;
+	color: white !important;
+}
+.mat-button-toggle-checked#mat-button-dig:not([disabled]),
+.ht-digr thead th.ht__highlight:not([disabled]),
+.ht-dig thead th {
+	background-color: #ed6e00 !important;
+	color: white !important;
+}
+
+.mat-button-toggle-checked#mat-button-digr:not([disabled]),
+.ht-digr thead th.ht__highlight:not([disabled]),
+.ht-digr thead th {
+	background-color: #068ccc !important;
+	color: white !important;
+}
+
+.spanleft {
+	font-size: 12px;
+	color: #ed6e00;
+	padding-right: 4px;
+}
+
+.spanright {
+	font-size: 12px;
+	color: #608c38;
+	padding-left: 4px;
+	padding-right: 5px;
+}
+
+.mat-card.p-0 .mat-card-content {
+	padding: 0px 1.5rem 0.5rem;
+}
+
+.example-sidenav-content {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+.example-sidenav {
+	padding: 20px;
+}
+
+.demo-panel {
+	margin: 10px 0px;
+}
+
+.mat-menu-item {
+	line-height: 31px !important;
+	height: 31px !important;
+}
+
+.landing-title {
+	font-size: 2em;
+	margin: 1em 20%;
+	text-align: center;
+}
+
+.start {
+	margin: 10px;
+	display: flex;
+	.activities {
+		display: flex;
+
+		.item {
+			padding: 1em;
+			flex: 1;
+			text-align: center;
+
+			.label {
+				font-size: 1.6em;
+				color: #2b0d61;
+				font-weight: bold;
+			}
+			.info {
+				font-size: 17px;
+			}
+		}
+	}
+}

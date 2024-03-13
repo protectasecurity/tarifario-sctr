@@ -1,0 +1,12 @@
+<div fxLayout="row" fxLayoutAlign="center center" >
+	<div fxLayout="column" fxLayoutAlign="center start" class="card-use"  fxFlex='64'>
+		<div class="header-use">Usos</div>
+		<div class="list-use" >
+			<mat-selection-list #useList (selectionChange)="selectUse(useList.selectedOptions.selected)" color="accent" >
+				<mat-list-option *ngFor="let use of useCollection" [value]="use" >
+					<span [title]="use.description">{{ use.description }}</span>
+				</mat-list-option>
+			</mat-selection-list>
+		</div>
+	</div>
+</div>

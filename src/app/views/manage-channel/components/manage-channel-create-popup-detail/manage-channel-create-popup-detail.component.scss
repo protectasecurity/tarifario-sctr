@@ -1,0 +1,20 @@
+.agents-container {
+	display:flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.mat-form-field {
+	display: block;
+}
+
+
+.visibility-filter {
+	margin: 5px;
+	padding: 5px;
+	border: 1px #98A898 solid;
+	text-align: center;
+	width: 100%;
+}

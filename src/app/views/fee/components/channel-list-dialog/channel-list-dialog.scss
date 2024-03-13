@@ -1,0 +1,105 @@
+.modal-title {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #2b0d61;
+	font-weight: bold;
+}
+
+.mat-table-setting {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.example-viewport {
+	height: 250px;
+	width: 100%;
+	border: 1px solid black;
+	overflow-x: hidden !important;
+}
+
+.chk-white {
+	background-color: white;
+}
+
+.mat-header-colums {
+	color: white !important;
+	font-size: 12px;
+	text-align: center;
+}
+tr.mat-header-row-st {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+tr.hover-element-row:hover {
+	background: #e2e2e2;
+}
+
+.mat-header-desc {
+	width: auto;
+}
+
+.mat-header-inivig {
+	width: 150px;
+}
+
+.mat-header-finvig {
+	width: 150px;
+}
+
+.mat-header-currency {
+	width: 100px;
+}
+
+.mat-header-type {
+	width: 100px;
+}
+
+.mat-header-cambio {
+	width: 150px;
+}
+
+.mat-header-state {
+	width: 100px;
+}
+
+.mat-header-asoc {
+	width: 100px;
+}
+
+.mat-header-acc {
+	width: 100px;
+}
+
+tr.mat-table-row-st {
+	height: 25px;
+}
+
+.ta-c {
+	text-align: center;
+}
+
+.mat-menu-item {
+	line-height: 31px !important;
+	height: 31px !important;
+}
+
+.tariff-hijo {
+	color: green !important;
+}
+
+.tariff-clone {
+	color: rgb(62, 63, 3) !important;
+}
+
+.mat-menu-item:hover:not([disabled]) {
+	background: #e2e2f0 !important;
+	text-decoration: underline;
+}
+
+.table-container {
+	overflow: auto;
+}
+
+tr.hover-element-row:hover {
+	background: #e2e2e2;
+}

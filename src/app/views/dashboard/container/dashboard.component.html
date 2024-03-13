@@ -1,0 +1,494 @@
+<!-- Dashboard card row -->
+<div fxLayout="row wrap"
+		 fxLayoutAlign="center center">
+	<div fxFlex="100"
+			 *ngIf="tarifario === 'SOAT'"
+			 fxFlex.gt-sm="33"
+			 fxFlex.sm="50">
+		<mat-card class="card-border">
+			<mat-card-title fxLayoutAlign="start center">
+				<span class="text-muted font-bold color-base">Tarifarios base - SOAT</span> <span fxFlex></span>
+				<mat-chip class="icon-chip"
+									color="accent"
+									selected="true">
+					<mat-icon>grid_on</mat-icon>
+				</mat-chip>
+			</mat-card-title>
+			<mat-card-content class="mat-card-content-tar">
+				<h3 class="m-0 font-normal">{{ baseFee }} / {{ baseFeeTotal }}</h3>
+				<small class="text-muted">Activas</small>
+			</mat-card-content>
+			<mat-card-actions>
+				<mat-divider> </mat-divider>
+				<div fxLayout="row"
+						 fxLayoutAlign="center center"
+						 class="action-div">
+					<button *ngIf="shCreate"
+									mat-mini-fab
+									matTooltip="Nuevo tarifario base"
+									color="primary"
+									class="action-button"
+									(click)="goSOAT(true)">
+						<mat-icon>add</mat-icon>
+					</button>
+					<button *ngIf="!consult_prima"
+									mat-mini-fab
+									matTooltip="Listar tarifarios base"
+									color="primary"
+									class="action-button"
+									(click)="goSOAT(false)">
+						<mat-icon>list</mat-icon>
+					</button>
+					<button *ngIf="shSearch"
+									mat-mini-fab
+									matTooltip="Consultar (probar)"
+									color="primary"
+									class="action-button"
+									[routerLink]="'/fee/search'">
+						<mat-icon>image_search</mat-icon>
+					</button>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+
+	<div fxFlex="100"
+			 *ngIf="tarifario === 'SOAT'"
+			 fxFlex.gt-sm="33"
+			 fxFlex.sm="50">
+		<mat-card class="card-border">
+			<mat-card-title fxLayoutAlign="start center">
+				<span class="text-muted font-bold color-base">Tarifario de canales - SOAT</span> <span fxFlex></span>
+				<mat-chip class="icon-chip"
+									color="accent"
+									selected="true">
+					<mat-icon>group</mat-icon>
+				</mat-chip>
+			</mat-card-title>
+			<mat-card-content class="mat-card-content-can">
+				<h3 class="m-0 font-normal">{{ specialFee }} / {{ specialFeeTotal }}</h3>
+				<small class="text-muted">Activas</small>
+			</mat-card-content>
+			<mat-card-actions>
+				<mat-divider> </mat-divider>
+				<div fxLayout="row"
+						 fxLayoutAlign="center center"
+						 class="action-div">
+					<button *ngIf="shCreate"
+									mat-mini-fab
+									matTooltip="Nuevo tarifario de canales"
+									color="primary"
+									class="action-button"
+									[matMenuTriggerFor]="menuChannels">
+						<mat-icon>add</mat-icon>
+					</button>
+					<button *ngIf="!consult_prima"
+									mat-mini-fab
+									matTooltip="Listar tarifarios de canales"
+									color="primary"
+									class="action-button"
+									(click)="goSOATChannel(false)">
+						<mat-icon>list</mat-icon>
+					</button>
+					<button *ngIf="!consult_prima"
+									mat-mini-fab
+									matTooltip="Gestionar canales"
+									color="primary"
+									class="action-button"
+									(click)="goChannelGroup()">
+						<mat-icon>person_outline</mat-icon>
+					</button>
+					<button *ngIf="!consult_prima"
+									mat-mini-fab
+									matTooltip="Gestionar canales con restricción"
+									color="primary"
+									class="action-button"
+									(click)="goChannelRestriction()">
+						<mat-icon>person_add_disabled</mat-icon>
+					</button>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+
+	<div fxFlex="100"
+			 *ngIf="tarifario === 'SOAT'"
+			 fxFlex.gt-sm="34"
+			 fxFlex.sm="50">
+		<mat-card class="card-border">
+			<mat-card-title fxLayoutAlign="start center">
+				<span class="text-muted font-bold color-base">Definiciones</span> <span fxFlex></span>
+				<mat-chip class="icon-chip"
+									color="accent"
+									selected="true">
+					<mat-icon>blur_linear</mat-icon>
+				</mat-chip>
+			</mat-card-title>
+			<mat-card-content class="mat-card-content-def">
+				<mat-divider> </mat-divider>
+				<div fxLayout="row wrap"
+						 *ngIf="!consult_prima">
+					<div fxFlex="100"
+							 class="menu-pt">
+						<div fxFlex="82"><span class="text-muted font-bold color-base">Usos y Clases</span></div>
+						<div fxFlex="18">
+							<mat-chip [routerLink]="'/class-uses'"
+												class="icon-chip"
+												color="primary"
+												selected="true">
+								<mat-icon>category</mat-icon>
+							</mat-chip>
+						</div>
+					</div>
+					<div fxFlex="100"
+							 class="menu-pt">
+						<div fxFlex="82"><span class="text-muted font-bold color-base">Grupos de Riesgo</span></div>
+						<div fxFlex="18">
+							<mat-chip [routerLink]="'/risk-group'"
+												class="icon-chip"
+												color="primary"
+												selected="true">
+								<mat-icon>storage</mat-icon>
+							</mat-chip>
+						</div>
+					</div>
+					<!-- 					<div fxFlex="100" class="menu-pt">
+						<div fxFlex="82"><span class="text-muted font-bold color-base">Parámetros</span></div>
+						<div fxFlex="18">
+							<mat-chip [routerLink]="'/parameters'" class="icon-chip" color="primary" selected="true">
+								<mat-icon>category</mat-icon>
+							</mat-chip>
+						</div>
+					</div> -->
+					<div fxFlex="100"
+							 class="menu-pt">
+						<div fxFlex="82"><span class="text-muted font-bold color-base">Zonas de circulación</span></div>
+						<div fxFlex="18">
+							<mat-chip [routerLink]="'/zones'"
+												class="icon-chip"
+												color="primary"
+												selected="true">
+								<mat-icon>gps_fixed</mat-icon>
+							</mat-chip>
+						</div>
+					</div>
+
+					<!--  <div fxFlex="100"
+                         class="menu-pt">
+                        <div fxFlex="82"><span class="text-muted font-bold color-base">Gestionar Canales</span></div>
+                        <div fxFlex="18">
+                            <mat-chip [routerLink]="'/manage-channels'"
+                                      class="icon-chip"
+                                      color="primary"
+                                      selected="true">
+                                <mat-icon>calendar_today</mat-icon>
+                            </mat-chip>
+                        </div>
+                    </div> -->
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+
+	<mat-menu #menuChannels="matMenu"
+						class="mat-menu-integration"
+						[overlapTrigger]="true">
+		<ng-template matMenuContent
+								 let-item="item">
+			<button mat-menu-item
+							[matMenuTriggerFor]="menuChannelsDetail">
+				<mat-icon color="primary">library_books</mat-icon>
+				<span>Utilizar un tarifario base</span>
+			</button>
+			<button mat-menu-item
+							(click)="goSOATSpecial(false)">
+				<mat-icon color="primary">library_add</mat-icon>
+				<span>No utilizar un tarifario base</span>
+			</button>
+			<button mat-menu-item
+							[routerLink]="'/fee/managecampaign'">
+				<mat-icon color="accent">timelapse</mat-icon>
+				<span>Crear campaña</span>
+			</button>
+		</ng-template>
+	</mat-menu>
+
+	<mat-menu #menuChannelsDetail="matMenu"
+						class="mat-menu-integration"
+						[overlapTrigger]="true">
+		<ng-template matMenuContent
+								 let-item="item">
+			<button mat-menu-item
+							(click)="openFeePicker(true)">
+				<mat-icon color="accent">grid_off</mat-icon>
+				<span>Primas base</span>
+			</button>
+			<button mat-menu-item
+							(click)="openFeePicker(false)">
+				<mat-icon color="accent">grid_on</mat-icon>
+				<span>Primas especiales</span>
+			</button>
+		</ng-template>
+	</mat-menu>
+
+	<div fxFlex="100"
+			 *ngIf="tarifario === 'SCTR'"
+			 fxFlex.gt-sm="33"
+			 fxFlex.sm="50">
+		<mat-card class="card-border">
+			<mat-card-title fxLayoutAlign="start center">
+				<span class="text-muted font-bold color-base">Tarifarios base - SCTR</span> <span fxFlex></span>
+				<mat-chip class="icon-chip"
+									color="accent"
+									selected="true">
+					<mat-icon>grid_on</mat-icon>
+				</mat-chip>
+			</mat-card-title>
+			<mat-card-content>
+				<h3 class="m-0 font-normal">{{ baseMatriz }} / {{ baseMatrizTotal }}</h3>
+				<small class="text-muted">Activas</small>
+			</mat-card-content>
+			<mat-card-actions>
+				<mat-divider> </mat-divider>
+				<div fxLayout="row"
+						 fxLayoutAlign="center center"
+						 class="action-div">
+					<button mat-mini-fab
+									matTooltip="Nuevo tarifario base"
+									color="primary"
+									class="action-button"
+									[routerLink]="'/matriz/manage'">
+						<mat-icon>add</mat-icon>
+					</button>
+					<button mat-mini-fab
+									matTooltip="Listar tarifarios base"
+									color="primary"
+									class="action-button"
+									(click)="goSCTR(false)">
+						<mat-icon>list</mat-icon>
+					</button>
+					<button mat-mini-fab
+									matTooltip="Consultar (probar)"
+									color="primary"
+									class="action-button"
+									[routerLink]="'/matriz/search'">
+						<mat-icon>image_search</mat-icon>
+					</button>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+
+	<div fxFlex="100"
+			 *ngIf="tarifario === 'SCTR'"
+			 fxFlex.gt-sm="33"
+			 fxFlex.sm="50">
+		<mat-card class="card-border">
+			<mat-card-title fxLayoutAlign="start center">
+				<span class="text-muted font-bold color-base">Tarifario de canales - SCTR</span> <span fxFlex></span>
+				<mat-chip class="icon-chip"
+									color="accent"
+									selected="true">
+					<mat-icon>group</mat-icon>
+				</mat-chip>
+			</mat-card-title>
+			<mat-card-content>
+				<h3 class="m-0 font-normal">{{ specialMatriz }} / {{ specialMatrizTotal }}</h3>
+				<small class="text-muted">Vigentes</small>
+			</mat-card-content>
+			<mat-card-actions>
+				<mat-divider> </mat-divider>
+				<div fxLayout="row"
+						 fxLayoutAlign="center center"
+						 class="action-div">
+					<button *ngIf="shCreate"
+									mat-mini-fab
+									matTooltip="Nuevo tarifario de canales"
+									color="primary"
+									class="action-button"
+									[matMenuTriggerFor]="menuChannelsSCTR">
+						<mat-icon>add</mat-icon>
+					</button>
+					<button mat-mini-fab
+									matTooltip="Listar tarifario de canales"
+									color="primary"
+									class="action-button"
+									(click)="goSCTR(true)">
+						<mat-icon>list</mat-icon>
+					</button>
+					<button mat-mini-fab
+									matTooltip="Gestionar canales"
+									color="primary"
+									class="action-button"
+									(click)="goChannelGroup(false)">
+						<mat-icon>person_outline</mat-icon>
+					</button>
+				</div>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+
+	<mat-menu #menuChannelsSCTR="matMenu"
+						class="mat-menu-integration"
+						[overlapTrigger]="true">
+		<ng-template matMenuContent
+								 let-item="item">
+			<button mat-menu-item
+							[matMenuTriggerFor]="menuChannelsDetailSCTR">
+				<mat-icon color="primary">library_books</mat-icon>
+				<span>Utilizar un tarifario base</span>
+			</button>
+			<button mat-menu-item
+							(click)="goSCTRSpecial(false)">
+				<mat-icon color="primary">library_add</mat-icon>
+				<span>No utilizar un tarifario base</span>
+			</button>
+			<button mat-menu-item
+							(click)="openMatrizPicker(false,'campaign')">
+				<mat-icon color="accent">timelapse</mat-icon>
+				<span>Crear campaña</span>
+			</button>
+		</ng-template>
+	</mat-menu>
+	<mat-menu #menuChannelsDetailSCTR="matMenu"
+						class="mat-menu-integration"
+						[overlapTrigger]="true">
+		<ng-template matMenuContent
+								 let-item="item">
+			<button mat-menu-item
+							(click)="openMatrizPicker(true,'base')">
+				<mat-icon color="accent">grid_off</mat-icon>
+				<span>Tasas base</span>
+			</button>
+			<button mat-menu-item
+							(click)="openMatrizPicker(false,'basespecial')">
+				<mat-icon color="accent">grid_on</mat-icon>
+				<span>Tasas especiales</span>
+			</button>
+		</ng-template>
+	</mat-menu>
+
+	<div fxFlex="100"
+			 *ngIf="tarifario === 'SCTR'"
+			 fxFlex.gt-sm="34"
+			 fxFlex.sm="50">
+		<mat-card class="card-border">
+			<mat-card-title fxLayoutAlign="start center">
+				<span class="text-muted font-bold color-base">Definiciones</span> <span fxFlex></span>
+				<mat-chip class="icon-chip"
+									color="accent"
+									selected="true">
+					<mat-icon>blur_linear</mat-icon>
+				</mat-chip>
+			</mat-card-title>
+			<mat-card-content class="mat-card-content-def-sctr">
+				<mat-divider> </mat-divider>
+				<div fxLayout="row wrap">
+					<div fxFlex="100"
+							 class="menu-pt">
+						<div fxFlex="82"><span class="text-muted font-bold color-base">Actividades</span></div>
+						<div fxFlex="18">
+							<mat-chip [routerLink]="'/actividades'"
+												class="icon-chip"
+												color="primary"
+												selected="true">
+								<mat-icon>storage</mat-icon>
+							</mat-chip>
+						</div>
+					</div>
+					<div fxFlex="100"
+							 class="menu-pt">
+						<div fxFlex="82"><span class="text-muted font-bold color-base">Parámetros</span></div>
+						<div fxFlex="18">
+							<mat-chip [routerLink]="'/parameters'"
+												class="icon-chip"
+												color="primary"
+												selected="true">
+								<mat-icon>category</mat-icon>
+							</mat-chip>
+						</div>
+					</div>
+					<div fxFlex="100"
+							 class="menu-pt">
+						<div fxFlex="82"><span class="text-muted font-bold color-base">Zonas</span></div>
+						<div fxFlex="18">
+							<mat-chip [routerLink]="'/zones'"
+												class="icon-chip"
+												color="primary"
+												selected="true">
+								<mat-icon>gps_fixed</mat-icon>
+							</mat-chip>
+						</div>
+					</div>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+
+	<!-- Fullwidth chart -->
+	<div fxFlex="100"
+			 fxLayout="row wrap">
+		<div fxFlex="100">
+			<mat-card class="default">
+				<mat-card-title class=""> <span>Cotizaciones</span> <span fxFlex></span> </mat-card-title>
+				<mat-card-subtitle>Cantidad mensual</mat-card-subtitle>
+				<mat-card-content class="p-0"
+													[style.height]="'240px'">
+					<canvas height="240"
+									baseChart
+									class="chart m-0"
+									[datasets]="lineChartSteppedData"
+									[labels]="lineChartLabels"
+									[options]="lineChartOptions"
+									[colors]="lineChartColors"
+									[legend]="lineChartLegend"
+									[chartType]="lineChartType"></canvas>
+				</mat-card-content>
+			</mat-card>
+		</div>
+	</div>
+
+	<div fxFlex="100"
+			 fxLayout="row wrap">
+		<!-- Gallery and chart column -->
+		<div fxFlex="100"
+				 fxLayout="column">
+			<mat-card class="p-0">
+				<mat-card-title class="">
+					<div class="card-title-text"><span>Cotizaciones Top</span> <span fxFlex></span></div>
+					<mat-divider></mat-divider>
+				</mat-card-title>
+				<mat-card-content>
+					<div class="mb-1">
+						<p class="mb-05 text-muted">Canal 1</p>
+						<mat-progress-bar class=""
+															color="primary"
+															mode="determinate"
+															[value]="90"> </mat-progress-bar>
+					</div>
+					<div class="mb-1">
+						<p class="mb-05 text-muted">Canal 2</p>
+						<mat-progress-bar class=""
+															color="primary"
+															mode="determinate"
+															[value]="80"> </mat-progress-bar>
+					</div>
+					<div class="mb-1">
+						<p class="mb-05 text-muted">Canal 3</p>
+						<mat-progress-bar class=""
+															color="accent"
+															mode="determinate"
+															[value]="60"> </mat-progress-bar>
+					</div>
+					<div class="mb-1">
+						<p class="mb-05 text-muted">Canal 4</p>
+						<mat-progress-bar class=""
+															color="warn"
+															mode="determinate"
+															[value]="40"> </mat-progress-bar>
+					</div>
+				</mat-card-content>
+			</mat-card>
+		</div>
+	</div>
+</div>

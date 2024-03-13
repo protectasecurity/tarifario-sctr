@@ -1,0 +1,69 @@
+.button-container {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.action-buttons {
+	display: flex;
+}
+
+.mat-table-lgr-setting {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.mat-header-lgr-colums {
+	color: white !important;
+	font-size: 12px !important;
+	text-align: center !important;
+}
+
+td.mat-cell.cdk-column-actividad.mat-column-actividad.ng-star-inserted {
+	border-left: solid 1px rgba(0, 0, 0, 0.12);
+	border-right: solid 1px rgba(0, 0, 0, 0.12);
+}
+
+.mat-header-act{
+	width: 250px;
+}
+.mat-header-ciu{
+	width: 20px;
+}
+.mat-header-state{
+	width: 20px;
+}
+.mat-header-acc{
+	width: 20px;
+}
+
+.mat-header-lgr-desc {
+	width: auto;
+}
+
+.ta-c {
+	text-align: center;
+}
+
+.mat-header-lgr-state {
+	width: 100px;
+}
+
+.mat-header-lgr-acc {
+	width: 100px !important;
+}
+
+tr.mat-header-lgr-row-st {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+tr.mat-table-row-st {
+	height: 30px !important;
+}
+
+tr.hover-element-lgr-row:hover {
+	background: #e2e2e2;
+}
+.table-lgr-container {
+	height: 400px !important;
+	overflow: auto;
+}

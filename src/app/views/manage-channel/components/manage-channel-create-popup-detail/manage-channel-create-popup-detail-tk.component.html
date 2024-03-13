@@ -1,0 +1,64 @@
+<mat-dialog-content fxLayout="column">
+	<div fxLayout="row"
+			 class="visibility-filter">
+		<mat-card *ngFor="let item of (visibilityFilter$ | async)"
+							fxFlex="100"
+							fxLayout="column">
+			<mat-checkbox fxFlex="100"
+										labelPosition="before"
+										[fxFlex.gt-lg]="chk"
+										*ngFor="let chk of item.agents"
+										[(ngModel)]="chk.isChecked"
+										(change)="Click($event, chk.name, chk.type, chk.filter)">
+				{{ chk.name }}
+			</mat-checkbox>
+
+			<!--<mat-selection-list >-->
+			<!--<mat-list-option *ngFor="let chk of item.agents"   (click)="handleSelection($event, chk)">-->
+			<!--<span [title]="chk.name" class="agent-description"   >{{ chk.name }}</span>-->
+			<!--</mat-list-option>-->
+			<!--</mat-selection-list>-->
+		</mat-card>
+	</div>
+	<div class="agents-container">
+		<manage-channel-agent-tk [agents]="brokers"
+														 *ngIf="showBrokersCheck"
+														 [agentTypes]="brokerTypes"
+														 (onSearchAgents)="searchBrokers($event)"
+														 (onSelectAgent)="selectBrokerAgent($event)">
+		</manage-channel-agent-tk>
+		<manage-channel-agent-tk [agents]="middlemen"
+														 *ngIf="showMiddlemenCheck"
+														 [agentTypes]="middlemenTypes"
+														 (onSearchAgents)="searchMiddlemen($event)"
+														 (onSelectAgent)="selectMiddlemanAgent($event)">
+		</manage-channel-agent-tk>
+
+		<manage-channel-agent-tk disabled="true"
+														 *ngIf="showPointOfSalesCheck"
+														 [agents]="pointOfSales"
+														 [agentTypes]="PointOfSalesTypes"
+														 (onSearchAgents)="searchPointOfSales($event)"
+														 (onSelectAgent)="selectPointOfSalesAgent($event)">
+		</manage-channel-agent-tk>
+
+		<manage-channel-agent-tk disabled="true"
+														 *ngIf="showClientsCheck"
+														 [showFiltrar]="showFiltrarInCustomers"
+														 [agents]="customers"
+														 [agentTypes]="CustomerTypes"
+														 (onSearchAgents)="searchCustomers($event)"
+														 (onSelectAgent)="selectcustomerAgent($event)">
+		</manage-channel-agent-tk>
+	</div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+	<button mat-raised-button
+					color="primary"
+					mat-dialog-close>Cancelar
+	</button>
+	<button mat-raised-button
+					color="primary"
+					(click)="addAgents()">Agregar
+	</button>
+</mat-dialog-actions>

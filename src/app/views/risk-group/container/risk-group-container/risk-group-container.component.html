@@ -1,0 +1,24 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">
+			<div fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="100" fxLayoutAlign="start center">
+					<mat-icon title="Listado de grupos de riesgo" class="list-title" [routerLink]="['/risk-group']">arrow_back</mat-icon>
+					GRUPOS DE RIESGO - SOAT
+				</div>
+			</div>
+		</div>
+
+		<mat-divider></mat-divider>
+	</mat-card-title>
+	<mat-card-content>
+		<risk-group-detail *ngIf="readyToShow()"
+			#riskGroupDetail
+			[uses]="uses$ | async"
+			[isClone]="isCloneItem"
+			[personTypes]="personTypes$ | async"
+			[riskGroup]="riskGroup$ | async"
+			(updateSave)="save($event)"
+		></risk-group-detail>
+	</mat-card-content>
+</mat-card>

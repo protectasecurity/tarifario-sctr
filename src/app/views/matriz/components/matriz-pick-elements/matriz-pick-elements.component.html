@@ -1,0 +1,318 @@
+<div fxLayout="row wrap">
+    <div fxFlex="100"><span mat-dialog-title
+              class="modal-title">Seleccione: Actividades Economicas</span></div>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+    <div fxFlex="100"
+         fxLayout="row">
+        <div fxFlex="46"
+             class="Dleft"
+             fxLayout="row wrap">
+            <div fxFlex="100"
+                 fxLayout="row"
+                 fxLayoutAlign="center center">
+                <mat-form-field class="mat-table-left-filter">
+                    <input matInput
+                           (keyup)="applyfilterActividades($event.target.value)"
+                           [(ngModel)]="filterActividades"
+                           placeholder="Filtrar" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="100"
+                 fxLayout="row"
+                 fxLayoutAlign="center start">
+                <cdk-virtual-scroll-viewport itemSize="8"
+                                             class="example-viewport">
+                    <table mat-table
+                           [dataSource]="dataSourceActividadesGlobal"
+                           class="mat-elevation-z8 mat-table-left">
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell
+                                *matHeaderCellDef
+                                class="mat-header-sele-left">
+                                <mat-checkbox class="chk-white"
+                                              (change)="$event ? masterToggleActividadesGlobal() : null"
+                                              [checked]="selectionActividadesGlobal.hasValue() && isAllSelectedActividadesGlobal()"
+                                              [indeterminate]="selectionActividadesGlobal.hasValue() && !isAllSelectedActividadesGlobal()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell
+                                *matCellDef="let row">
+                                <mat-checkbox class="chk-white"
+                                              (click)="$event.stopPropagation()"
+                                              (change)="$event ? selectionActividadesGlobal.toggle(row) : null"
+                                              [checked]="selectionActividadesGlobal.isSelected(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="colDescription">
+                            <th mat-header-cell
+                                *matHeaderCellDef
+                                class="mat-header-desc-left">Actividades disponibles</th>
+                            <td mat-cell
+                                *matCellDef="let element"
+                                class="mat-cell-left">{{ "[" + element.group + "] - " + element.description }}</td>
+                        </ng-container>
+                        <tr mat-header-row
+                            *matHeaderRowDef="displayedActividadesColumnsGlobal; sticky: true"
+                            class="mat-header-row-left"></tr>
+                        <tr mat-row
+                            *matRowDef="let row; columns: displayedActividadesColumnsGlobal"
+                            class="mat-row-left"></tr>
+                    </table>
+                </cdk-virtual-scroll-viewport>
+            </div>
+        </div>
+        <div fxFlex="9"
+             class="Dcenter">
+            <div fxFlex="100"
+                 fxLayout="column"
+                 fxLayoutAlign="center center">
+                <button mat-raised-button
+                        type="button"
+                        [disabled]="disabledAddActividadesGlobal()"
+                        class="btnincluir"
+                        color="accent"
+                        (click)="addA()">
+                    Añadir <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+                <button mat-raised-button
+                        type="button"
+                        [disabled]="disabledAddActividadesActual()"
+                        color="accent"
+                        (click)="deleteA()"
+                        class="btnincluir">
+                    <mat-icon>keyboard_arrow_left</mat-icon> Eliminar
+                </button>
+            </div>
+        </div>
+        <div fxFlex="46"
+             class="Dright"
+             fxLayout="row wrap">
+            <div fxFlex="100"
+                 fxLayout="row"
+                 fxLayoutAlign="center center">
+                <mat-form-field class="mat-table-left-filter">
+                    <input matInput
+                           (keyup)="applyfilterActualActividades($event.target.value)"
+                           [(ngModel)]="filterActualActividades"
+                           placeholder="Filtrar" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="100"
+                 fxLayout="row"
+                 fxLayoutAlign="center start">
+                <cdk-virtual-scroll-viewport itemSize="8"
+                                             class="example-viewport">
+                    <table mat-table
+                           [dataSource]="dataSourceActividadesActual"
+                           class="mat-elevation-z8 mat-table-right">
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell
+                                *matHeaderCellDef
+                                class="mat-header-sele-right">
+                                <mat-checkbox class="chk-white"
+                                              (change)="$event ? masterToggleActividadesActual() : null"
+                                              [checked]="selectionActividadesActual.hasValue() && isAllSelectedActividadesActual()"
+                                              [indeterminate]="selectionActividadesActual.hasValue() && !isAllSelectedActividadesActual()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell
+                                *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                              (change)="$event ? selectionActividadesActual.toggle(row) : null"
+                                              [checked]="selectionActividadesActual.isSelected(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell
+                                *matHeaderCellDef
+                                class="mat-header-desc-right">Actividades asociadas</th>
+                            <td mat-cell
+                                *matCellDef="let element"
+                                class="mat-cell-right">
+                                <label [ngClass]="{ removeActual: element.status === 4 }">{{ "[" + element.group + "] -
+                                    " + element.description }}</label>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row
+                            *matHeaderRowDef="displayedActividadesColumnsActual; sticky: true"
+                            class="mat-header-row-right"></tr>
+                        <tr mat-row
+                            *matRowDef="let row; columns: displayedActividadesColumnsActual"
+                            class="mat-row-right"
+                            cdkDrag
+                            [cdkDragData]="row"></tr>
+                    </table>
+                </cdk-virtual-scroll-viewport>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-divider></mat-divider>
+
+<div fxLayout="row wrap">
+    <div fxFlex="100"><span mat-dialog-title
+              class="modal-title">Seleccione: Zonas</span></div>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+    <div fxFlex="100"
+         fxLayout="row">
+        <div fxFlex="46"
+             class="Dleft"
+             fxLayout="row wrap">
+            <div fxFlex="100"
+                 fxLayout="row"
+                 fxLayoutAlign="center center">
+                <mat-form-field class="mat-table-left-filter">
+                    <input matInput
+                           (keyup)="applyfilterZonas($event.target.value)"
+                           [(ngModel)]="filterZonas"
+                           placeholder="Filtrar" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="100"
+                 fxLayout="row"
+                 fxLayoutAlign="center start">
+                <cdk-virtual-scroll-viewport itemSize="10"
+                                             class="example-viewport">
+                    <table mat-table
+                           [dataSource]="dataSourceZonasGlobal"
+                           class="mat-elevation-z8 mat-table-left">
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell
+                                *matHeaderCellDef
+                                class="mat-header-sele-left">
+                                <mat-checkbox class="chk-white"
+                                              (change)="$event ? masterToggleGlobal() : null"
+                                              [checked]="selectionZonasGlobal.hasValue() && isAllSelectedGlobal()"
+                                              [indeterminate]="selectionZonasGlobal.hasValue() && !isAllSelectedGlobal()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell
+                                *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                              (change)="$event ? selectionZonasGlobal.toggle(row) : null"
+                                              [checked]="selectionZonasGlobal.isSelected(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="colDescription">
+                            <th mat-header-cell
+                                *matHeaderCellDef
+                                class="mat-header-desc-left">Zonas disponibles</th>
+                            <td mat-cell
+                                *matCellDef="let element"
+                                class="mat-cell-left">{{ element.description }}</td>
+                        </ng-container>
+                        <tr mat-header-row
+                            *matHeaderRowDef="displayedZonasColumnsGlobal; sticky: true"
+                            class="mat-header-row-left"></tr>
+                        <tr mat-row
+                            *matRowDef="let row; columns: displayedZonasColumnsGlobal"
+                            class="mat-row-left"></tr>
+                    </table>
+                </cdk-virtual-scroll-viewport>
+            </div>
+        </div>
+        <div fxFlex="9"
+             class="Dcenter">
+            <div fxFlex="100"
+                 fxLayout="column"
+                 fxLayoutAlign="center center">
+                <button mat-raised-button
+                        type="button"
+                        [disabled]="disabledAddGlobal()"
+                        class="btnincluir"
+                        color="accent"
+                        (click)="add()">
+                    Añadir <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+                <button mat-raised-button
+                        type="button"
+                        [disabled]="disabledAddActual()"
+                        color="accent"
+                        (click)="delete()"
+                        class="btnincluir">
+                    <mat-icon>keyboard_arrow_left</mat-icon> Eliminar
+                </button>
+            </div>
+        </div>
+        <div fxFlex="46"
+             class="Dright"
+             fxLayout="row wrap">
+            <div fxFlex="100"
+                 fxLayout="row"
+                 fxLayoutAlign="center center">
+                <mat-form-field class="mat-table-left-filter">
+                    <input matInput
+                           (keyup)="applyFilterActual($event.target.value)"
+                           [(ngModel)]="filterActualZonas"
+                           placeholder="Filtrar" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="100"
+                 fxLayout="row"
+                 fxLayoutAlign="center start">
+                <cdk-virtual-scroll-viewport itemSize="10"
+                                             class="example-viewport">
+                    <table mat-table
+                           [dataSource]="dataSourceZonasActual"
+                           class="mat-elevation-z8 mat-table-right">
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell
+                                *matHeaderCellDef
+                                class="mat-header-sele-right">
+                                <mat-checkbox class="chk-white"
+                                              (change)="$event ? masterToggleActual() : null"
+                                              [checked]="selectionZonasActual.hasValue() && isAllSelectedActual()"
+                                              [indeterminate]="selectionZonasActual.hasValue() && !isAllSelectedActual()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell
+                                *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                              (change)="$event ? selectionZonasActual.toggle(row) : null"
+                                              [checked]="selectionZonasActual.isSelected(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell
+                                *matHeaderCellDef
+                                class="mat-header-desc-right">Zonas asociadas</th>
+                            <td mat-cell
+                                *matCellDef="let element"
+                                class="mat-cell-right">
+                                <label [ngClass]="{ removeActual: element.status === 4 }">{{ element.description
+                                    }}</label>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row
+                            *matHeaderRowDef="displayedZonasColumnsActual; sticky: true"
+                            class="mat-header-row-right"></tr>
+                        <tr mat-row
+                            *matRowDef="let row; columns: displayedZonasColumnsActual"
+                            class="mat-row-right"
+                            cdkDrag
+                            [cdkDragData]="row"></tr>
+                    </table>
+                </cdk-virtual-scroll-viewport>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-raised-button
+            color="primary"
+            mat-dialog-close>Cancelar</button>
+    <button mat-raised-button
+            color="primary"
+            [disabled]="actualData()"
+            (click)="save()">Aplicar</button>
+</mat-dialog-actions>

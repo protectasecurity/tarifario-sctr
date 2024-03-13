@@ -1,0 +1,124 @@
+<div>
+	<form [formGroup]="riskGroupForm">
+		<div fxLayout="row wrap" fxLayoutAlign="center center">
+			<div fxFlex="100" fxFlex.gt-xs="34" class="pr-1">
+				<div>
+					<mat-form-field class="option-field">
+						<mat-placeholder class="placeholder">USO</mat-placeholder>
+						<mat-select [disabled]="disabledUseControl" name="use" formControlName="uso">
+							<mat-option *ngFor="let use of uses" [value]="use"> {{ use.description }} </mat-option>
+						</mat-select>
+						<mat-error *ngIf="riskGroupForm.get('uso').hasError('required')">Debe seleccionar un uso </mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxFlex="100" fxFlex.gt-xs="34" class="pr-1">
+				<div>
+					<mat-form-field class="option-field">
+						<mat-placeholder class="placeholder">TIPO DE PERSONA</mat-placeholder>
+						<mat-select name="use" formControlName="personType" (selectionChange)="changeTypePerson()" [disabled]="!modificationAllowed">
+							<mat-option>TODOS</mat-option>
+							<mat-option *ngFor="let pt of personTypes" [value]="pt"> {{ pt.description }} </mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div fxFlex="100" fxFlex.gt-xs="16" class="pr-1">
+				<div>
+					<button
+						[disabled]="riskGroupForm.invalid || !modificationAllowed"
+						color="primary"
+						class="btnagregarclase"
+						(click)="addDetail()"
+						mat-mini-fab
+					>
+						<mat-icon>add</mat-icon>
+					</button>
+
+					<!-- <button mat-raised-button color="primary" class="btnnuevo" [disabled]="riskGroupForm.invalid" (click)="addDetail()">
+						<mat-icon class="exporticon">add</mat-icon>
+						<span>Agregar clase</span>
+					</button> -->
+				</div>
+			</div>
+		</div>
+
+		<BR />
+		<div fxLayout="row wrap">
+			<div fxFlex="100">
+				<div class="table-container">
+					<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting">
+						<ng-container matColumnDef="clase">
+							<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-class">Clase</th>
+							<td mat-cell *matCellDef="let row" class="ta-f">{{ row.vehicleClass.description }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="asientos">
+							<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-asientos">Asientos</th>
+							<td mat-cell *matCellDef="let row" class="ta-f">
+								{{ getDescripcionDeAsientos(row.seatsRestriction) }}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="marcasmodelos">
+							<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-marcas y">Marcas-Modelos</th>
+							<td mat-cell *matCellDef="let row" class="brand-model ta-f">{{ concatenateBrandsAndModels(row) }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="acciones">
+							<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-acciones ">Acciones</th>
+							<td mat-cell *matCellDef="let row; let i = index" class="ta-f">
+								<button mat-button (click)="edit(row)" [disabled]="!modificationAllowed">
+									<mat-icon>edit</mat-icon>
+								</button>
+								<button mat-icon-button matTooltip="Eliminar" [disabled]="!modificationAllowed" mat-sm-button color="warn" (click)="delete(i)">
+									<mat-icon>delete</mat-icon>
+								</button>
+							</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-row"></tr>
+					</table>
+
+					<div *ngIf="subGroups.length === 0" class="no-record-found">
+						Para crear un grupo de riesgo, primero seleccione un uso.
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div fxLayout="row wrap">
+		<div fxFlex="100"></div>
+		<div fxFlex="100">
+			<mat-form-field class="full-width">
+				<textarea
+					[disabled]="!modificationAllowed"
+					matInput
+					rows="5"
+					name="description"
+					placeholder="Descripción de grupo de riesgo"
+					[disabled]="disabledDescripcionEdition"
+					[(ngModel)]="grupoDescripcion"
+					(ngModelChange)="cleanChk()"
+					required
+				></textarea>
+			</mat-form-field>
+		</div>
+	</div>
+</div>
+
+<div fxLayout="row">
+	<div fxFlex="1" fxLayoutAlign="start center">
+		<mat-checkbox [(ngModel)]="checked" class="mat-chkregenerar" [disabled]="!modificationAllowed" *ngIf="this.isEditing" (change)="selectItem($event)"
+			>¿Regenerar descripción?</mat-checkbox
+		>
+	</div>
+	<div fxFlex="99" fxLayoutAlign="center center">
+		<button mat-raised-button color="primary" (click)="cancel()" class="btn-margin" [disabled]="!modificationAllowed">Cancelar</button>
+		<button mat-raised-button [disabled]="!enabledBotonAceptar || !modificationAllowed" color="primary" (click)="saveRiskGroup()">
+			Aceptar
+		</button>
+	</div>
+</div>

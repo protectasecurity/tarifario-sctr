@@ -1,0 +1,50 @@
+.mat-dialog-container {
+	overflow: hidden;
+}
+.mat-dialog-content {
+	overflow: hidden;
+}
+.table-container-models {
+	height: 200px;
+	width: 100%;
+	overflow-y: auto;
+	background-color: aliceblue;
+}
+tr.mat-header-row-st {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+.mat-header-mmm {
+	width: auto !important;
+}
+
+.mat-header-acc {
+	width: 12% !important;
+}
+
+.chk-gr-white {
+	background-color: white !important;
+}
+
+.ta-c {
+	text-align: center;
+}
+
+tr.mat-table-row-st {
+	height: 25px !important;
+}
+
+.table-models {
+	width: 100%;
+}
+.btnmarcas {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	margin-bottom: 7px;
+}
+
+.btneliminar {
+	margin-left: 5px !important;
+}

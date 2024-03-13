@@ -1,0 +1,19 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+	<div fxLayout="column" class="card-class">
+		<div fxLayout="row" >
+			<div class="header-class" fxFlex='78'>
+				Clases
+			</div>
+			<div class="header-check-class" fxFlex='22'>
+				<mat-checkbox [checked]="isCheck" (change)="onSelectedAll($event)" color="accent"></mat-checkbox>
+			</div>
+		</div>
+		<div class="list-class" >
+			<mat-selection-list #classList (selectionChange)="selectClass(classList.selectedOptions.selected)" color="accent" >
+				<mat-list-option *ngFor="let class of classCollection" [value]="class" >
+					<span [title]="class.description">{{ class.description }}</span>
+				</mat-list-option>
+			</mat-selection-list>
+		</div>
+	</div>
+</div>

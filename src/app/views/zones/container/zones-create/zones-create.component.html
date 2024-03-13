@@ -1,0 +1,26 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">
+			<div fxLayout="row" fxLayoutAlign="start center" class="main-title-header">
+				<div fxFlex="25" fxLayoutAlign="start center">
+					<mat-icon title="Listado de tarifarios" class="list-title" (click)="redirect()">arrow_back</mat-icon> DEFINIR ZONA
+				</div>
+			</div>
+		</div>
+
+		<!-- 		<mat-icon title="Listado de tarifarios" class="list-title" (click)="handleBack()">arrow_back</mat-icon>
+		<div class="card-title-text">DEFINIR ZONA</div> -->
+
+		<mat-divider></mat-divider>
+	</mat-card-title>
+	<mat-card-content>
+		<app-zones-create-detail
+			[Zone]="zone$ | async"
+			[Zones]="Zones$ | async"
+			[ubicaciones]="ubicaciones$ | async"
+			(onAddzone)="addzone($event)"
+			(onUpdatezone)="updatezone($event)"
+		>
+		</app-zones-create-detail>
+	</mat-card-content>
+</mat-card>

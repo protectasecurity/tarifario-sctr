@@ -1,0 +1,218 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">LISTA DE TARIFARIOS DE CANAL- SOAT</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content #cardcontent>
+        <form #formElement>
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                    <div>
+                        <mat-form-field class="full-width">
+                            <input matInput name="description" placeholder="Descripción de tarifa" value="" [formControl]="descriptionFilter" />
+                            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="filteredValues.description !== ''" (click)="descriptionFilter.reset(); filteredValues.description = ''">
+								<mat-icon>close</mat-icon>
+							</button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="10" class="pr-1">
+                    <div>
+                        <mat-form-field class="full-width">
+                            <mat-select placeholder="Moneda" name="moneda" [formControl]="monedaFilter">
+                                <mat-option value="">Todos</mat-option>
+                                <mat-option value="PEN">Soles</mat-option>
+                                <mat-option value="DOL">Dólares</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="10" class="pr-1">
+                    <div>
+                        <mat-form-field class="full-width">
+                            <mat-select placeholder="Sector" name="sector" [formControl]="sectorFilter">
+                                <mat-option value="">Todos</mat-option>
+                                <mat-option value="PRIVATE">Privado</mat-option>
+                                <mat-option value="PUBLIC">Público</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="10" class="pr-1">
+                    <div>
+                        <mat-form-field class="full-width">
+                            <mat-select placeholder="Tipo de Tarifa" name="moneda" [formControl]="tipoFilter">
+                                <mat-option value="">Todos</mat-option>
+                                <mat-option value="CAMPAIGN">Campaña</mat-option>
+                                <mat-option value="SPECIAL">Canal</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="10" class="pr-1">
+                    <div>
+                        <mat-form-field class="full-width">
+                            <mat-select placeholder="Estado" name="estado" [formControl]="stateFilter">
+                                <mat-option value="">Todos</mat-option>
+                                <mat-option value="true">Activo</mat-option>
+                                <mat-option value="false">Inactivo</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="10" class="pr-1">
+                    <div>
+                        <mat-form-field class="full-width">
+							<mat-select placeholder="Vigencia" name="vigencia" [formControl]="iniVigFilter">
+                                <mat-option value="">Todos</mat-option>
+                                <mat-option value="VIGENTE">Vigente</mat-option>
+                                <mat-option value="NOVIGENTE">No Vigente</mat-option>
+                            </mat-select>
+                           <!--  <input matInput name="dateIni" placeholder="Vigencia" [matDatepicker]="appDatepickerIni" (click)="appDatepickerIni.open()" [formControl]="iniVigFilter" />
+                            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="filteredValues.iniVig !== ''" (click)="iniVigFilter.reset(); filteredValues.iniVig = ''">
+								<mat-icon>close</mat-icon>
+							</button>
+                            <mat-datepicker-toggle matSuffix [for]="appDatepickerIni" locale="es"></mat-datepicker-toggle> -->
+                        </mat-form-field>
+                        <!-- <mat-datepicker #appDatepickerIni></mat-datepicker> -->
+                    </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="25" class="pr-1">
+                    <div fxLayoutAlign="end center">
+                        <button mat-raised-button class="btnexportar" [disabled]="dataSource.data.length === 0" (click)="exportTable($event)">
+							<mat-icon class="exporticon">cloud_download</mat-icon>
+							<span>Exportar</span>
+						</button>
+                        <button mat-raised-button class="btncanales" [disabled]="dataSource.data.length === 0" (click)="showreport($event)">
+							<mat-icon class="exporticon">person_outline</mat-icon>
+							<span>Canales</span>
+						</button>
+                  <!--       <button [matMenuTriggerFor]="menuChannels" [matMenuTriggerData]="{ item: row }" mat-raised-button color="primary" class="btnnuevo" *ngIf="shCreate"> -->
+                        <button [matMenuTriggerFor]="menuChannels" mat-raised-button color="primary" class="btnnuevo" *ngIf="shCreate">
+							<mat-icon class="exporticon">add</mat-icon>
+							<span>&nbsp;&nbsp;Nuevo&nbsp;&nbsp;</span>
+						</button>
+
+                        <mat-menu #menuChannels="matMenu" class="mat-menu-integration" [xPosition]="'before'" [yPosition]="'above'" [overlapTrigger]="true">
+                            <ng-template matMenuContent let-item="item">
+                                <button mat-menu-item [matMenuTriggerFor]="menuChannelsDetail">
+									<mat-icon color="primary">forward</mat-icon>
+									<span>Utilizar un tarifario base</span>
+								</button>
+                                <button mat-menu-item [routerLink]="'/fee/specialchannel'">
+									<mat-icon color="primary">forward</mat-icon>
+									<span>No utilizar un tarifario base</span>
+								</button>
+                                <button mat-menu-item [routerLink]="'/fee/managecampaign'">
+									<mat-icon color="accent">timelapse</mat-icon>
+									<span>Crear campaña</span>
+								</button>
+                            </ng-template>
+                        </mat-menu>
+                        <mat-menu #menuChannelsDetail="matMenu" class="mat-menu-integration" [overlapTrigger]="true">
+                            <ng-template matMenuContent let-item="item">
+                                <button mat-menu-item (click)="openFeePicker(true)">
+									<mat-icon color="accent">grid_off</mat-icon>
+									<span>Primas base</span>
+								</button>
+                                <button mat-menu-item (click)="openFeePicker(false)">
+									<mat-icon color="accent">grid_on</mat-icon>
+									<span>Primas especiales</span>
+								</button>
+                            </ng-template>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" class="pb-1"></div>
+            <div fxLayout="row wrap">
+                <div fxFlex="100">
+                    <div class="table-container-fee-list">
+                        <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting-fee-list">
+                            <ng-container matColumnDef="description">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-desc-fee-list">Descripci&oacute;n</th>
+                                <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="startDate">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-inivig-fee-list">Inicio Vigencia</th>
+                                <td mat-cell *matCellDef="let row" class="ta-c">{{ row.startDate }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="endDate">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-finvig-fee-list">Fin Vigencia</th>
+                                <td mat-cell *matCellDef="let row" class="ta-c">{{ row.endDate }}</td>
+                            </ng-container>
+                            <!-- | date: "dd/MM/yyyy" -->
+                            <ng-container matColumnDef="currency">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-currency-fee-list">Moneda</th>
+                                <td mat-cell *matCellDef="let row" class="ta-c">{{ row.currency === "PEN" ? "Soles" : "Dólares" }}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="type">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-type-fee-list">Tipo de Tarifa</th>
+                                <td mat-cell *matCellDef="let row" class="ta-c">{{ getType(row.type) }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="sector">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-type-fee-list">Sector</th>
+                                <td mat-cell *matCellDef="let row" class="ta-c">{{ row.target === "PRIVATE" ? "Privado" : "Público" }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="changeDate">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-cambio-fee-list">Fecha Cambio</th>
+                                <td mat-cell *matCellDef="let row" class="ta-c">{{ row.updatedAt | date: "dd/MM/yy hh:mm:ss a" }}</td>
+                            </ng-container>
+
+							<ng-container matColumnDef="effectDate">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-effect-date-list">Fecha Efecto</th>
+                                <td mat-cell *matCellDef="let row" class="ta-c">{{ row.effectDate | date: "dd/MM/yy hh:mm:ss a" }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="state">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-state-fee-list">Estado</th>
+                                <td mat-cell *matCellDef="let row" class="ta-c">
+                                    <mat-slide-toggle class="example-margin" [disabled]="!canChange" title="{{ !row.state ? 'Activar' : 'Desactivar' }}" [checked]="row.state" (change)="changeStatus(row)">
+                                    </mat-slide-toggle>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-list mat-header-acc-fee-list">Acciones</th>
+                                <td mat-cell *matCellDef="let row" class="ta-c">
+                                    <button mat-button [matMenuTriggerFor]="menuIntegrationProfile" [matMenuTriggerData]="{ item: row }">
+										<mat-icon>more_vert</mat-icon>
+									</button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st-fee-list"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st-fee-list hover-element-row-fee-list"></tr>
+                        </table>
+
+                        <mat-menu #menuIntegrationProfile="matMenu" class="mat-menu-integration" [xPosition]="'before'" [yPosition]="'above'" [overlapTrigger]="true">
+                            <ng-template matMenuContent let-item="item">
+                                <button mat-menu-item (click)="deletefee(item)" [disabled]="!canDelete">
+									<mat-icon color="warn">delete</mat-icon>
+									<span>Eliminar tarifario</span>
+								</button>
+                                <button mat-menu-item (click)="clone(item)" [disabled]="!canClone">
+									<mat-icon class="tariff-clone">file_copy</mat-icon>
+									<span>Clonar tarifario</span>
+								</button>
+                                <button *ngIf="item.type !== 'CAMPAIGN'" mat-menu-item (click)="createchild(item)" [disabled]="!createCampaing">
+									<mat-icon class="tariff-hijo">note_add</mat-icon>
+									<span>Crear campaña</span>
+								</button>
+                                <button mat-menu-item (click)="viewFee(item)">
+									<mat-icon color="primary">edit</mat-icon>
+									<span>{{ viewEdit }}</span>
+								</button>
+                            </ng-template>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,170 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100">
+		<span mat-dialog-title class="modal-title">Seleccione: Marcas y Modelos de Clase {{ mainClass.description }}</span>
+	</div>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+	<!-- <mat-tab-group color="accent" selectedIndex="0"> -->
+	<!-- <mat-tab> -->
+	<!-- <ng-template mat-tab-label>
+		<mat-icon class="tab-icon">playlist_add</mat-icon>
+		Búsqueda nueva
+	</ng-template> -->
+	<div fxFlex="100" class="main-tab1" fxLayout="row wrap">
+		<div fxFlex="100" class="mat-ddl-brand" fxLayout="row" fxLayoutAlign="center center">
+			<mat-form-field floatLabel="never" class="dropdownspace ddl_uso">
+				<mat-placeholder class="placeholder">Seleccione Marca</mat-placeholder>
+				<mat-select [formControl]="marcaCtrl" #singleSelect (selectionChange)="changeBrand()">
+					<mat-dropdown-search [formControl]="marcaFiltroCtrl"></mat-dropdown-search>
+					<mat-option *ngFor="let marca of (marcaSeleccionada | async)" [value]="marca">
+						{{ marca.description }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div fxFlex="100" fxLayout="row">
+			<div fxFlex="45" class="Dleft" fxLayout="row wrap">
+				<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+					<mat-form-field class="mat-table-left-filter">
+						<input matInput (keyup)="applyFilterGlobal($event.target.value)" [(ngModel)]="filterGlobal" />
+						<mat-placeholder class="placeholder">Filtrar</mat-placeholder>
+					</mat-form-field>
+				</div>
+				<div fxFlex="100" fxLayout="row" fxLayoutAlign="center start">
+					<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+						<table mat-table [dataSource]="dataSourceGlobal" class="mat-elevation-z8 mat-table-left">
+							<ng-container matColumnDef="select">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-sele-left">
+									<mat-checkbox
+										class="chk-white"
+										(change)="$event ? masterToggleGlobal() : null"
+										[checked]="selectionGlobal.hasValue() && isAllSelectedGlobal()"
+										[indeterminate]="selectionGlobal.hasValue() && !isAllSelectedGlobal()"
+									>
+									</mat-checkbox>
+								</th>
+								<td mat-cell *matCellDef="let row">
+									<mat-checkbox
+										(click)="$event.stopPropagation()"
+										(change)="$event ? selectionGlobal.toggle(row) : null"
+										[checked]="selectionGlobal.isSelected(row)"
+									>
+									</mat-checkbox>
+								</td>
+							</ng-container>
+							<ng-container matColumnDef="colDescription">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-desc-left">Modelos disponibles</th>
+								<td mat-cell *matCellDef="let element" class="mat-cell-left">{{ element.description }}</td>
+							</ng-container>
+							<tr mat-header-row *matHeaderRowDef="displayedColumnsGlobal; sticky: true" class="mat-header-row-left"></tr>
+							<tr mat-row *matRowDef="let row; columns: displayedColumnsGlobal" class="mat-row-left"></tr>
+						</table>
+					</cdk-virtual-scroll-viewport>
+				</div>
+			</div>
+			<div fxFlex="10" class="Dcenter">
+				<div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+					<button mat-raised-button type="button" [disabled]="disabledAddGlobal()" class="btnincluir" color="accent" (click)="add()">
+						Añadir <mat-icon>keyboard_arrow_right</mat-icon>
+					</button>
+
+					<button mat-raised-button type="button" [disabled]="disabledAddActual()" color="accent" (click)="delete()" class="btnincluir">
+						<mat-icon>keyboard_arrow_left</mat-icon> Eliminar
+					</button>
+				</div>
+			</div>
+			<div fxFlex="45" class="Dright" fxLayout="row wrap">
+				<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+					<mat-form-field class="mat-table-left-filter">
+						<mat-placeholder class="placeholder">Filtrar</mat-placeholder>
+						<input matInput (keyup)="applyFilterActual($event.target.value)" [(ngModel)]="filterActual" />
+					</mat-form-field>
+				</div>
+				<div fxFlex="100" fxLayout="row" fxLayoutAlign="center start">
+					<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+						<table mat-table [dataSource]="dataSourceActual" class="mat-elevation-z8 mat-table-right">
+							<ng-container matColumnDef="select">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-sele-right">
+									<mat-checkbox
+										class="chk-white"
+										(change)="$event ? masterToggleActual() : null"
+										[checked]="selectionActual.hasValue() && isAllSelectedActual()"
+										[indeterminate]="selectionActual.hasValue() && !isAllSelectedActual()"
+									>
+									</mat-checkbox>
+								</th>
+								<td mat-cell *matCellDef="let row">
+									<mat-checkbox
+										(click)="$event.stopPropagation()"
+										(change)="$event ? selectionActual.toggle(row) : null"
+										[checked]="selectionActual.isSelected(row)"
+									>
+									</mat-checkbox>
+								</td>
+							</ng-container>
+							<ng-container matColumnDef="description">
+								<th mat-header-cell *matHeaderCellDef class="mat-header-desc-right">Modelos asociados</th>
+								<td mat-cell *matCellDef="let element" class="mat-cell-right">
+									<label [ngClass]="{ removeActual: element.status === 4 }">{{ element.brand.description }}-{{ element.description }}</label>
+								</td>
+							</ng-container>
+							<tr mat-header-row *matHeaderRowDef="displayedColumnsActual; sticky: true" class="mat-header-row-right"></tr>
+							<tr mat-row *matRowDef="let row; columns: displayedColumnsActual" class="mat-row-right"></tr>
+						</table>
+					</cdk-virtual-scroll-viewport>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 	</mat-tab> -->
+
+	<!-- <mat-tab>
+			<ng-template mat-tab-label>
+				<mat-icon class="tab-icon">playlist_add_check</mat-icon>
+				Búsquedas anteriores
+			</ng-template>
+			<div fxFlex="100" class="main-tab2" fxLayout="row wrap">
+				<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start">
+					<div fxFlex="100" fxLayout="row">
+						<mat-form-field floatLabel="never" class="margin-333" style="width: 100%">
+							<input matInput value="" />
+							<mat-placeholder class="placeholder">Filtrado</mat-placeholder>
+						</mat-form-field>
+					</div>
+					<br />
+					<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+						<div class="table-container">
+							<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting">
+								<ng-container matColumnDef="description">
+									<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-desc">Descripci&oacute;n</th>
+									<td mat-cell *matCellDef="let element"></td>
+								</ng-container>
+
+								<ng-container matColumnDef="actions">
+									<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-acc">Acciones</th>
+									<td mat-cell *matCellDef="let element">
+										<button mat-icon-button matTooltip="Editar" mat-sm-button color="primary" class="mr-1">
+											<mat-icon>edit</mat-icon>
+										</button>
+										<button mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn">
+											<mat-icon>delete</mat-icon>
+										</button>
+									</td>
+								</ng-container>
+
+								<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st"></tr>
+								<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st"></tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</mat-tab> -->
+	<!-- 	</mat-tab-group> -->
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+	<button mat-raised-button color="primary" mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="primary" (click)="save()" cdkFocusInitial>Aplicar</button>
+</mat-dialog-actions>

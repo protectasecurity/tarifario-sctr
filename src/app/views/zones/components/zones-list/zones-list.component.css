@@ -1,0 +1,100 @@
+.mat-table-setting {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+tr.mat-header-row-st {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+tr.mat-table-row-st {
+	height: 25px !important;
+}
+
+.mat-header-colums {
+	color: white !important;
+	font-size: 12px;
+	text-align: center !important;
+}
+.mat-row-content {
+	text-align: center !important;
+}
+
+.mat-header-desc {
+	width: auto;
+}
+
+.mat-header-group {
+	width: 600px;
+}
+
+.mat-header-acc,
+.mat-header-uso,
+.mat-header-state {
+	width: 100px !important;
+}
+
+.table-container {
+	height: 450px;
+	overflow: auto;
+}
+
+.ta-c {
+	text-align: center;
+}
+
+.cdk-drag-preview {
+	box-sizing: border-box;
+	border-radius: 4px;
+	box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+	font-weight: bold;
+	width: 60% !important;
+	background-color: aliceblue;
+}
+
+.cdk-drag-preview :nth-child(2) {
+	display: none;
+}
+.cdk-drag-preview :nth-child(3) {
+	display: none;
+}
+.cdk-drag-preview :nth-child(4) {
+	display: none;
+}
+
+.cdk-drag-animating {
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.zone-item:last-child {
+	border: none;
+}
+
+.zone-list.cdk-drop-list-dragging .zone-item:not(.cdk-drag-placeholder) {
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.container-placeholder {
+	background: #ccc;
+	border: dotted 3px #999;
+	min-height: 30px;
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+.btnexportar {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	background-color: green !important;
+	color: white !important;
+	margin-right: 2px !important;
+}
+
+.btnnuevo {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+}

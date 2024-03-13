@@ -1,0 +1,21 @@
+<span mat-dialog-title class="dialog-modal-title">{{ data.title }}</span>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+	<div fxFlex="100" fxLayout="row wrap">
+		<div fxFlex="100" class="dialog-content" fxLayout="row" fxLayoutAlign="start center">{{ data.message }}</div>
+		<div fxFlex="100" fxLayout="row"><br /></div>
+	</div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+	<div fxFlex="100" fxLayout="row wrap">
+		<div fxFlex="100" class="dialog-content" fxLayout="row" fxLayoutAlign="center center">
+			<button type="button" mat-raised-button color="primary" (click)="dialogRef.close(false)" *ngIf="data.showcancel">
+				Cancelar
+			</button>
+			<button type="button" mat-raised-button color="primary" (click)="dialogRef.close(true)">Aceptar</button>
+		</div>
+	</div>
+</mat-dialog-actions>

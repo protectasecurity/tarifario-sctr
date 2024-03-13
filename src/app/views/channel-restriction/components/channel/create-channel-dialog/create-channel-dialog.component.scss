@@ -1,0 +1,31 @@
+.modal-title {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #2b0d61;
+	font-weight: bold;
+}
+
+.mat-dialog-title {
+	margin: 0 0 0px !important;
+}
+
+.agents-container {
+	display:flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.mat-form-field {
+	display: block;
+}
+
+
+.visibility-filter {
+	margin: 5px;
+	padding: 5px;
+	border: 1px #98A898 solid;
+	text-align: center;
+	width: 100%;
+}

@@ -1,0 +1,94 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100" fxLayout="row">
+		<div fxFlex="100" fxFlex.gt-xs="40" class="pr-1">
+			<mat-form-field style="width: 100%">
+				<input matInput placeholder="Filtrar Actividades" [formControl]="descriptionFilter" value="" />
+				<button
+					mat-button
+					matSuffix
+					mat-icon-button
+					aria-label="Clear"
+					*ngIf="filteredValues.descripcion !== ''"
+					(click)="descriptionFilter.reset(); filteredValues.descripcion = ''"
+				>
+					<mat-icon>close</mat-icon>
+				</button>
+			</mat-form-field>
+		</div>
+		<div fxFlex="100" fxFlex.gt-xs="20" class="pr-1">
+			<mat-form-field style="width: 100%">
+				<mat-select placeholder="Ramo" name="enuso" [formControl]="stateFilter">
+					<mat-option *ngFor="let param of parametersField" value="{{ param.equivalenceCode }}">{{ param.description }}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
+</div>
+<div fxLayout="row wrap" class="pb-1"></div>
+<div fxLayout="row wrap">
+	<div fxFlex="100">
+		<div class="table-lgr-container">
+			<table
+				mat-table
+				style="text-align: center;"
+				#table
+				[dataSource]="dataSource"
+				class="mat-elevation-z8 full-width mat-table-lgr-setting"
+				multiTemplateDataRows
+			>
+				<ng-container matColumnDef="actividad">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-act">Grupo</th>
+					<td
+						mat-cell
+						*matCellDef="let data; let i = dataIndex"
+						[attr.rowspan]="getRowSpan('Name', i)"
+						[style.display]="getRowSpan('Name', i) ? '' : 'none'"
+					>
+						{{ data.group }}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="descriptions">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-act">Descripción</th>
+					<td mat-cell *matCellDef="let row">
+						{{ row.description }}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="estado">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-acc">Estado</th>
+					<td mat-cell *matCellDef="let row" class="ta-c">
+						<mat-slide-toggle class="example-margin" [checked]="row.isActive"></mat-slide-toggle>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="orden">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-acc">Orden</th>
+					<td mat-cell *matCellDef="let row" class="ta-c">
+						{{ row.order }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="descuento">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-acc">% Variación</th>
+					<td mat-cell *matCellDef="let row" class="ta-c">
+						{{ getVariationValue(row, displayedBranch) }}
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="gestionable">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-acc">AutoGestión</th>
+					<td mat-cell *matCellDef="let row" class="ta-c">
+						{{ row.isSelfManaging ? "SI" : "NO" }}
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="delimiter">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-lgr-colums mat-header-acc">Delimitación</th>
+					<td mat-cell *matCellDef="let row" class="ta-c">
+						{{ row.isDelimiter ? "SI" : "NO" }}
+					</td>
+				</ng-container>
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-lgr-row-st"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-lgr-row"></tr>
+			</table>
+		</div>
+	</div>
+</div>

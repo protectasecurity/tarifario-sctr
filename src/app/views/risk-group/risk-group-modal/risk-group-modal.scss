@@ -1,0 +1,58 @@
+.risk-list {
+	width: 550px;
+	max-width: 100%;
+	border: solid 1px #ccc;
+	min-height: 320px;
+	display: block;
+	background: white;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.modal-title {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #2b0d61;
+	font-weight: bold;
+}
+
+.risk-item {
+	padding: 2px 6px;
+	border-bottom: solid 1px #ccc;
+	color: rgba(0, 0, 0, 0.87);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	box-sizing: border-box;
+	cursor: move;
+	background: white;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: aliceblue;
+}
+
+.cdk-drag-preview {
+	box-sizing: border-box;
+	border-radius: 4px;
+	box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-animating {
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.risk-item:last-child {
+	border: none;
+}
+
+.risk-list.cdk-drop-list-dragging .risk-item:not(.cdk-drag-placeholder) {
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.container-placeholder {
+	background: #ccc;
+	border: dotted 3px #999;
+	min-height: 30px;
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

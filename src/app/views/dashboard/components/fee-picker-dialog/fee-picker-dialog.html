@@ -1,0 +1,66 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100"><span mat-dialog-title class="modal-title">Selección de tarifas base (activas)</span></div>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+	<div fxFlex="100" fxLayout="row">
+		<div fxFlex="100" class="Dleft" fxLayout="row wrap">
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+				<mat-form-field class="full-width">
+					<input matInput name="description" placeholder="Filtrar tarifas por descripción" value="" [formControl]="descriptionFilter" />
+					<button
+						mat-button
+						matSuffix
+						mat-icon-button
+						aria-label="Clear"
+						*ngIf="filteredValues.description !== ''"
+						(click)="descriptionFilter.reset(); filteredValues.description = ''"
+					>
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+			<div fxFlex="100" fxLayout="row" fxLayoutAlign="center start">
+				<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+					<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting">
+						<ng-container matColumnDef="description">
+							<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-desc">Descripci&oacute;n</th>
+							<td mat-cell *matCellDef="let row">{{ row.description }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="startDate">
+							<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-inivig">Inicio Vigencia</th>
+							<td mat-cell *matCellDef="let row" class="ta-c">{{ row.startDate }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="endDate">
+							<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-finvig">Fin Vigencia</th>
+							<td mat-cell *matCellDef="let row" class="ta-c">{{ row.endDate }}</td>
+						</ng-container>
+						<!-- | date: "dd/MM/yyyy" -->
+						<ng-container matColumnDef="currency">
+							<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-currency">Moneda</th>
+							<td mat-cell *matCellDef="let row" class="ta-c">{{ row.currency === "PEN" ? "Soles" : "Dólares" }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="actions">
+							<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-actions">Seleccionar</th>
+							<td mat-cell *matCellDef="let row" class="ta-c">
+								<button mat-icon-button matTooltip="Seleccionar" color="accent" mat-sm-button (click)="handleContainer(row)">
+									<mat-icon>forward</mat-icon>
+								</button>
+							</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-row"></tr>
+					</table>
+				</cdk-virtual-scroll-viewport>
+			</div>
+		</div>
+	</div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+	<button mat-raised-button color="primary" mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>

@@ -1,0 +1,47 @@
+<mat-dialog-content fxLayout="column">
+	<div  fxLayout="row" >
+		<div fxFlex="30" class="title-dialog">AGREGAR USOS Y CLASES</div>
+		<div fxFlex="70" fxLayoutAlign="start center" class="subtitle-dialog">{{ selectedChannel.description | uppercase}}</div>
+	</div>
+	<mat-divider class="dividir-dialog"></mat-divider>
+	<div  fxLayout="row" fxLayoutAlign="center center" >
+		<span class="spanleft"> Inactivo </span>
+        <mat-slide-toggle [checked]="active" (change)="changeMode($event)" color="accent"></mat-slide-toggle>
+        <span class="spanright"> Activo </span>
+	</div>
+	<div  fxLayout="row" fxLayoutAlign="space-around center" >
+		<mat-form-field color="primary">
+			<mat-label>Fecha Inicial</mat-label>
+			<input matInput [min]="minDate" [matDatepicker]="picker1" (dateChange)="addInitialDate( $event)">
+			<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+			<mat-datepicker #picker1></mat-datepicker>
+		</mat-form-field>
+		<mat-form-field color="primary">
+			<mat-label>Fecha Final</mat-label>
+			<input matInput [min]="minDate" [matDatepicker]="picker2" (dateChange)="addEndDate( $event)">
+			<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+		  <mat-datepicker #picker2 color="primary"></mat-datepicker>
+		</mat-form-field>
+	</div>
+
+	<div  fxLayout="row" fxLayoutAlign="space-around center" class="div-row">
+		<div fxFlex="50" >
+			<channel-restriction-use (useSelected)="onUseSelected($event)"></channel-restriction-use>
+		</div>
+		<div  fxFlex="50">
+			<channel-restriction-class *ngIf="useSelected != null" [useSelectedIn] = "useSelected" (classesSelected)="onClassesSelected($event)"></channel-restriction-class>
+		</div>
+	</div>
+</mat-dialog-content>
+
+<mat-divider class="dividir-dialog"></mat-divider>
+
+<mat-dialog-actions align="center">
+	<button mat-raised-button
+		color="primary"
+		mat-dialog-close>Cancelar</button>
+	<button mat-raised-button
+		color="primary"
+		(click)="addRestriction()" [disabled]="disableForm">Agregar</button>
+</mat-dialog-actions>
+

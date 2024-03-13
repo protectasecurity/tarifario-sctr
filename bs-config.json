@@ -1,0 +1,8 @@
+{
+	"injectChanges": false,
+	"watchOptions": { "ignored": "node_modules" },
+	"https": true,
+	"server": { "baseDir": "./" },
+	"browser": ["chrome"],
+	"port": 4200
+}

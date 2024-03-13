@@ -1,0 +1,23 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">
+			<div fxLayout="row" fxLayoutAlign="start center">
+				<div fxFlex="100" fxLayoutAlign="start center">
+					ASOCIAR USOS Y CLASES
+				</div>
+			</div>
+		</div>
+
+		<mat-divider></mat-divider>
+	</mat-card-title>
+	<mat-card-content>
+		<app-use-class-detail
+			#useClassDetail
+		[uses]="uses"
+					[classes]="classes"
+			    [data]="data"
+					(updateSave)="save($event)"
+		></app-use-class-detail>
+	</mat-card-content>
+</mat-card>
+

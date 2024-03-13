@@ -1,0 +1,294 @@
+<mat-card class="p-0">
+	<mat-card-title class="">
+		<div class="card-title-text">BUSCAR TARIFAS</div>
+		<mat-divider></mat-divider>
+	</mat-card-title>
+	<mat-card-content class="selectores" #cardcontent>
+		<form [formGroup]="registerForm" (ngSubmit)="searchData()">
+			<div fxLayout="row wrap" fxLayoutAlign="start center">
+				<div fxFlex="100" fxFlex.gt-xs="55" class="pr-1">
+					<mat-card class="mat-card-general">
+						<mat-card-title class="">
+							<div class="card-title-text card-title-bg">
+								<div fxLayout="row" fxLayoutAlign="start center" class="main-title-header">
+									<div fxFlex="25" fxLayoutAlign="start center">
+										DATOS GENERALES
+									</div>
+								</div>
+							</div>
+
+							<mat-divider></mat-divider>
+						</mat-card-title>
+						<mat-card-content>
+							<div fxLayout="row wrap" fxLayoutAlign="start center">
+								<div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+									<div>
+										<mat-form-field class="full-width">
+											<input
+												matInput
+												name="dateIni"
+												placeholder="Fecha de consulta"
+												[matDatepicker]="appDatepickerIni"
+												(click)="appDatepickerIni.open()"
+												formControlName="txtIniVig"
+											/>
+											<mat-datepicker-toggle matSuffix [for]="appDatepickerIni" locale="es"></mat-datepicker-toggle>
+										</mat-form-field>
+										<mat-datepicker #appDatepickerIni></mat-datepicker>
+									</div>
+								</div>
+								<div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+									<div>
+										<mat-form-field class="full-width">
+											<mat-select placeholder="Moneda" name="moneda" formControlName="ddlCurrency">
+												<mat-option value="">Todos</mat-option>
+												<mat-option value="PEN">Soles</mat-option>
+												<mat-option value="DOL">Dólares</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+								</div>
+								<div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+									<mat-form-field class="full-width">
+										<input matInput placeholder="Tamaño de empresa" value="" type="number" formControlName="ddlEmpresa" name="empresa" />
+									</mat-form-field>
+								</div>
+							</div>
+							<div fxLayout="row wrap" fxLayoutAlign="start center">
+								<div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+									<div>
+										<mat-form-field class="full-width">
+											<mat-select placeholder="Actividad" name="ddlActividad" formControlName="ddlActividad">
+												<mat-option *ngFor="let option of optionsActividades" [value]="option.id">{{ option.description }} </mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+								</div>
+								<div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+									<div>
+										<mat-form-field class="full-width">
+											<mat-select
+												placeholder="Departamento"
+												name="ddlDepartment"
+												formControlName="ddlDepartment"
+												(selectionChange)="loadProvincesBydepartment(false)"
+											>
+												<mat-option *ngFor="let option of departments$" [value]="option.id">{{ option.description }} </mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+								</div>
+								<div fxFlex="100" fxFlex.gt-xs="30" class="pr-1">
+									<div>
+										<mat-form-field class="full-width">
+											<mat-select placeholder="Provincia" name="ddlProvince" formControlName="ddlProvince">
+												<mat-option *ngFor="let option of province$" [value]="option.id">{{ option.description }} </mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+								</div>
+							</div>
+						</mat-card-content>
+					</mat-card>
+				</div>
+				<div fxFlex="100" fxFlex.gt-xs="45" class="pr-1">
+					<mat-card class="mat-card-canal">
+						<mat-card-title class="">
+							<div class="card-title-text card-title-bg">
+								<div fxLayout="row" fxLayoutAlign="start center" class="main-title-header">
+									<div fxFlex="25" fxLayoutAlign="start center">
+										CANAL
+									</div>
+									<div fxFlex="50"></div>
+									<div fxFlex="25" fxLayoutAlign="end center">
+										<button
+											type="button"
+											mat-icon-button
+											matTooltip="Agregar"
+											mat-sm-button
+											color="warn"
+											class="btnaddchannel"
+											(click)="addChannels()"
+										>
+											<mat-icon>add</mat-icon>
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<mat-divider></mat-divider>
+						</mat-card-title>
+
+						<mat-card-content>
+							<div fxFlex="100">
+								<div class="table-container-models">
+									<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+										<table mat-table class="table-models" [dataSource]="dataSourceChannel">
+											<ng-container matColumnDef="id">
+												<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-name-ch">Id</th>
+												<td mat-cell *matCellDef="let row" class="ta-n ta-id-ch">
+													<div [innerHTML]="row.id"></div>
+												</td>
+											</ng-container>
+											<ng-container matColumnDef="description">
+												<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-name-ch">Canales</th>
+												<td mat-cell *matCellDef="let row" class="ta-n ta-name-ch">
+													<div [innerHTML]="row.name"></div>
+												</td>
+											</ng-container>
+											<ng-container matColumnDef="acciones">
+												<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-del-ch"></th>
+												<td mat-cell *matCellDef="let row" class="ta-c ta-del-ch">
+													<button mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn" (click)="removeChannel(row)">
+														<mat-icon>delete</mat-icon>
+													</button>
+												</td>
+											</ng-container>
+											<!-- <tr mat-header-row *matHeaderRowDef="displayedColumnsChannel; sticky: true" class="mat-header-row-st-ch"></tr> -->
+											<tr mat-row *matRowDef="let row; columns: displayedColumnsChannel" class="mat-table-row-st-ch hover-element-row"></tr>
+										</table>
+									</cdk-virtual-scroll-viewport>
+								</div>
+							</div>
+						</mat-card-content>
+					</mat-card>
+				</div>
+			</div>
+
+			<div fxLayout="row wrap" fxLayoutAlign="center center">
+				<button type="submit" mat-raised-button [disabled]="registerForm.invalid" color="primary" class="btnsearchfee">
+					Buscar
+				</button>
+			</div>
+		</form>
+		<div fxLayout="row wrap" class="pb-1"></div>
+		<div fxLayout="row wrap" *ngIf="visibleTable === true">
+			<div fxFlex="100">
+				<div class="table-container">
+					<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting">
+						<ng-container matColumnDef="id">
+							<th mat-header-cell *matHeaderCellDef style="display: none"></th>
+							<td mat-cell *matCellDef="let element" class="ta-c">{{ element.id }}</td>
+						</ng-container>
+						<ng-container matColumnDef="tariff">
+							<th mat-header-cell *matHeaderCellDef style="display: none"></th>
+							<td mat-cell *matCellDef="let element" class="ta-c">{{ element.tariff }}</td>
+						</ng-container>
+						<ng-container matColumnDef="field">
+							<th mat-header-cell *matHeaderCellDef style="display: none"></th>
+							<td mat-cell *matCellDef="let element" class="ta-c">{{ element.field }}</td>
+						</ng-container>
+						<ng-container matColumnDef="areaGroup">
+							<th mat-header-cell *matHeaderCellDef style="display: none"></th>
+							<td mat-cell *matCellDef="let element" class="ta-c">{{ element.areaGroup }}</td>
+						</ng-container>
+						<ng-container matColumnDef="minimum">
+							<th mat-header-cell *matHeaderCellDef style="display: none"></th>
+							<td mat-cell *matCellDef="let element" class="ta-c">{{ element.enterprise.minimumPremium }}</td>
+						</ng-container>
+						<ng-container matColumnDef="minimumEndoso">
+							<th mat-header-cell *matHeaderCellDef style="display: none"></th>
+							<td mat-cell *matCellDef="let element" class="ta-c">{{ element.enterprise.minimumPremiumEndoso }}</td>
+						</ng-container>
+						<ng-container matColumnDef="variation">
+							<th mat-header-cell *matHeaderCellDef style="display: none"></th>
+							<td mat-cell *matCellDef="let element" class="ta-c">+-{{ element.activityVariation }}</td>
+						</ng-container>
+
+						<ng-container [matColumnDef]="column.description" *ngFor="let column of parameters; index as i">
+							<th mat-header-cell *matHeaderCellDef class="bg-blue ta-c">{{ column.description }}</th>
+							<td mat-cell *matCellDef="let element" class="ta-r">
+								{{ element.enterprise.netRate[i] ? element.enterprise.netRate[i]["rate"] : 0 }}
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="commission">
+							<th mat-header-cell *matHeaderCellDef class="bg-braon ta-c">%Comision</th>
+							<td mat-cell *matCellDef="let element" class="ta-r">{{ element.commission }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="discount">
+							<th mat-header-cell *matHeaderCellDef class="bg-blue ta-c">%Descuento</th>
+							<td mat-cell *matCellDef="let element" class="ta-r">{{ element.discount }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="broker">
+							<th mat-header-cell *matHeaderCellDef class="bg-braon ta-c">%Corredor</th>
+							<td mat-cell *matCellDef="let element" class="ta-r">{{ element.broker }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="broker1">
+							<th mat-header-cell *matHeaderCellDef class="bg-braon ta-c">%Corredor</th>
+							<td mat-cell *matCellDef="let element" class="ta-r">{{ element.broker1 }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="midleman">
+							<th mat-header-cell *matHeaderCellDef class="bg-blue ta-c">%Intermediario</th>
+							<td mat-cell *matCellDef="let element" class="ta-r">{{ element.midleman }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="salesPoint">
+							<th mat-header-cell *matHeaderCellDef class="bg-blue ta-c">%Punto de venta</th>
+							<td mat-cell *matCellDef="let element" class="ta-r">{{ element.salesPoint }}</td>
+						</ng-container>
+
+						<!-- Header row eight group -->
+						<ng-container matColumnDef="header-row-eight-group">
+							<th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="ta-c">Id</th>
+						</ng-container>
+						<!-- Header row seven group -->
+						<ng-container matColumnDef="header-row-seven-group">
+							<th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="ta-c">Tarifa</th>
+						</ng-container>
+						<!-- Header row zero group -->
+						<ng-container matColumnDef="header-row-zero-group">
+							<th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="ta-c">Ramo</th>
+						</ng-container>
+						<!-- Header row one group -->
+						<ng-container matColumnDef="header-row-one-group">
+							<th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="ta-c">Zona</th>
+						</ng-container>
+						<!-- Header row two group -->
+						<ng-container matColumnDef="header-row-two-group">
+							<th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="ta-c">Prima minima</th>
+						</ng-container>
+						<!-- Header row three group -->
+						<ng-container matColumnDef="header-row-three-group">
+							<th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="ta-c">Prima minima Endoso</th>
+						</ng-container>
+						<!-- Header row six group -->
+						<ng-container matColumnDef="header-row-six-group">
+							<th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="ta-c">%Variacion</th>
+						</ng-container>
+						<!-- Header row four group -->
+						<ng-container matColumnDef="header-row-four-group">
+							<th mat-header-cell *matHeaderCellDef [attr.colspan]="colSpanTasa" class="ta-c">Tasas</th>
+						</ng-container>
+
+						<!-- Header row five group -->
+						<ng-container matColumnDef="header-row-five-group">
+							<th mat-header-cell *matHeaderCellDef [attr.colspan]="colSpanDescuentos" class="ta-c">Canal de Venta</th>
+						</ng-container>
+
+						<tr
+							mat-header-row
+							*matHeaderRowDef="[
+								'header-row-eight-group',
+								'header-row-seven-group',
+								'header-row-zero-group',
+								'header-row-one-group',
+								'header-row-two-group',
+								'header-row-three-group',
+								'header-row-six-group',
+								'header-row-four-group',
+								'header-row-five-group'
+							]"
+						></tr>
+						<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-row"></tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</mat-card-content>
+</mat-card>

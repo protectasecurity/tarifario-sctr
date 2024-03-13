@@ -1,0 +1,104 @@
+.placeholder {
+	font-size: 14px;
+}
+
+tr.mat-header-row-st {
+	height: 30px !important;
+	background-color: #2b0d61 !important;
+}
+
+::ng-deep .mat-icon {
+	height: 20px !important;
+	width: 20px !important;
+	font-size: 20px !important;
+}
+
+.list-title {
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.mat-expansion-panel-header,
+.mat-select,
+.mat-radio-button {
+	font-size: 12px;
+}
+
+.mat-option {
+	font-size: 16px;
+}
+
+.brand-model {
+	white-space: normal;
+	word-break: break-all;
+}
+
+.opt-selected {
+	margin-left: 6px;
+	color: #ed6e00;
+}
+
+.mat-tab-label {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.risk-select {
+	width: 100%;
+}
+
+.mat-table-setting {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.mat-header-class {
+	width: 240px !important;
+}
+
+.ta-f {
+	font-size: 11px !important;
+}
+.mat-header-asientos {
+	width: 150px !important;
+}
+
+.mat-header-marcas {
+	width: auto !important;
+}
+
+.mat-header-acciones {
+	width: 120px !important;
+}
+
+.mat-header-colums {
+	color: white !important;
+	font-size: 12px !important;
+	text-align: center !important;
+}
+
+tr.mat-table-row-st {
+	height: 25px !important;
+}
+
+.table-container {
+	height: 240px !important;
+	overflow: auto;
+	background-color: aliceblue;
+}
+
+.btnnuevo {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+}
+
+textarea {
+	resize: none;
+}
+
+.no-record-found {
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+	justify-content: center;
+}

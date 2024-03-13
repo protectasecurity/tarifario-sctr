@@ -1,0 +1,114 @@
+.mat-table-setting-base-list {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.mat-header-colums-base-list {
+	color: white !important;
+	font-size: 12px;
+	text-align: center;
+}
+
+tr.mat-header-row-st-base-list {
+	height: 30px;
+	background-color: #2b0d61 !important;
+}
+
+.mat-header-desc-base-list {
+	width: auto;
+}
+
+.mat-header-inivig-base-list {
+	width: 100px;
+}
+
+.mat-header-finvig-base-list {
+	width: 100px;
+}
+
+.mat-header-currency-base-list {
+	width: 100px;
+}
+
+.mat-header-type-base-list {
+	width: 100px;
+}
+
+.mat-header-cambio-base-list {
+	width: 150px;
+}
+
+.mat-header-effect-date-list {
+	width: 150px;
+}
+
+.mat-header-cambio-base-list {
+	width: 150px;
+}
+
+.mat-header-state-base-list {
+	width: 100px;
+}
+
+.mat-header-asoc-base-list {
+	width: 100px;
+}
+
+.mat-header-acc-base-list {
+	width: 100px;
+}
+
+tr.mat-table-row-st-base-list {
+	height: 25px;
+}
+
+.ta-c {
+	text-align: center;
+}
+
+.mat-menu-item {
+	line-height: 31px !important;
+	height: 31px !important;
+}
+
+.tariff-hijo {
+	color: green !important;
+}
+
+.tariff-clone {
+	color: rgb(62, 63, 3) !important;
+}
+
+.mat-menu-item:hover:not([disabled]) {
+	background: #e2e2f0 !important;
+	text-decoration: underline;
+}
+
+.table-container-base-list {
+	height: 450px;
+	overflow: auto;
+}
+
+tr.hover-element-row-base-list:hover {
+	background: #e2e2e2;
+}
+
+.exporticon {
+	margin-right: 5px;
+}
+
+.btnexportar {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+	background-color: green !important;
+	color: white !important;
+	margin-right: 2px;
+}
+
+.btnnuevo {
+	height: 24px;
+	line-height: 10px !important;
+	font-size: 12px;
+	margin-top: 3px;
+}

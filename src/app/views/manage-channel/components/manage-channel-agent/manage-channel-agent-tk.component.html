@@ -1,0 +1,22 @@
+<div class="agent-container">
+	<div *ngIf="showFiltrar">
+		<mat-form-field>
+			<input matInput placeholder="Filtrar" type="text" [formControl]="searchControl" />
+		</mat-form-field>
+	</div>
+	<div *ngIf="!showFiltrar">
+		<mat-form-field class="example-form-field">
+			<input matInput type="text" placeholder="Filtrar" [(ngModel)]="agentText" />
+			<button mat-button *ngIf="agentText.length >= 4" matSuffix mat-icon-button aria-label="Filtrar" (click)="searchByText()">
+				<mat-icon>search</mat-icon>
+			</button>
+		</mat-form-field>
+	</div>
+	<div class="agent-list">
+		<mat-selection-list (selectionChange)="selectAgent($event)">
+			<mat-list-option *ngFor="let agent of agents" [value]="agent">
+				<span [title]="agent.description" class="agent-description">{{ agent.description }}</span>
+			</mat-list-option>
+		</mat-selection-list>
+	</div>
+</div>

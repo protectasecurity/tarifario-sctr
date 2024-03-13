@@ -1,0 +1,30 @@
+.opt-selected {
+	margin-left: 6px;
+	color: #ed6e00;
+}
+.option-risk-group {
+	width: 100%;
+}
+.brand-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 1% 1%;
+}
+
+.excluded {
+	padding-bottom: 5px;
+}
+
+.modal-title {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #2b0d61;
+	font-weight: bold;
+}
+
+.modal-title,
+.chkAsientos,
+.mat-list-option {
+	font-family: "Titillium Web", sans-serif !important;
+}

@@ -1,0 +1,26 @@
+.dialog-modal-title,
+.course-modal-dialog,
+.mat-list-option {
+	font-family: "Titillium Web", sans-serif !important;
+}
+
+.dialog-modal-title {
+	font-size: 16px;
+	text-transform: uppercase;
+	color: #ed6e00; // #2b0d61;
+	font-weight: bold;
+}
+
+.mat-dialog-title {
+	margin: 0 0 0px !important;
+}
+
+.mat-dialog-sub-title {
+	font-size: 15px;
+	color: rgba(0, 0, 0, 0.54);
+	font-weight: bold;
+}
+
+.dialog-content {
+	font-size: 14px;
+}

@@ -1,0 +1,12 @@
+{
+	"useTabs": true,
+	"printWidth": 150,
+	"overrides": [
+		{
+			"files": ["*.js", "*.ts", "*.json"],
+			"options": {
+				"singleQuote": true
+			}
+		}
+	]
+}

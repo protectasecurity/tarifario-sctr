@@ -1,0 +1,142 @@
+<div fxLayout="row wrap">
+	<div fxFlex="100"><span mat-dialog-title class="modal-title">CANALES ASOCIADOS</span></div>
+</div>
+<mat-dialog-content #cardcontent>
+	<form #frmTarifario="ngForm">
+		<div fxLayout="row wrap" fxLayoutAlign="center center">
+			<div fxFlex="100" fxFlex.gt-xs="60" class="pr-1">
+				<div>
+					<mat-form-field class="full-width">
+						<input matInput name="description" placeholder="Descripción de canal" value="" [formControl]="descriptionFilter" />
+						<button
+							mat-button
+							matSuffix
+							mat-icon-button
+							aria-label="Clear"
+							*ngIf="filteredValues.description !== ''"
+							(click)="descriptionFilter.reset(); filteredValues.description = ''"
+						>
+							<mat-icon>close</mat-icon>
+						</button>
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxFlex="100" fxFlex.gt-xs="40" class="pr-1" fxLayoutAlign="end center">
+				<button mat-raised-button class="btnlistacanal" (click)="openChannelList()" color="primary">
+					<mat-icon color="white">list_alt</mat-icon>
+					<span color="white">Lista de Canales</span>
+				</button>
+
+				<button [disabled]="this.disabled" mat-raised-button class="btnagregarcanal" (click)="addNewChannelToFee()" color="primary">
+					<mat-icon color="white">add</mat-icon>
+					<span color="white">Agregar Canal</span>
+				</button>
+			</div>
+		</div>
+
+		<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport-fee-assoc">
+			<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting-fee-assoc">
+				<ng-container matColumnDef="description">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-assoc mat-header-desc-fee-assoc">Descripción de canal</th>
+					<td mat-cell *matCellDef="let element">{{ element.channelGroup.description }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="startDate">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-assoc mat-header-inivig-fee-assoc">Fecha Inicio</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">{{ element.startDate | date: "dd/MM/yy" }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="endDate">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-assoc mat-header-finvig-fee-assoc">Fecha Fin</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">{{ element.endDate | date: "dd/MM/yy" }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-assoc mat-header-del-fee-assoc">Acciones</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<button [disabled]="this.disabled" mat-icon-button matTooltip="Editar" mat-sm-button (click)="edit(element)">
+							<mat-icon>edit</mat-icon>
+						</button>
+						<button [disabled]="this.disabled" mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn" (click)="delete(element)">
+							<mat-icon>delete</mat-icon>
+						</button>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="allowStandardTariff">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-assoc mat-header-type-fee-assoc">Fisico</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<mat-checkbox
+							[disabled]="this.disabled"
+							class="example-margin"
+							[checked]="element.allowStandardTariff"
+							(change)="element.allowStandardTariff = !element.allowStandardTariff"
+						></mat-checkbox>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="allowRenewalStandardTariff">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-assoc mat-header-type-fee-assoc">F. Ren</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<mat-checkbox
+							[disabled]="this.disabled"
+							class="example-margin"
+							[checked]="element.allowRenewalStandardTariff"
+							(change)="element.allowRenewalStandardTariff = !element.allowRenewalStandardTariff"
+						></mat-checkbox>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="allowDigitalTariff">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-assoc mat-header-type-fee-assoc">Digital</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<mat-checkbox
+							[disabled]="this.disabled"
+							class="example-margin"
+							[checked]="element.allowDigitalTariff"
+							(change)="element.allowDigitalTariff = !element.allowDigitalTariff"
+						></mat-checkbox>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="allowRenewalDigitalTariff">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-assoc mat-header-type-fee-assoc">D. Ren</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<mat-checkbox
+							[disabled]="this.disabled"
+							class="example-margin"
+							[checked]="element.allowRenewalDigitalTariff"
+							(change)="element.allowRenewalDigitalTariff = !element.allowRenewalDigitalTariff"
+						></mat-checkbox>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="commissions">
+					<th mat-header-cell *matHeaderCellDef class="mat-header-colums-fee-assoc mat-header-acc-fee-assoc">Comisiones</th>
+					<td mat-cell *matCellDef="let element" class="ta-c">
+						<button
+							[disabled]="this.disabled"
+							*ngIf="!element.used"
+							mat-icon-button
+							matTooltip="Editar"
+							mat-sm-button
+							class="mr-1"
+							(click)="addcommission(element)"
+						>
+							<mat-icon>settings</mat-icon>
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st-fee-assoc"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st-fee-assoc hover-element-row-fee-assoc">
+					<div class="container-placeholder"></div>
+				</tr>
+			</table>
+		</cdk-virtual-scroll-viewport>
+	</form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+	<button mat-raised-button color="primary" mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="primary" [disabled]="this.disabled" (click)="save()" cdkFocusInitial>Aplicar</button>
+</mat-dialog-actions>

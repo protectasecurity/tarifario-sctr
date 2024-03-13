@@ -1,0 +1,47 @@
+<div fxLayout="row wrap">
+		<div fxFlex="100">
+			<div class="table-container">
+				<table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 full-width mat-table-setting">
+					<ng-container matColumnDef="uso">
+						<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-class">Uso</th>
+						<td mat-cell *matCellDef="let row" >{{ row.use.description }}</td>
+					</ng-container>
+					<ng-container matColumnDef="clase">
+						<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-class">Clase</th>
+						<td mat-cell *matCellDef="let row" >{{ row.clazz.description }}</td>
+					</ng-container>
+					<ng-container matColumnDef="fecha-inicial">
+						<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-class">Fecha Inicial</th>
+						<td mat-cell *matCellDef="let row" > {{ row.initialDate |  date: 'dd/MM/yyyy'}}</td>
+					</ng-container>
+					<ng-container matColumnDef="fecha-final">
+						<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-class">Fecha Final</th>
+						<td mat-cell *matCellDef="let row" >{{ row.endDate  |  date: 'dd/MM/yyyy'}}</td>
+					</ng-container>
+					<ng-container matColumnDef="activa">
+						<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-class">Estado</th>
+						<td mat-cell *matCellDef="let row; let i = index">
+							<mat-slide-toggle [checked]="(row.status === 'ACTIVE')? true: false" (change)="changeStatus(row, i)"> </mat-slide-toggle>
+						</td>
+					</ng-container>
+					<ng-container matColumnDef="acciones">
+						<th mat-header-cell *matHeaderCellDef class="mat-header-colums mat-header-acciones ">Acciones</th>
+						<td mat-cell *matCellDef="let row; let i = index" >
+							<button mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn" [disabled]="!modificationAllowed" (click)="delete(row, i)">
+								<mat-icon>delete</mat-icon>
+							</button>
+							<button mat-icon-button matTooltip="Modificar" mat-sm-button color="primary" [disabled]="!modificationAllowed" (click)="edit(row, i)">
+								<mat-icon>edit</mat-icon>
+							</button>
+						</td>
+					</ng-container>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="mat-header-row-st"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns" class="mat-table-row-st hover-element-row"></tr>
+				</table>
+
+				<div *ngIf="dataSource.data.length === 0" class="no-record-found">
+					Para crear una nueva restriccion, haga click en (+).
+				</div>
+			</div>
+		</div>
+	</div>
