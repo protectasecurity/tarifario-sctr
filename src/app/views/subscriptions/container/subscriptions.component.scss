@@ -1,0 +1,27 @@
+$main-blue: #2b0d61;
+
+::ng-deep mat-tab-group {
+	.mat-tab-label {
+		border: 1px solid $main-blue;
+		opacity: 1 !important;
+		transition: .2s;
+
+		&:not(:last-child) {
+			border-right: none;
+		}
+
+		&-content {
+			font-weight: 600;
+			color: $main-blue;
+			font-size: 13px;
+		}
+
+		&-active {
+			background-color: $main-blue;
+
+			.mat-tab-label-content {
+				color: #fff;
+			}
+		}
+	}
+}

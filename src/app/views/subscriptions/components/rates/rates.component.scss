@@ -1,0 +1,28 @@
+$main-blue: #2b0d61;
+
+::ng-deep {
+	.mat-header-cell,
+	mat-cell {
+		justify-content: center !important;
+	}
+
+	.mat-header-row {
+		background-color: $main-blue !important;
+		min-height: 30px !important;
+	}
+
+	.mat-header-cell {
+		color: #fff !important;
+		font-size: 13px;
+	}
+
+	mat-row {
+		min-height: 40px !important;
+	}
+
+	mat-select {
+		max-width: 160px !important;
+		text-align: center !important;
+	}
+}
+
