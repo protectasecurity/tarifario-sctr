@@ -1,3 +1,144 @@
-<p>
-  commissions works!
-</p>
+<div fxLayout="row"
+     fxLayoutAlign="center center">
+	<mat-card-title>
+		<div class="card-title-text">Corrección de datos</div>
+	</mat-card-title>
+</div>
+<br>
+<div fxLayout="row">
+	<div class="table-container">
+		<mat-table [dataSource]="dataSource"
+		           mat-table>
+			<ng-container matColumnDef="commissionType">
+				<mat-header-cell *matHeaderCellDef>Tipo de comisiones</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.commissionType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.commissionType">
+							{{ row.commissionType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="operator">
+				<mat-header-cell *matHeaderCellDef>Operador</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.operator">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.operator">
+							{{ row.operator }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="reference">
+				<mat-header-cell *matHeaderCellDef>Tipo de referencia</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.reference">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.reference">
+							{{ row.reference }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="value">
+				<mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					{{ row.value }}
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="valueType">
+				<mat-header-cell *matHeaderCellDef>Tipo valor</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.valueType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.valueType">
+							{{ row.valueType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="approvalType">
+				<mat-header-cell *matHeaderCellDef>Tipo de aprobación</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.approvalType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.approvalType">
+							{{ row.approvalType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="clientType">
+				<mat-header-cell *matHeaderCellDef>Tipo de cliente</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.clientType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.clientType">
+							{{ row.clientType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="state">
+				<mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+				<mat-cell *matCellDef="let data; let i = index">
+					<mat-slide-toggle [checked]="data.active"
+					                  (change)="toggleState(i, $event)"></mat-slide-toggle>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="actions">
+				<mat-header-cell *matHeaderCellDef>Editar</mat-header-cell>
+				<mat-cell *matCellDef="let data; let i = index">
+					<button mat-icon-button
+					        matTooltip="Editar"
+					        mat-sm-button
+					        color="primary">
+						<mat-icon>edit</mat-icon>
+					</button>
+				</mat-cell>
+			</ng-container>
+
+			<mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+		</mat-table>
+
+		<mat-paginator showFirstLastButtons
+		               [pageSize]="pageSize"
+		               [length]="data.length"
+		               (page)="onPageChange($event)"></mat-paginator>
+	</div>
+</div>
+
+<div fxLayout="row"
+     fxLayoutAlign="center center"
+     fxLayoutGap="1rem">
+	<button mat-raised-button
+	        type="button"
+	        color="accent">
+		Cancelar
+	</button>
+	<button type="button"
+	        mat-raised-button
+	        color="primary">
+		Aplicar
+	</button>
+</div>
+<br>
+<div fxLayout="row"
+     fxLayoutAlign="center center">
+	<button type="submit"
+	        mat-raised-button
+	        color="primary">
+		Guardar
+	</button>
+</div>

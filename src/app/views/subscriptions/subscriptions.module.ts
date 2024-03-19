@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { HotTableModule } from "@handsontable/angular";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { SharedModule } from "app/shared/shared.module";
 import { SubscriptionsRoutingModule } from "./subscriptions-routing.module";
 
 import { MaterialModule } from "app/shared/modules/material.module";
@@ -19,6 +20,8 @@ import { MovementsComponent } from "./components/movements/movements.component";
 import { RateAdjustmentComponent } from "./components/rate-adjustment/rate-adjustment.component";
 import { RatesComponent } from "./components/rates/rates.component";
 import { RetroactivityComponent } from "./components/retroactivity/retroactivity.component";
+import { NewCategoryComponent } from './components/new-category/new-category.component';
+import { DerivationRulesComponent } from './components/derivation-rules/derivation-rules.component';
 
 @NgModule({
 	declarations: [
@@ -32,7 +35,9 @@ import { RetroactivityComponent } from "./components/retroactivity/retroactivity
 		DataCorrectionComponent,
 		CommissionsComponent,
 		AgencyComponent,
-		DelimitationComponent
+		DelimitationComponent,
+		NewCategoryComponent,
+		DerivationRulesComponent
 	],
 	imports: [
 		CommonModule,
@@ -43,7 +48,8 @@ import { RetroactivityComponent } from "./components/retroactivity/retroactivity
 		MaterialModule,
 		HotTableModule,
 		FlexLayoutModule,
-		NgxDatatableModule
+		NgxDatatableModule,
+		SharedModule
 	]
 })
 export class SubscriptionsModule {

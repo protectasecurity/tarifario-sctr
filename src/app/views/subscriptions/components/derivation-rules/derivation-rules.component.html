@@ -1,7 +1,7 @@
 <div fxLayout="row"
      fxLayoutAlign="center center">
 	<mat-card-title>
-		<div class="card-title-text">Agenciamiento</div>
+		<div class="card-title-text">Cotización / Reglas de derivación</div>
 	</mat-card-title>
 </div>
 <br>
@@ -9,25 +9,13 @@
 	<div class="table-container">
 		<mat-table [dataSource]="dataSource"
 		           mat-table>
-			<ng-container matColumnDef="agencyType">
-				<mat-header-cell *matHeaderCellDef>Tipo de agenciamiento</mat-header-cell>
-				<mat-cell *matCellDef="let row">
-					<mat-select [value]="row.agencyType">
+			<ng-container matColumnDef="condition">
+				<mat-header-cell *matHeaderCellDef class="condition-cell">Condición</mat-header-cell>
+				<mat-cell *matCellDef="let row" class="condition-cell">
+					<mat-select [value]="row.condition">
 						<mat-option *ngFor="let op of [1]"
-						            [value]="row.agencyType">
-							{{ row.agencyType }}
-						</mat-option>
-					</mat-select>
-				</mat-cell>
-			</ng-container>
-
-			<ng-container matColumnDef="condition1">
-				<mat-header-cell *matHeaderCellDef>Condición 1</mat-header-cell>
-				<mat-cell *matCellDef="let row">
-					<mat-select [value]="row.condition1">
-						<mat-option *ngFor="let op of [1]"
-						            [value]="row.condition1">
-							{{ row.condition1 }}
+						            [value]="row.condition">
+							{{ row.condition }}
 						</mat-option>
 					</mat-select>
 				</mat-cell>
@@ -45,15 +33,16 @@
 				</mat-cell>
 			</ng-container>
 
-			<ng-container matColumnDef="condition2">
-				<mat-header-cell *matHeaderCellDef>Condición 2</mat-header-cell>
+			<ng-container matColumnDef="value">
+				<mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
 				<mat-cell *matCellDef="let row">
-					{{ row.condition2 }}
+					<input type="text" [ngModel]="row.value | number: '1.2-2'" appDecimalNumber>
+					<!--{{ row.value | number: "1.2-2" }}-->
 				</mat-cell>
 			</ng-container>
 
 			<ng-container matColumnDef="valueType">
-				<mat-header-cell *matHeaderCellDef>Tipo valor</mat-header-cell>
+				<mat-header-cell *matHeaderCellDef>Tipo de valor</mat-header-cell>
 				<mat-cell *matCellDef="let row">
 					<mat-select [value]="row.valueType">
 						<mat-option *ngFor="let op of [1]"
@@ -64,13 +53,25 @@
 				</mat-cell>
 			</ng-container>
 
-			<ng-container matColumnDef="requirement">
-				<mat-header-cell *matHeaderCellDef>Requsito</mat-header-cell>
+			<ng-container matColumnDef="quotationType">
+				<mat-header-cell *matHeaderCellDef>Tipo de cotización</mat-header-cell>
 				<mat-cell *matCellDef="let row">
-					<mat-select [value]="row.requirement">
+					<mat-select [value]="row.quotationType">
 						<mat-option *ngFor="let op of [1]"
-						            [value]="row.requirement">
-							{{ row.requirement }}
+						            [value]="row.quotationType">
+							{{ row.quotationType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="approvalType">
+				<mat-header-cell *matHeaderCellDef>Tipo de aprobación</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.approvalType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.approvalType">
+							{{ row.approvalType }}
 						</mat-option>
 					</mat-select>
 				</mat-cell>
@@ -93,18 +94,6 @@
 				<mat-cell *matCellDef="let data; let i = index">
 					<mat-slide-toggle [checked]="data.active"
 					                  (change)="toggleState(i, $event)"></mat-slide-toggle>
-				</mat-cell>
-			</ng-container>
-
-			<ng-container matColumnDef="actions">
-				<mat-header-cell *matHeaderCellDef>Editar</mat-header-cell>
-				<mat-cell *matCellDef="let data; let i = index">
-					<button mat-icon-button
-					        matTooltip="Editar"
-					        mat-sm-button
-					        color="primary">
-						<mat-icon>edit</mat-icon>
-					</button>
 				</mat-cell>
 			</ng-container>
 

@@ -1,7 +1,7 @@
 <div fxLayout="row"
      fxLayoutAlign="center center">
 	<mat-card-title>
-		<div class="card-title-text">Agenciamiento</div>
+		<div class="card-title-text">Cotización / Nueva categoría</div>
 	</mat-card-title>
 </div>
 <br>
@@ -9,68 +9,49 @@
 	<div class="table-container">
 		<mat-table [dataSource]="dataSource"
 		           mat-table>
-			<ng-container matColumnDef="agencyType">
-				<mat-header-cell *matHeaderCellDef>Tipo de agenciamiento</mat-header-cell>
+			<ng-container matColumnDef="lastApprove">
+				<mat-header-cell *matHeaderCellDef>Última aprobación</mat-header-cell>
 				<mat-cell *matCellDef="let row">
-					<mat-select [value]="row.agencyType">
+					<mat-select [value]="row.lastApprove">
 						<mat-option *ngFor="let op of [1]"
-						            [value]="row.agencyType">
-							{{ row.agencyType }}
+						            [value]="row.lastApprove">
+							{{ row.lastApprove }}
 						</mat-option>
 					</mat-select>
 				</mat-cell>
 			</ng-container>
 
-			<ng-container matColumnDef="condition1">
-				<mat-header-cell *matHeaderCellDef>Condición 1</mat-header-cell>
+			<ng-container matColumnDef="rateType">
+				<mat-header-cell *matHeaderCellDef>Tipo tasa última aprobación</mat-header-cell>
 				<mat-cell *matCellDef="let row">
-					<mat-select [value]="row.condition1">
+					<mat-select [value]="row.rateType">
 						<mat-option *ngFor="let op of [1]"
-						            [value]="row.condition1">
-							{{ row.condition1 }}
+						            [value]="row.rateType">
+							{{ row.rateType }}
 						</mat-option>
 					</mat-select>
 				</mat-cell>
 			</ng-container>
 
-			<ng-container matColumnDef="operator">
-				<mat-header-cell *matHeaderCellDef>Operador</mat-header-cell>
+			<ng-container matColumnDef="newCategory">
+				<mat-header-cell *matHeaderCellDef>Nueva categoría</mat-header-cell>
 				<mat-cell *matCellDef="let row">
-					<mat-select [value]="row.operator">
+					<mat-select [value]="row.newCategory">
 						<mat-option *ngFor="let op of [1]"
-						            [value]="row.operator">
-							{{ row.operator }}
+						            [value]="row.newCategory">
+							{{ row.newCategory }}
 						</mat-option>
 					</mat-select>
 				</mat-cell>
 			</ng-container>
 
-			<ng-container matColumnDef="condition2">
-				<mat-header-cell *matHeaderCellDef>Condición 2</mat-header-cell>
+			<ng-container matColumnDef="approveType">
+				<mat-header-cell *matHeaderCellDef>Tipo de aprobación</mat-header-cell>
 				<mat-cell *matCellDef="let row">
-					{{ row.condition2 }}
-				</mat-cell>
-			</ng-container>
-
-			<ng-container matColumnDef="valueType">
-				<mat-header-cell *matHeaderCellDef>Tipo valor</mat-header-cell>
-				<mat-cell *matCellDef="let row">
-					<mat-select [value]="row.valueType">
+					<mat-select [value]="row.approveType">
 						<mat-option *ngFor="let op of [1]"
-						            [value]="row.valueType">
-							{{ row.valueType }}
-						</mat-option>
-					</mat-select>
-				</mat-cell>
-			</ng-container>
-
-			<ng-container matColumnDef="requirement">
-				<mat-header-cell *matHeaderCellDef>Requsito</mat-header-cell>
-				<mat-cell *matCellDef="let row">
-					<mat-select [value]="row.requirement">
-						<mat-option *ngFor="let op of [1]"
-						            [value]="row.requirement">
-							{{ row.requirement }}
+						            [value]="row.approveType">
+							{{ row.approveType }}
 						</mat-option>
 					</mat-select>
 				</mat-cell>
@@ -88,23 +69,11 @@
 				</mat-cell>
 			</ng-container>
 
-			<ng-container matColumnDef="state">
+			<ng-container matColumnDef="actions">
 				<mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
 				<mat-cell *matCellDef="let data; let i = index">
 					<mat-slide-toggle [checked]="data.active"
 					                  (change)="toggleState(i, $event)"></mat-slide-toggle>
-				</mat-cell>
-			</ng-container>
-
-			<ng-container matColumnDef="actions">
-				<mat-header-cell *matHeaderCellDef>Editar</mat-header-cell>
-				<mat-cell *matCellDef="let data; let i = index">
-					<button mat-icon-button
-					        matTooltip="Editar"
-					        mat-sm-button
-					        color="primary">
-						<mat-icon>edit</mat-icon>
-					</button>
 				</mat-cell>
 			</ng-container>
 

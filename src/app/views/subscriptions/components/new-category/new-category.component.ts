@@ -2,24 +2,28 @@ import { Component, OnInit } from "@angular/core";
 import { MatSlideToggleChange, MatTableDataSource } from "@angular/material";
 
 @Component({
-	selector: "app-rate-adjustment",
-	templateUrl: "./rate-adjustment.component.html",
-	styleUrls: ["./rate-adjustment.component.scss"]
+	selector: "app-new-category",
+	templateUrl: "./new-category.component.html",
+	styleUrls: ["./new-category.component.scss"]
 })
-export class RateAdjustmentComponent implements OnInit {
-	displayedColumns: string[] = ["lastRate", "approveType", "clientType", "actions"];
+export class NewCategoryComponent implements OnInit {
+	displayedColumns: string[] = ["lastApprove", "rateType", "newCategory", "approveType", "clientType", "actions"];
 
 	data = [
 		{
-			lastRate: "Aumento",
+			lastApprove: "Automática",
+			rateType: "Flat",
+			newCategory: "Si",
 			approveType: "Automática",
-			clientType: "Privado",
+			clientType: "Ambos",
 			active: true
 		},
 		{
-			lastRate: "Disminución",
+			lastApprove: "Suscripción",
+			rateType: "Por categoría",
+			newCategory: "Si",
 			approveType: "Suscripción",
-			clientType: "Privado",
+			clientType: "Ambos",
 			active: true
 		}
 	];

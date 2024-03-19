@@ -1,0 +1,10 @@
+mat-header-cell,
+mat-cell {
+	&:first-child {
+		min-width: 260px;
+
+		mat-select {
+			min-width: 260px;
+		}
+	}
+}

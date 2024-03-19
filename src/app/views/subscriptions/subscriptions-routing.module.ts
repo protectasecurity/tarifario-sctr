@@ -5,8 +5,10 @@ import { CommissionsComponent } from "app/views/subscriptions/components/commiss
 import { DataCorrectionComponent } from "app/views/subscriptions/components/data-correction/data-correction.component";
 import { DeclarationTypesComponent } from "app/views/subscriptions/components/declaration-types/declaration-types.component";
 import { DelimitationComponent } from "app/views/subscriptions/components/delimitation/delimitation.component";
+import { DerivationRulesComponent } from "app/views/subscriptions/components/derivation-rules/derivation-rules.component";
 import { MinimumPremiumComponent } from "app/views/subscriptions/components/minimum-premium/minimum-premium.component";
 import { MovementsComponent } from "app/views/subscriptions/components/movements/movements.component";
+import { NewCategoryComponent } from "app/views/subscriptions/components/new-category/new-category.component";
 import { RateAdjustmentComponent } from "app/views/subscriptions/components/rate-adjustment/rate-adjustment.component";
 
 import { RatesComponent } from "app/views/subscriptions/components/rates/rates.component";
@@ -21,6 +23,14 @@ const routes: Routes = [
 			{
 				path: "tasas",
 				component: RatesComponent
+			},
+			{
+				path: "nueva-categoria",
+				component: NewCategoryComponent
+			},
+			{
+				path: "reglas-derivacion",
+				component: DerivationRulesComponent
 			},
 			{
 				path: "ajuste-tasas",

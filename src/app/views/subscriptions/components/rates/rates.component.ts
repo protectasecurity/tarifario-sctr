@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MatTableDataSource } from "@angular/material";
+import { MatSlideToggleChange, MatTableDataSource } from "@angular/material";
 
 @Component({
 	selector: "app-rates",
@@ -8,54 +8,18 @@ import { MatTableDataSource } from "@angular/material";
 })
 export class RatesComponent implements OnInit {
 	displayedColumns: string[] = ["tariffRate", "type", "clientType", "actions"];
-	types: string[] = ["Automática", "Suscripción"];
-	clientTypes: string[] = ["Público", "Privado", "Ambos"];
-
-	optionsType = [
-		{
-			type: 1,
-			desc: ">="
-		},
-		{
-			type: 2,
-			desc: "<"
-		},
-		{
-			type: 3,
-			desc: "=="
-		}
-	];
-
 	data = [
 		{
-			description: "Mayor o igual que",
-			tariffRate: 1,
+			tariffRate: "Mayor o igual que >=",
 			type: "Automática",
-			clientType: "Privado"
+			clientType: "Privado",
+			active: true
 		},
 		{
-			description: "Menor que",
-			tariffRate: 2,
+			tariffRate: "Menor que <",
 			type: "Suscripción",
-			clientType: "Público"
-		},
-		{
-			description: "Igual que",
-			tariffRate: 3,
-			type: "Suscripción",
-			clientType: "Público"
-		},
-		{
-			description: "Mayor o igual que",
-			tariffRate: 1,
-			type: "Automática",
-			clientType: "Ambos"
-		},
-		{
-			description: "Menor que",
-			tariffRate: 2,
-			type: "Suscripción",
-			clientType: "Ambos"
+			clientType: "Ambos",
+			active: true
 		}
 	];
 	dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
@@ -66,9 +30,8 @@ export class RatesComponent implements OnInit {
 		this.loadPage(0);
 	}
 
-	removeItem(index: number): void {
-		this.data.splice(index, 1);
-		this.dataSource = new MatTableDataSource(this.data);
+	toggleState(index: number, e: MatSlideToggleChange): void {
+		console.log(e.checked);
 	}
 
 	onPageChange(event): void {

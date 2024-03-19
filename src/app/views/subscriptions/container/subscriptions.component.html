@@ -3,9 +3,13 @@
 		<div class="card-title-text">Políticas de suscripción</div>
 		<mat-divider></mat-divider>
 	</mat-card-title>
-	<mat-tab-group (selectedTabChange)="navigate($event)">
+	<mat-tab-group #matTabGroup
+	               class="subscription-group-tabs"
+	               (selectedTabChange)="navigate($event)">
 		<mat-tab label="Tasas"></mat-tab>
+		<mat-tab label="Nueva categoria"></mat-tab>
 		<mat-tab label="Ajuste de tasas"></mat-tab>
+		<mat-tab label="Reglas de derivación"></mat-tab>
 		<mat-tab label="Prima mínima"></mat-tab>
 		<mat-tab label="Retroactividad"></mat-tab>
 		<mat-tab label="Tipos de declaración"></mat-tab>
@@ -16,7 +20,7 @@
 		<mat-tab label="Delimitación"></mat-tab>
 	</mat-tab-group>
 	<br>
-	<mat-card-content>
+	<mat-card-content class="subscription-routes">
 		<router-outlet></router-outlet>
 	</mat-card-content>
 </mat-card>
