@@ -98,18 +98,6 @@
 				</mat-cell>
 			</ng-container>
 
-			<ng-container matColumnDef="actions">
-				<mat-header-cell *matHeaderCellDef>Editar</mat-header-cell>
-				<mat-cell *matCellDef="let data; let i = index">
-					<button mat-icon-button
-					        matTooltip="Editar"
-					        mat-sm-button
-					        color="primary">
-						<mat-icon>edit</mat-icon>
-					</button>
-				</mat-cell>
-			</ng-container>
-
 			<mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 		</mat-table>

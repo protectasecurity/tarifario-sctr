@@ -123,7 +123,8 @@
 					<button mat-icon-button
 					        matTooltip="Editar"
 					        mat-sm-button
-					        color="primary">
+					        color="primary"
+					        (click)="edit(data.dayRange.value, i)">
 						<mat-icon>edit</mat-icon>
 					</button>
 				</mat-cell>

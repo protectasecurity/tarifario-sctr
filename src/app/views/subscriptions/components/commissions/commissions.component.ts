@@ -15,8 +15,7 @@ export class CommissionsComponent implements OnInit {
 		"valueType",
 		"approvalType",
 		"clientType",
-		"state",
-		"actions"
+		"state"
 	];
 	data = [];
 	dataSource: MatTableDataSource<any> = new MatTableDataSource([]);

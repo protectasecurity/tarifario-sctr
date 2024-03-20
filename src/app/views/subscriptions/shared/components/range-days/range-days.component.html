@@ -2,30 +2,40 @@
 	<mat-card-title>
 		<div class="card-title-text">Definir rango de días</div>
 	</mat-card-title>
-	<mat-select placeholder="Tipo de rango"
-	            formControlName="range">
-		<mat-option value="()"> (EXCLUIR;EXCLUIR)</mat-option>
-		<mat-option value="(]"> (EXCLUIR;INCLUIR)</mat-option>
-		<mat-option value="[)"> (INCLUIR;EXCLUIR)</mat-option>
-		<mat-option value="[]"> (INCLUIR;INCLUIR)</mat-option>
-	</mat-select>
+
+	<mat-form-field appearance="standard"
+	                class="range-type">
+		<mat-label>Tipo de rango</mat-label>
+		<mat-select formControlName="range">
+			<mat-option value="()"> (EXCLUIR;EXCLUIR)</mat-option>
+			<mat-option value="(]"> (EXCLUIR;INCLUIR]</mat-option>
+			<mat-option value="[)"> [INCLUIR;EXCLUIR)</mat-option>
+			<mat-option value="[]"> [INCLUIR;INCLUIR]</mat-option>
+		</mat-select>
+	</mat-form-field>
 
 	<div class="group">
-		{{ range[0] }}
-		<mat-form-field label="Valor mínimo">
-			<input matInput
+		<span class="range">{{ range[0] }}</span>
+		<mat-form-field appearance="standard"
+		                floatLabel="always">
+			<mat-label>Valor mínimo</mat-label>
+			<input class="value-range"
+			       matInput
 			       placeholder="Valor mínimo"
 			       OnlyNumber
 			       formControlName="min">
 		</mat-form-field>
-		<span>:</span>
-		<mat-form-field label="Valor máximo">
-			<input matInput
+		<span class="separator">:</span>
+		<mat-form-field appearance="standard"
+		                floatLabel="always">
+			<mat-label>Valor máximo</mat-label>
+			<input class="value-range"
+			       matInput
 			       placeholder="Valor máximo"
 			       OnlyNumber
 			       formControlName="max">
 		</mat-form-field>
-		{{ range[1] }}
+		<span class="range">{{ range[1] }}</span>
 	</div>
 
 	<div fxLayout="row"

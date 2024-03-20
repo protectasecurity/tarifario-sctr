@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatDialogRef } from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 
 @Component({
 	selector: "app-range-days",
@@ -16,8 +16,23 @@ export class RangeDaysComponent implements OnInit {
 
 	constructor(
 		private readonly builder: FormBuilder,
-		private readonly dialogRef: MatDialogRef<RangeDaysComponent>
+		private readonly dialogRef: MatDialogRef<RangeDaysComponent>,
+		@Inject(MAT_DIALOG_DATA) public data: any
 	) {
+		console.log(data);
+
+		if (!data) {
+			return;
+		}
+
+		let range = data.split("");
+		range = range[0] + range[range.length - 1];
+		this.formControl["range"].setValue(range);
+
+		const values = data.split(",");
+
+		this.formControl["min"].setValue(values[0].slice(1));
+		this.formControl["max"].setValue(values[1].slice(0, -1));
 	}
 
 	ngOnInit() {
@@ -32,7 +47,8 @@ export class RangeDaysComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		this.dialogRef.close(this.form.getRawValue());
+		const value: string = `${this.range[0]}${this.formControl["min"].value},${this.formControl["max"].value}${this.range[1]}`;
+		this.dialogRef.close(value);
 	}
 
 	close(): void {

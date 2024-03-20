@@ -24,6 +24,7 @@ export class RetroactivityComponent implements OnInit {
 	data = [];
 	dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
 
+	pageIndex = 0;
 	pageSize: number = 10;
 
 	constructor(private readonly dialog: MatDialog) {
@@ -51,7 +52,7 @@ export class RetroactivityComponent implements OnInit {
 				active: true
 			});
 		}
-		this.loadPage(0);
+		this.loadPage();
 	}
 
 	toggleState(index: number, e: MatSlideToggleChange): void {
@@ -59,20 +60,32 @@ export class RetroactivityComponent implements OnInit {
 	}
 
 	onPageChange(event): void {
-		this.loadPage(event.pageIndex);
+		this.pageIndex = event.pageIndex;
+		this.loadPage();
 	}
 
-	loadPage(pageIndex: number): void {
-		const startIndex = pageIndex * this.pageSize;
+	loadPage(): void {
+		const startIndex = this.pageIndex * this.pageSize;
 		const endIndex = startIndex + this.pageSize;
 		this.dataSource = new MatTableDataSource(this.data.slice(startIndex, endIndex));
 	}
 
-	edit(): void {
-		const dialogRef: MatDialogRef<RangeDaysComponent> = this.dialog.open(RangeDaysComponent);
+	edit(data, index): void {
+		const dialogRef: MatDialogRef<RangeDaysComponent> = this.dialog.open(RangeDaysComponent, {
+			data
+		});
 
 		dialogRef.afterClosed().subscribe(result => {
 			console.log(result);
+
+			if (!result) {
+				return;
+			}
+
+			const startIndex: number = this.pageIndex * this.pageSize;
+
+			this.data[index + startIndex].dayRange.value = result;
+			this.dataSource.data[index].dayRange.value = result;
 		});
 	}
 }
