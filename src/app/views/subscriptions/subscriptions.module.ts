@@ -22,6 +22,7 @@ import { RatesComponent } from "./components/rates/rates.component";
 import { RetroactivityComponent } from "./components/retroactivity/retroactivity.component";
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { DerivationRulesComponent } from './components/derivation-rules/derivation-rules.component';
+import { RangeDaysComponent } from './shared/components/range-days/range-days.component';
 
 @NgModule({
 	declarations: [
@@ -37,7 +38,8 @@ import { DerivationRulesComponent } from './components/derivation-rules/derivati
 		AgencyComponent,
 		DelimitationComponent,
 		NewCategoryComponent,
-		DerivationRulesComponent
+		DerivationRulesComponent,
+		RangeDaysComponent
 	],
 	imports: [
 		CommonModule,
@@ -50,7 +52,8 @@ import { DerivationRulesComponent } from './components/derivation-rules/derivati
 		FlexLayoutModule,
 		NgxDatatableModule,
 		SharedModule
-	]
+	],
+	entryComponents: [RangeDaysComponent]
 })
 export class SubscriptionsModule {
 }

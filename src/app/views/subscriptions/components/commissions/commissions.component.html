@@ -1,7 +1,7 @@
 <div fxLayout="row"
      fxLayoutAlign="center center">
 	<mat-card-title>
-		<div class="card-title-text">Corrección de datos</div>
+		<div class="card-title-text">Comisiones</div>
 	</mat-card-title>
 </div>
 <br>
@@ -48,7 +48,9 @@
 			<ng-container matColumnDef="value">
 				<mat-header-cell *matHeaderCellDef>Valor</mat-header-cell>
 				<mat-cell *matCellDef="let row">
-					{{ row.value }}
+					<input type="text"
+					       [ngModel]="row.value"
+					       OnlyNumber>
 				</mat-cell>
 			</ng-container>
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { MatSlideToggleChange, MatTableDataSource } from "@angular/material";
+import { MatDialog, MatDialogRef, MatSlideToggleChange, MatTableDataSource } from "@angular/material";
+import { RangeDaysComponent } from "app/views/subscriptions/shared/components/range-days/range-days.component";
 
 @Component({
 	selector: "app-retroactivity",
@@ -24,6 +25,10 @@ export class RetroactivityComponent implements OnInit {
 	dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
 
 	pageSize: number = 10;
+
+	constructor(private readonly dialog: MatDialog) {
+	}
+
 
 	ngOnInit() {
 		for (let _: number = 0; _ <= 10; _++) {
@@ -61,5 +66,13 @@ export class RetroactivityComponent implements OnInit {
 		const startIndex = pageIndex * this.pageSize;
 		const endIndex = startIndex + this.pageSize;
 		this.dataSource = new MatTableDataSource(this.data.slice(startIndex, endIndex));
+	}
+
+	edit(): void {
+		const dialogRef: MatDialogRef<RangeDaysComponent> = this.dialog.open(RangeDaysComponent);
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(result);
+		});
 	}
 }
