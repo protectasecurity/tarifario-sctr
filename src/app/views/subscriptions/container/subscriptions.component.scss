@@ -1,0 +1,70 @@
+$main-blue: #2b0d61;
+
+.subscription-group-tabs {
+	.mat-tab-label {
+		border: 1px solid $main-blue;
+		opacity: 1 !important;
+		transition: .2s;
+
+		&:not(:last-child) {
+			border-right: none;
+		}
+
+		&-content {
+			font-weight: 600;
+			color: $main-blue;
+			font-size: 13px;
+		}
+
+		&-active {
+			background-color: $main-blue;
+
+			.mat-tab-label-content {
+				color: #fff;
+			}
+		}
+	}
+}
+
+.subscription-routes {
+	.table-container {
+		width: 100%;
+	}
+
+	.mat-header-cell,
+	mat-cell {
+		justify-content: center !important;
+		text-align: center;
+	}
+
+	mat-cell {
+		input[type="text"] {
+			width: 100%;
+			height: 30px;
+			border: none;
+			outline: none;
+			text-align: center;
+		}
+	}
+
+	.mat-header-row {
+		background-color: $main-blue !important;
+		min-height: 30px !important;
+	}
+
+	.mat-header-cell {
+		color: #fff !important;
+		font-size: 13px;
+	}
+
+	mat-row {
+		min-height: 40px !important;
+	}
+
+	mat-select {
+		max-width: 160px !important;
+		text-align: center !important;
+	}
+}
+
+

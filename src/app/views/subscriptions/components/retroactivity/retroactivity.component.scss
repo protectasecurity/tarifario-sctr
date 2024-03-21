@@ -1,0 +1,26 @@
+mat-header-cell,
+mat-cell {
+	&:nth-child(2) {
+		min-width: 150px;
+
+		mat-select {
+			min-width: 150px;
+		}
+	}
+
+	&:nth-child(4) {
+		min-width: 180px;
+
+		mat-select {
+			min-width: 180px;
+		}
+	}
+
+	&:nth-child(7) {
+		min-width: 250px;
+
+		mat-select {
+			min-width: 250px;
+		}
+	}
+}
