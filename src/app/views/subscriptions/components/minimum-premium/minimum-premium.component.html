@@ -1,0 +1,107 @@
+<div fxLayout="row"
+     fxLayoutAlign="center center">
+	<mat-card-title>
+		<div class="card-title-text">Prima mínima por movimiento</div>
+	</mat-card-title>
+</div>
+<br>
+<div fxLayout="row">
+	<div class="table-container">
+		<mat-table [dataSource]="dataSource"
+		           mat-table>
+			<ng-container matColumnDef="movementType">
+				<mat-header-cell *matHeaderCellDef
+				                 class="movement-type">Tipo de movimiento
+				</mat-header-cell>
+				<mat-cell *matCellDef="let row"
+				          class="movement-type">
+					<mat-select [value]="row.movementType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.movementType">
+							{{ row.movementType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="minimumPremium">
+				<mat-header-cell *matHeaderCellDef>Prima mínima</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.minimumPremium">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.minimumPremium">
+							{{ row.minimumPremium }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="premiumEndorsement">
+				<mat-header-cell *matHeaderCellDef>Prima endoso</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.premiumEndorsement">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.premiumEndorsement">
+							{{ row.premiumEndorsement }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="clientType">
+				<mat-header-cell *matHeaderCellDef>Tipo de cliente</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.clientType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.clientType">
+							{{ row.clientType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="actions">
+				<mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+				<mat-cell *matCellDef="let data; let i = index">
+					<mat-slide-toggle [checked]="data.active"
+					                  (change)="toggleState(i, $event)"></mat-slide-toggle>
+				</mat-cell>
+			</ng-container>
+
+			<mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+		</mat-table>
+
+		<mat-paginator showFirstLastButtons
+		               [pageSize]="pageSize"
+		               [length]="data.length"
+		               (page)="onPageChange($event)"></mat-paginator>
+	</div>
+</div>
+
+<div fxLayout="row"
+     fxLayoutAlign="center center"
+     fxLayoutGap="1rem">
+	<button mat-raised-button
+	        type="button"
+	        color="accent">
+		Cancelar
+	</button>
+	<button type="button"
+	        mat-raised-button
+	        color="primary">
+		Aplicar
+	</button>
+</div>
+<br>
+<div fxLayout="row"
+     fxLayoutAlign="center center">
+	<button type="submit"
+	        mat-raised-button
+	        color="primary">
+		Guardar
+	</button>
+</div>
+
+
+

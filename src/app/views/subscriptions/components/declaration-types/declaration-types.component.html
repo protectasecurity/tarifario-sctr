@@ -1,0 +1,111 @@
+<div fxLayout="row"
+     fxLayoutAlign="center center">
+	<mat-card-title>
+		<div class="card-title-text">Cotización / Tasa comercial</div>
+	</mat-card-title>
+</div>
+<br>
+<div fxLayout="row">
+	<div class="table-container">
+		<mat-table [dataSource]="dataSource"
+		           mat-table>
+			<ng-container matColumnDef="declarationType">
+				<mat-header-cell *matHeaderCellDef>Tipo de declaración de la trama</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.declarationType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.declarationType">
+							{{ row.declarationType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="operator">
+				<mat-header-cell *matHeaderCellDef>Operador</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.operator">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.operator">
+							{{ row.operator }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="amount">
+				<mat-header-cell *matHeaderCellDef>Monto de planilla</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<input type="text" [ngModel]="row.amount | number: '1.2-2'" appDecimalNumber>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="approvalType">
+				<mat-header-cell *matHeaderCellDef>Tipo de aprobación</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.approvalType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.approvalType">
+							{{ row.approvalType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="clientType">
+				<mat-header-cell *matHeaderCellDef>Tipo de cliente</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.clientType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.clientType">
+							{{ row.clientType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="state">
+				<mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+				<mat-cell *matCellDef="let data; let i = index">
+					<mat-slide-toggle [checked]="data.active"
+					                  (change)="toggleState(i, $event)"></mat-slide-toggle>
+				</mat-cell>
+			</ng-container>
+
+			<mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+		</mat-table>
+
+		<mat-paginator showFirstLastButtons
+		               [pageSize]="pageSize"
+		               [length]="data.length"
+		               (page)="onPageChange($event)"></mat-paginator>
+	</div>
+</div>
+
+<div fxLayout="row"
+     fxLayoutAlign="center center"
+     fxLayoutGap="1rem">
+	<button mat-raised-button
+	        type="button"
+	        color="accent">
+		Cancelar
+	</button>
+	<button type="button"
+	        mat-raised-button
+	        color="primary">
+		Aplicar
+	</button>
+</div>
+<br>
+<div fxLayout="row"
+     fxLayoutAlign="center center">
+	<button type="submit"
+	        mat-raised-button
+	        color="primary">
+		Guardar
+	</button>
+</div>
+
+
+

@@ -1,0 +1,166 @@
+<div fxLayout="row"
+     fxLayoutAlign="center center">
+	<mat-card-title>
+		<div class="card-title-text">Movimientos de la póliza y tipos de aprobación</div>
+	</mat-card-title>
+</div>
+<br>
+<div fxLayout="row">
+	<div class="table-container">
+		<mat-table [dataSource]="dataSource"
+		           mat-table>
+			<ng-container matColumnDef="movement">
+				<mat-header-cell *matHeaderCellDef>Movimiento</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [ngModel]="row.movement">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.movement">
+							{{ row.movement }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="date">
+				<mat-header-cell *matHeaderCellDef>Fecha</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [ngModel]="row.date">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.date">
+							{{ row.date }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="dayRange">
+				<mat-header-cell *matHeaderCellDef>Rango días</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					{{ row.dayRange.value }}
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="operator">
+				<mat-header-cell *matHeaderCellDef>Operador</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [ngModel]="row.operator">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.operator">
+							{{ row.operator }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="payrollAmount">
+				<mat-header-cell *matHeaderCellDef>Monto planilla</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<input type="text"
+					       [ngModel]="row.payrollAmount | number: '1.2-2'"
+					       appDecimalNumber>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="requirement">
+				<mat-header-cell *matHeaderCellDef>Requisito</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [ngModel]="row.requirement">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.requirement">
+							{{ row.requirement }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="exclude">
+				<mat-header-cell *matHeaderCellDef>Se excluye</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.exclude">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.exclude">
+							{{ row.exclude }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="approvalType">
+				<mat-header-cell *matHeaderCellDef>Tipo de aprobación</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.approvalType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.approvalType">
+							{{ row.approvalType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="clientType">
+				<mat-header-cell *matHeaderCellDef>Tipo de cliente</mat-header-cell>
+				<mat-cell *matCellDef="let row">
+					<mat-select [value]="row.clientType">
+						<mat-option *ngFor="let op of [1]"
+						            [value]="row.clientType">
+							{{ row.clientType }}
+						</mat-option>
+					</mat-select>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="state">
+				<mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+				<mat-cell *matCellDef="let data; let i = index">
+					<mat-slide-toggle [checked]="data.active"
+					                  (change)="toggleState(i, $event)"></mat-slide-toggle>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="actions">
+				<mat-header-cell *matHeaderCellDef>Editar</mat-header-cell>
+				<mat-cell *matCellDef="let data; let i = index">
+					<button mat-icon-button
+					        matTooltip="Editar"
+					        mat-sm-button
+					        color="primary"
+					        (click)="edit(data.dayRange.value, i)">
+						<mat-icon>edit</mat-icon>
+					</button>
+				</mat-cell>
+			</ng-container>
+
+			<mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+		</mat-table>
+
+		<mat-paginator showFirstLastButtons
+		               [pageSize]="pageSize"
+		               [length]="data.length"
+		               (page)="onPageChange($event)"></mat-paginator>
+	</div>
+</div>
+
+<div fxLayout="row"
+     fxLayoutAlign="center center"
+     fxLayoutGap="1rem">
+	<button mat-raised-button
+	        type="button"
+	        color="accent">
+		Cancelar
+	</button>
+	<button type="button"
+	        mat-raised-button
+	        color="primary">
+		Aplicar
+	</button>
+</div>
+<br>
+<div fxLayout="row"
+     fxLayoutAlign="center center">
+	<button type="submit"
+	        mat-raised-button
+	        color="primary">
+		Guardar
+	</button>
+</div>

@@ -28,7 +28,7 @@
 }
 
 .mat-card-content-def-sctr {
-	height: 102px !important;
+	height: 132px !important;
 }
 
 .mat-menu-item {
@@ -55,4 +55,8 @@
 
 .mat-mini-fab .mat-button-wrapper {
 	line-height: 22px;
+}
+
+mat-card.card-border {
+	height: 165px !important;
 }
